@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+
 </head>
 <body>
 <div th:fragment="content(reportType)" th:remove="tag">
@@ -88,10 +89,9 @@
         </div>
     </div>
 
-    <div th:id="'chart_sales_by' + ${reportType}"
-         class="justify-content-center mt-3"></div>
-
-
+    <div th:id="'chart_sales_by' + ${reportType}" class="justify-content-center mt-3">
+    </div>
 </div>
+
 </body>
 </html>
