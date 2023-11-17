@@ -62,10 +62,14 @@ function initCustomDateRange(reportType) {
     startDateField.valueAsDate = fromDate;
 }
 
-function formatCurrency(amount) {
-    formattedAmount = $.number(amount, decimalDigits, decimalPointType, thousandsPointType);
-    return prefixCurrencySymbol + formattedAmount + suffixCurrencySymbol;
+// function formatCurrency(amount) {
+//     formattedAmount = $.number(amount, decimalDigits, decimalPointType, thousandsPointType);
+//     return prefixCurrencySymbol + formattedAmount + suffixCurrencySymbol;
+// }
+function formatCurrency(value) {
+    return value.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
 }
+
 
 function getChartTitle(){
     if (period == "last_7_days") return "Thống kê trong 7 ngày";
@@ -92,35 +96,44 @@ function setSalesAmount(period, reportType, labelTotalItems) {
         $("#textTotalGrossSales" + reportType).closest(".col-sm-2").hide();
         $("#textAvgGrossSales" + reportType).closest(".col-sm-2").hide();
         $(".col-sm-2:visible").addClass("col-sm-3").removeClass("col-sm-2");
-        $("#textTotalNetSales" + reportType).text(formatCurrency(totalNetSales) + '1' );
+        $("#textTotalNetSales" + reportType).text(formatCurrency(totalNetSales) + '' );
         denominator = getDenominator(period, reportType);
-        $("#textAvgNetSales" + reportType).text(formatCurrency(parseInt(totalNetSales / denominator)) + '1' );
+        $("#textAvgNetSales" + reportType).text(formatCurrency(parseInt(totalNetSales / denominator)) + '' );
         $("#labelTotalItems" + reportType).text(labelTotalItems);
-        $("#textTotalItems" + reportType).text(totalItems + '2' );
+        $("#textTotalItems" + reportType).text(totalItems + ' đơn' );
     }
     else
     {
-        $("#textTotalGrossSales" + reportType).text(formatCurrency(totalGrossSales) + '1' );
-        $("#textTotalNetSales" + reportType).text(formatCurrency(totalNetSales) + '1' );
+        $("#textTotalGrossSales" + reportType).text(formatCurrency(totalGrossSales) + '' );
+        $("#textTotalNetSales" + reportType).text(formatCurrency(totalNetSales) + '' );
 
         denominator = getDenominator(period, reportType);
 
-        $("#textAvgGrossSales" + reportType).text(formatCurrency(parseInt(totalGrossSales / denominator)) + '1' );
-        $("#textAvgNetSales" + reportType).text(formatCurrency(parseInt(totalNetSales / denominator)) + '1' );
+        $("#textAvgGrossSales" + reportType).text(formatCurrency(parseInt(totalGrossSales / denominator)) + '' );
+        $("#textAvgNetSales" + reportType).text(formatCurrency(parseInt(totalNetSales / denominator)) + '' );
         $("#labelTotalItems" + reportType).text(labelTotalItems);
-        $("#textTotalItems" + reportType).text(totalItems + '2');
+        $("#textTotalItems" + reportType).text(totalItems + ' đơn');
     }
 }
 
 function formatChartData(data, columnIndex1, columnIndex2) {
-    var formatter = new google.visualization.NumberFormat({
-        prefix: prefixCurrencySymbol,
-        suffix: suffixCurrencySymbol,
-        decimalSymbol: decimalPointType,
-        groupingSymbol: thousandsPointType,
-        fractionDigits: decimalDigits
-    });
+    // Check if the columns exist before formatting
+    if (columnIndex1 >= 0 && columnIndex1 < data.getNumberOfColumns() &&
+        columnIndex2 >= 0 && columnIndex2 < data.getNumberOfColumns()) {
 
-    formatter.format(data, columnIndex1);
-    formatter.format(data, columnIndex2);
+        var formatter = new google.visualization.NumberFormat({
+            prefix: prefixCurrencySymbol,
+            suffix: suffixCurrencySymbol,
+            decimalSymbol: decimalPointType,
+            groupingSymbol: thousandsPointType,
+            fractionDigits: decimalDigits
+        });
+
+        // Format the specified columns
+        formatter.format(data, columnIndex1);
+        formatter.format(data, columnIndex2);
+    }
+    else {
+        console.error("Invalid column indices provided for formatting.");
+    }
 }

@@ -30,4 +30,5 @@ public class LoaiSanPham {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Column(name = "ngaytao")
     private Date ngayTao;
+
 }

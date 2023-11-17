@@ -11,21 +11,32 @@ function loadSalesReportByDateForCategory(period) {
         startDate = $("#startDate_category").val();
         endDate = $("#endDate_category").val();
 
-        requestURL = contextPath + "statisticals/category/" + startDate + "/" + endDate;
+        requestURL =  "/statisticals/category/" + startDate + "/" + endDate;
     } else {
-        requestURL = contextPath + "statisticals/category/" + period;
+        requestURL =  "/statisticals/category/" + period;
     }
 
     $.get(requestURL, function(responseJSON) {
-        prepareChartDataForSalesReportByCategory(responseJSON);
-        customizeChartForSalesReportByCategory();
-        formatChartData(data, 1, 2);
-        drawChartForSalesReportByCategory(period);
-        setSalesAmount(period, '_category', "test");
-    });
-}
+        try {
+            // Thực hiện các bước tiếp theo nếu không có lỗi
+            prepareChartDataForSalesReportByCategory(responseJSON);
+            customizeChartForSalesReportByCategory();
+            formatChartData(data, 1, 2);
+            drawChartForSalesReportByCategory(period);
+            setSalesAmount(period, '_category', "test");
+        } catch (error) {
+            console.error("Error processing AJAX response:", error);
+        }
+    })
+        .fail(function(jqXHR, textStatus, errorThrown) {
+            console.error("AJAX request failed:", textStatus, errorThrown);
+        });
 
+}
+// google.charts.load('current', {'packages':['corechart']});
+// google.charts.setOnLoadCallback(prepareChartDataForSalesReportByCategory);
 function prepareChartDataForSalesReportByCategory(responseJSON) {
+    console.log('responseJSON:', responseJSON);
     data = new google.visualization.DataTable();
     data.addColumn('string', 'Danh mục');
     data.addColumn('number', 'Tổng doanh thu');
@@ -36,11 +47,12 @@ function prepareChartDataForSalesReportByCategory(responseJSON) {
     totalItems = 0;
 
     $.each(responseJSON, function(index, reportItem) {
-        data.addRows([[reportItem.identifier, reportItem.netSales, reportItem.netSales]]);
-        totalGrossSales += parseInt(reportItem.grossSales);
-        totalNetSales += parseInt(reportItem.netSales);
+        data.addRows([[reportItem.identifier, parseFloat(reportItem.netSales), parseFloat(reportItem.netSales)]]);
+        totalGrossSales += parseFloat(reportItem.grossSales);
+        totalNetSales += parseFloat(reportItem.netSales);
         totalItems += parseInt(reportItem.productsCount);
     });
+
 }
 
 function customizeChartForSalesReportByCategory() {
@@ -56,8 +68,11 @@ function drawChartForSalesReportByCategory() {
         fractionDigits: 0
     });
 
+    console.log('Data before formatting:', data);
     formatter.format(data, 1); // Format the third column (Tdoanh thu)
     formatter.format(data, 2); // Format the fourth column (Doanh thu thu
+
+    console.log('Data after formatting:', data);
     var salesChart = new google.visualization.PieChart(document.getElementById('chart_sales_by_category'));
     salesChart.draw(data, chartOptions);
 }
