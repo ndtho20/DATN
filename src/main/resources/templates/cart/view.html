@@ -1,0 +1,151 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" 
+th:replace="~{/layout/index :: dynamic(~{::main})}">
+
+<body>
+<main>
+    <div class="container">
+        <div class="grid">
+            <div class="container__router">
+                <ul class="container__router-list">
+                    <li class="container__router-item">
+                        <a href="./index.html" class="container__router-link">Trang Chủ</a>
+                    </li>
+                    <li class="container__router-item">
+                        <i class="fa-solid fa-angle-right container__router-icon"></i>
+                    </li>
+                    <li class="container__router-item">
+                        <a href="" class="container__router-link">Giỏ Hàng</a>
+                    </li>
+
+                </ul>
+            </div>
+            <div class="cart">
+                <div class="cart__header">
+                    <h1 class="cart__heading">Giỏ hàng của bạn</h1>
+                </div>
+                <div class="cart__container">
+                    <div class="cart__left">
+                        <ul class="cart__left-header">
+                            <li class="cart__left-heading w-30">Thông tin sản phẩm</li>
+                            <li class="cart__left-heading w-20">Số lượng</li>
+                            <li class="cart__left-heading w-20">Đơn Giá</li>
+                            <li class="cart__left-heading w-10">Sale off</li>
+                            <li class="cart__left-heading w-20">Thành tiền</li>
+                            <li class="cart__left-heading w-5"></li>
+                        </ul>
+
+                        <div class="cart__product">
+                            <div class="cart__product-info w-30">
+                                <div class="cart__product-left">
+                                    <div class="cart__product-img"
+                                         style="background-image: url('./assets/img/1681582279_nu7a.jpg');"></div>
+                                </div>
+                                <div class="cart__product-right">
+                                    <div class="cart__product-content">
+                                        <p class="cart__product-name">Ten san pham</p>
+                                        <div class="cart__product-color">
+                                            <span class="cart__product-color--title">Màu sắc:</span>
+                                            <span class="cart__product-color--name"> Xanh</span>
+                                        </div>
+                                        <div class="cart__product-size">
+                                            <span class="cart__product-size--title">Size:</span>
+                                            <span class="cart__product-size--name">XXL</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="cart__product-quantity w-20">
+                                <div class="product__quantity">
+                                    <div class="product__quantity-action">
+                                        <div id="" data-id_session="" class="product__quantity-minus btnMinus">
+                                            <div class="product__quantity-btn">
+                                                <i class="fa-solid fa-minus product__quantity-icon"></i>
+                                            </div>
+                                        </div>
+                                        <input id="quantityInput" type="number" min="1"
+                                               value="<?php echo $val -> quantityPro ?>" name="quantity" size="10"
+                                               class="product__quantity-input">
+                                        <div id="" data-id_session="" class="product__quantity-plus btnPlus">
+                                            <div class="product__quantity-btn">
+                                                <i class="fa-solid fa-plus product__quantity-icon"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <input class="idSession-" type="hidden" value="<?php echo $val->idSession ?>">
+                                </div>
+                            </div>
+                            <div class="cart__product-total w-20">
+                                <p id="" class="cart__product-total-value">giá gốc</p>
+                                <!-- lấy giá sản phẩm đẩy sang trang thanh toán -->
+                                <!-- <input type="hidden" id="priceBase" value="<?php echo $val->priceBase ?>">
+                                    <input type="hidden" id="price" value="<?php echo $val->pricePro ?>"> -->
+                            </div>
+                            <div class="cart__product-total w-10">
+                                <p class="cart__product-total-value">10%</p>
+                                <i class="fa-solid fa-percent sale__icon"></i>
+                            </div>
+                            <div class="cart__product-total w-20">
+                                <p class="cart__product-total-value">Tông giá</p>
+                            </div>
+                            <div data-id_session="" class="cart__product-actions">
+                                <div href="" class="cart__product-actions--link">
+                                    <i class="fa-light fa-trash-can"></i>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="cart__right">
+                        <div class="receipt">
+                            <div class="receipt__header">
+                                <h3 class="receipt__heading">Hóa Đơn Của Bạn</h3>
+                            </div>
+                            <div class="receipt__container">
+                                <div class="receipt__row">
+                                    <span class="receipt__title">Tổng sản phẩm</span>
+                                    <span class="receipt__value">1</span>
+                                </div>
+                                <div class="receipt__row">
+                                    <span class="receipt__title">Thành tiền</span>
+                                    <span class="receipt__value">231230000</span>
+                                </div>
+                                <div class="receipt__row">
+                                    <span class="receipt__title">Khuyến mãi</span>
+                                    <span class="receipt__value">32312312313</span>
+                                </div>
+                                <div class="receipt__row">
+                                    <span class="receipt__title">Tạm tính</span>
+                                    <span class="receipt__value">3123123123</span>
+                                </div>
+                                <div class="receipt__caution">
+                                    <i class="fa-light fa-diamond-exclamation receipt__caution-icon"></i>
+                                    <p class="receipt__caution-text">Miễn đổi trả đối với sản phẩm đồng giá / sale
+                                        trên 50%</p>
+                                </div>
+                                <div class="receipt__caution">
+                                    <i class="fa-light fa-diamond-exclamation receipt__caution-icon"></i>
+                                    <p class="receipt__caution-text">Miễn phí ship đơn hàng có tổng gía trị trên
+                                        2.000.000đ</p>
+                                </div>
+                                <div class="receipt__caution">
+                                    <p class="receipt__caution-text">Mua thêm</p>
+                                    <span class="receipt__caution-values">ship</span>
+                                    <p class="receipt__caution-text">để được miễn phí SHIP</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="payment__btn">
+                            <a href="/website__mvc/order" class="payment__btn-link">Đặt Hàng</a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</main>
+
+</body>
+</html>

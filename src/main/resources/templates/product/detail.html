@@ -1,0 +1,256 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+th:replace="~{/layout/index :: dynamic(~{::main})}">
+<head>
+
+</head>
+<body>
+<main >
+    <link rel="stylesheet" href="/static/assets/css/detail.css">
+    <div class="container">
+        <div class="grid">
+            <div class="container__router">
+                <ul class="container__router-list">
+                    <li class="container__router-item">
+                        <a href="https://ivymodas.000webhostapp.com/" class="container__router-link">Trang Chủ</a>
+                    </li>
+                    <li class="container__router-item">
+                        <i class="fa-solid fa-angle-right container__router-icon"></i>
+                    </li>
+                    <li class="container__router-item">
+                        <a href="" class="container__router-link">Bán Chạy</a>
+                    </li>
+                    <li class="container__router-item">
+                        <i class="fa-solid fa-angle-right container__router-icon"></i>
+                    </li>
+                    <li class="container__router-item">
+                        <a href="" class="container__router-link">ten san pham</a>
+                    </li>
+                </ul>
+            </div>
+
+            <form method="POST">
+                <div class="product" th:object="${item}">
+                    <div class="product__left">
+                        <div class="media__thumb">
+                            <div class="media__thumb-img" th:style="'background-image: url(' + '/static/assets/img/' + *{danhSachHinhAnh[0].duongDan} + ');'"></div>
+
+
+                        </div>
+                        <div class="media__select" >
+                            <div th:if="*{danhSachHinhAnh.size() > 1}" >
+                                <!-- Truy cập phần tử thứ hai -->
+                                    <img th:src="@{|/static/assets/img/*{danhSachHinhAnh[1].duongDan}|}"
+                                         class="media__select-img">
+
+                            </div>
+                            <img th:unless="*{danhSachHinhAnh.size() > 1}"
+                                 src="/static/assets/img/1681582211_nu6a.jpg" alt="ten san pham" class="media__select-img">
+                        </div>
+                        <div class="media__select" >
+                            <div th:if="*{danhSachHinhAnh.size() > 2}" >
+                                <!-- Truy cập phần tử thứ hai -->
+                                <img th:src="@{|/static/assets/img/*{danhSachHinhAnh[2].duongDan}|}"
+                                     class="media__select-img">
+
+                            </div>
+                            <img th:unless="*{danhSachHinhAnh.size() > 2}"
+                                 src="/static/assets/img/1681582211_nu6a.jpg" alt="ten san pham" class="media__select-img">
+                        </div>
+                        <div class="media__select" >
+                            <div th:if="*{danhSachHinhAnh.size() > 3}" >
+                                <!-- Truy cập phần tử thứ hai -->
+                                <img th:src="@{|/static/assets/img/*{danhSachHinhAnh[3].duongDan}|}"
+                                     class="media__select-img">
+
+                            </div>
+                            <img th:unless="*{danhSachHinhAnh.size() > 3}"
+                                 src="/static/assets/img/1681582211_nu6a.jpg" alt="ten san pham" class="media__select-img">
+                        </div>
+                        <div class="media__select" >
+                            <div th:if="*{danhSachHinhAnh.size() > 4}" >
+                                <!-- Truy cập phần tử thứ hai -->
+                                <img th:src="@{|/static/assets/img/*{danhSachHinhAnh[4].duongDan}|}"
+                                     class="media__select-img">
+
+                            </div>
+                            <img th:unless="*{danhSachHinhAnh.size() > 4}"
+                                 src="/static/assets/img/1681582211_nu6a.jpg" alt="ten san pham" class="media__select-img">
+                        </div>
+                    </div>
+                    <div class="product__right">
+                        <h1 class="product__name"  th:text="*{tenSanPham}"></h1>
+                        <div class="product__price">
+                            <p class="product__price-base" th:text="*{giaBan}"></p>
+                            <p class="product__price-sale">31230000</p>
+                            <div class="sale">
+                                <span class="sale__number">10</span>
+                                <i class="fa-light fa-percent sale__icon"></i>
+                            </div>
+                        </div>
+                        <div class="product__color">
+                            <div class="product__color-header">
+                                <p class="product__color-heading">Màu Sắc:</p>
+                                <p class="product__color-name" th:text="*{mauSac.ten}"></p>
+                            </div>
+                            <div class="product__color-list">
+                                <label class="product__color-item">
+                                    <input type="radio" name="color" value="1" class="product__color-input">
+                                    <span  th:class="'product__color-none ' + *{mauSac.ten}">
+                                                <a href="" class="product__color-link"></a>
+                                            </span>
+                                </label>
+<!--                                <label class="product__color-item">-->
+<!--                                    <input type="radio" name="color" value="2" class="product__color-input">-->
+<!--                                    <span class="product__color-none den">-->
+<!--                                                <a href="" class="product__color-link"></a>-->
+<!--                                            </span>-->
+<!--                                </label>-->
+<!--                                <label class="product__color-item">-->
+<!--                                    <input type="radio" name="color" value="3" class="product__color-input">-->
+<!--                                    <span class="product__color-none do">-->
+<!--                                                <a href="" class="product__color-link"></a>-->
+<!--                                            </span>-->
+<!--                                </label>-->
+<!--                                <label class="product__color-item">-->
+<!--                                    <input type="radio" name="color" value="4" class="product__color-input">-->
+<!--                                    <span class="product__color-none be">-->
+<!--                                                <a href="" class="product__color-link"></a>-->
+<!--                                            </span>-->
+<!--                                </label>-->
+<!--                                <label class="product__color-item">-->
+<!--                                    <input type="radio" name="color" value="5" class="product__color-input">-->
+<!--                                    <span class="product__color-none xanhxam">-->
+<!--                                                <a href="" class="product__color-link"></a>-->
+<!--                                            </span>-->
+<!--                                </label>-->
+<!--                                <label class="product__color-item">-->
+<!--                                    <input type="radio" name="color" value="6" class="product__color-input">-->
+<!--                                    <span class="product__color-none hongphan">-->
+<!--                                                <a href="" class="product__color-link"></a>-->
+<!--                                            </span>-->
+<!--                                </label>-->
+
+
+                            </div>
+                        </div>
+                        <div class="product__size">
+                            <div class="product__size-list">
+                                <label th:each="size : ${relatedSizeNames}" class="product__size-item">
+                                    <input type="radio" th:id="'size' + ${size[0]}" name="size" th:value="${size[0]}" class="product__size-input">
+                                    <span class="product__size-text" th:text="${size[2]}"></span>
+                                </label>
+
+
+                            </div>
+                            <a href="" class="product__size-guide">Kiểm tra size của bạn</a>
+                        </div>
+                        <div class="product__quantity">
+                            <span class="product__quantity-title">Số Lượng</span>
+                            <div class="product__quantity-action">
+                                <div id="stepDown" class="product__quantity-minus">
+                                    <div class="product__quantity-btn">
+                                        <i class="fa-solid fa-minus product__quantity-icon"></i>
+                                    </div>
+
+                                </div>
+                                <input id="quantityInput" type="number" min="1" value="1" name="quantity" size="10" class="product__quantity-input">
+                                <div id="stepUp"  class="product__quantity-plus">
+                                    <div class="product__quantity-btn">
+                                        <i class="fa-solid fa-plus product__quantity-icon"></i>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Cai nay de lưu dữ liệu bằng form đẩy sang trang thanh toán -->
+                        <!-- <input type="hidden" value="<?php echo $data["product"]["idPro"]?>" class="product__id-<?php echo $data["product"]["idPro"]?>">
+                        <input type="hidden" value="<?php echo $data["product"]["namePro"]?>" class="product__name-<?php echo $data["product"]["idPro"]?>">
+                        <input type="hidden" value="<?php echo $data["product"]["imgPro"]?>" class="product__img-<?php echo $data["product"]["idPro"]?>">
+                        <input type="hidden" value="<?php echo $priceSale?>" class="product__priceSale-<?php echo $data["product"]["idPro"]?>">
+                        <input type="hidden" value="<?php echo  $data["product"]["price"]?>" class="product__price-<?php echo $data["product"]["idPro"]?>">
+                        <input type="hidden" value="<?php echo $data["product"]["salePro"]?>?>" class="product__salePro-<?php echo $data["product"]["idPro"]?>"> -->
+                        <!-- <input type="hidden" value=""> -->
+                        <div class="product__btn">
+                            <button data-id="" id="product__btn-buy" class="product__btn-buy">Mua ngay</button>
+                            <button class="product__btn-cart">Thêm vào giỏ hàng</button>
+                            <button class="product__btn-fav">
+                                <i class="fa-light fa-heart product__btn-icon"></i>
+                            </button>
+                        </div>
+                        <div class="product__info">
+                            <div class="product__info-header">
+                                <h3 class="product__info-heading">Thông tin sản phẩm</h3>
+                            </div>
+                            <div class="product__info-container">
+                                <div class="product__info-left">
+                                    <ul class="product__info-list">
+                                        <li class="product__info-item">
+                                            <span class="product__info-text">Danh mục</span>
+                                            <a href="" class="product__info-link" th:text="*{loaiSanPham.ten}"></a>
+                                        </li>
+                                        <li class="product__info-item">
+                                            <span class="product__info-text">Phong cách</span>
+                                            <a href="" class="product__info-link"th:text="*{phongCach.ten}"></a>
+                                        </li>
+                                        <li class="product__info-item">
+                                            <span class="product__info-text">NSX</span>
+                                            <a href="" class="product__info-link" th:text="*{nsx.ten}"></a>
+                                        </li>
+                                        <li class="product__info-item">
+                                            <span class="product__info-text">Chất liệu</span>
+                                            <a href="" class="product__info-link" th:text="*{chatLieu.ten}"></a>
+                                        </li>
+                                    </ul>
+                                </div>
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </form>
+
+            <div class="grid__row" >
+                <div class="other">
+                    <div class="other__header">
+                        <h2 class="other__heading">Có Thể Bạn Sẽ Thích</h2>
+                    </div>
+                    <div class="other__container">
+                        <div class="grid__column-4-12">
+
+                            <div class="other__product" th:each="p:${item.loaiSanPham.chiTietSanPham}">
+                                <div class="other__product-img"  th:href="@{|/product/detail/${p.idChiTietSanPham}|}" th:style="'background-image: url(' + '/static/assets/img/' + ${p.danhSachHinhAnh[0].duongDan} + ');'"></div>
+                                <div class="other__product-content">
+                                    <div class="other__product-header">
+                                        <h3 class="other__product-name">  [[${p.tenSanPham}]]</h3>
+                                        <div class="other__product-actions">
+                                            <i class="fa-light fa-heart other__product-icon"></i>
+                                        </div>
+                                    </div>
+                                    <div class="other__product-body">
+                                        <div class="other__product-price">
+                                            <p class="other__product-priceSale">  [[${p.giaBan}]]</p>
+                                            <p class="other__product-priceBase">1.200.000đ</p>
+                                            <div class="other__product-sale">
+                                                <span class="other__product-saleNumber">60</span>
+                                                <i class="fa-light fa-percent other__product-saleIcon"></i>
+                                            </div>
+                                        </div>
+                                        <div class="other__product-actions">
+                                            <i class="fa-light fa-cart-plus other__product-icon"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+</body>
+</html>

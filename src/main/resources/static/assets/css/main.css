@@ -1,0 +1,357 @@
+
+.icon__btn {
+    font-size: 1.6rem;
+}
+
+/*  Container */
+.container {
+    position: absolute;
+    top: 80px;
+    left: 0;
+    right: 0;
+}
+.container__wrapper {
+    display: flex;
+    margin: 0 auto;
+}
+
+/* .sibar {
+    border: 1px solid var(--black-color);
+    border-radius: 10px;
+    height: 600px;
+    margin: 18px 0 0 18px;
+    
+}
+.sibar__heading {
+    font-size: 1.86rem;
+    font-weight: 500;
+    text-align: center;
+    border-bottom: 1px solid var(--black-color);
+    margin: 0;
+    padding: 10px;
+}
+.sibar__list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.sibar__item {
+    text-align: center;
+    padding: 10px;
+    border: 1px solid var(--black-color);
+    border-radius: 10px;
+    margin: 8px;
+}
+.sibar__link {
+    text-decoration: none;
+    font-size: 1.6rem;
+    color: var(--black-color);
+}
+.sibar__item:hover .multilevel__list {
+    display: block;
+    transition: all .3s ease-in-out;
+
+}
+
+.multilevel__list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: none;
+    
+}
+.multilevel__item {
+    text-align: center;
+    padding: 10px;
+    border: 1px solid var(--black-color);
+    border-radius: 10px;
+    margin: 8px;
+    background-color: var(--bg-color);
+}
+.multilevel__link {
+    text-decoration: none;
+    font-size: 1.6rem;
+    color: var(--black-color);
+} */
+
+
+.slider {
+    position: relative;
+}
+.slider::before{
+    position: absolute;
+    content: "";
+    height: 98%;
+    width: 100%;
+    right: -10px;
+    border: 1px solid #D1D2D4;
+    border-radius: 80px 0px 80px 0px;
+    bottom: 1px;
+}
+
+.slider__list {
+
+}
+
+.slider__item {
+
+}
+
+.slider__link {
+
+}
+
+.slider__img {
+    width: 100%;
+    border-top-left-radius: 80px;
+    border-bottom-right-radius: 80px;
+}
+
+
+.body {
+    width: 100%;
+    margin-bottom: 30px;
+}
+
+
+.content {
+    /* border: 1px solid var(--black-color); */
+    border-bottom-right-radius: 10px;
+    border-top-left-radius: 10px;
+    margin-bottom: 18px;
+}
+.content__header {
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #f7f8f9;
+    margin-bottom: 4px;
+}
+.content__heading {
+    text-align: left;
+    font-size: 2.8rem;
+    font-weight: 500;
+    margin: 16px 0 ;
+}
+
+.content__actions {
+    margin-left: 8px;
+    display: flex;
+}
+.content__actions-item {
+    min-width: 60px;
+    height: 30px;
+    margin: 0 8px;
+}
+.content__actions-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    font-size: 1.6rem;
+    border: 1px solid #D1D2D4;
+    border-radius: 10px 0 10px 0;
+    cursor: pointer;
+    padding: 10px;
+}
+.content__label {
+    font-size: 1.6rem;
+    padding-left: 10px;
+    padding-top: 6px;
+}
+
+.content__actions-item:hover>.content__actions-btn {
+    background-color: var(--black-color);
+    color: var(--white-color);
+}
+
+.content__actions-item.active {
+    background-color: var(--black-color);
+    color: var(--white-color);
+}
+
+.product {
+    /* border-radius: 10px; */
+    position: relative;
+    overflow: hidden;
+    /* height: 300px; */
+
+}
+
+.product__wrapper{
+    position: relative;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    overflow: hidden;
+    border-radius: 10px;
+    margin-bottom: 8px;
+    max-height: 366px;
+}
+
+.product__link {
+    text-decoration: none;
+    position: relative;
+}
+.product__img {
+    height: auto;
+    max-width: 100%;
+}
+
+.img_hover {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    transition: opacity .5s ease,transform 2s cubic-bezier(0,0,.44,1.18);
+    opacity: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.product__wrapper:hover>.img_hover {
+    opacity: 1;
+    transform: scale(1.09);
+}
+
+.product__content {
+    padding-left: 10px;
+}
+.product__name {
+    font-size: 1.8rem;
+    overflow: hidden;
+    line-height: 4rem;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    color: var(--black-color);
+}
+.product__detail {
+}
+.product__price {
+    font-size: 1.8rem;
+    font-weight: 500;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    color: var(--black-color);
+}
+.product__price-de {
+   
+}
+.product__price-sale {
+    text-decoration: line-through ;
+    color: ar(--text-color);
+    
+}
+.product__action {
+    display: flex;
+    justify-content: flex-end;
+    margin-right: 10px;
+    padding: 10px ;
+
+}
+.product__cart,
+.product__wishlist {
+    font-size: 2rem;
+    padding: 8px;
+    background-color: var(--white-color);
+    color: var(--black-color);
+    border: 1px solid #9e9e9e;
+    border-bottom-right-radius: 10px;
+    border-top-left-radius: 10px;
+    margin: 0 10px;
+    cursor: pointer;
+    width: 28%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+   
+}
+.product__cart {
+    font-size: 1.8rem;
+
+}
+
+
+.product__cart:hover,
+.product__wishlist:hover {
+    background-color: var(--black-color);
+    color: var(--white-color);
+}
+
+.router {
+    border-bottom: 1px solid #f7f8f9;
+}
+
+.router__list {
+    display: flex;
+    padding: 0;
+}
+
+.router__item {
+    height: 40px;
+    display: flex;
+    align-items: center;
+    padding-right: 8px;
+}
+
+.router__link {
+    text-decoration: none;
+    font-size: 1.6rem;
+    color: var(--black-color);
+}
+
+.router__icon {
+
+}
+
+.paging {
+
+}
+
+.paging__list {
+    display: flex;
+    padding: 0;
+    justify-content: center;
+}
+
+.paging__item {
+    width: 40px;
+    height: 40px;
+    border: 1px solid #E7E8E9;
+    border-radius: 10px 0 10px 0;
+    margin-right: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;    
+}
+
+.paging__link {
+    text-decoration: none;
+    font-size: 1.6rem;
+    color: var(--black-color);
+}
+
+.paging__icon {
+
+}
+
+.paging__number {
+    font-weight: 500;
+}
+
+.paging__item.active>.paging__link {
+    background: var(--black-color);
+    color: var(--white-color);
+}
+.paging__item.active {
+    background: var(--black-color);
+}
+
+
+
