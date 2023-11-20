@@ -51,7 +51,4 @@ public class KhachHang {
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "khachHang")
     private GioHang gioHang;
 
-    @Column(name = "vaitro")
-    private Boolean vaiTro;
-
 }

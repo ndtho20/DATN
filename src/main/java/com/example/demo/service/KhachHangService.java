@@ -24,7 +24,6 @@ public class KhachHangService {
 
     public KhachHang addKhachHang(KhachHang khachHang) {
         khachHang.setNgayTao(new Date());
-        khachHang.setVaiTro(false);
         return khachHangRepository.save(khachHang);
     }
 
