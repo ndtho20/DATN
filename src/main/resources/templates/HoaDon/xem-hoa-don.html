@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+          name="viewport">
+    <meta content="ie=edge" http-equiv="X-UA-Compatible">
+    <title>Spring Boot - Thymeleaf</title>
+    <link th:href="@{../../static/xem-hoa-don.css}" rel="stylesheet"/>
+</head>
+<body class="flex items-center justify-center h-screen">
+<div class="rounded-lg border shadow-lg p-10 w-3/5">
+    <div class="flex" style="text-align: center; margin-bottom: 20px">
+        <h2 class="text-xl font-bold" style="text-align: center; color: red">HÓA ĐƠN BÁN HÀNG YAMET</h2>
+    </div>
+    <div class="flex flex-row justify-between pb-4">
+        <div>
+            <h2 class="text-xl font-bold">Mã Hóa Đơn #<span class="text-green-600"
+                                                            th:text="${listHoaDon[0][5]}"></span>
+                <!--ID hóa đơn-->
+            </h2>
+        </div>
+        <div>
+            <div class="text-xl font-bold" th:text="${listHoaDon[0][4]}"></div>
+            <!-- ngày tao-->
+        </div>
+    </div>
+    <div class="flex flex-col pb-8">
+        <div class="pb-2">
+            <h2 class="text-xl font-bold">Thông tin khách hàng</h2>
+            <!--Địa chỉ giao hàng-->
+        </div>
+        <div th:text="${'Họ và tên: '+ listHoaDon[0][6]}"></div>
+        <div th:text="${'Địa chỉ: '+ listHoaDon[0][7]}"></div>
+        <div th:text="${'Số điện thoại: '+ listHoaDon[0][8]}"></div>
+        <div th:text="${'Nhân viên bán hàng: '+ listHoaDon[0][9]}"></div>
+
+    </div>
+    <br>
+    <div class="flex" style="text-align: center; margin-bottom: 20px">
+        <h2 class="text-xl font-bold" style="text-align: center">Sản phẩm đã mua</h2>
+    </div>
+    <br>
+    <table class="table-fixed w-full text-right border rounded">
+        <thead class="bg-gray-100">
+        <tr>
+            <th class="text-left pl-4">STT</th>
+            <th class="text-left pl-4">Tên sản phẩm</th>
+            <th>Số lượng</th>
+            <th>Giá</th>
+            <th class="pr-4">Thành tiền</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="item, index : ${listHoaDon}">
+            <td class="pl-4 text-left" th:utext="${index.count}"></td>
+            <!--            stt-->
+            <td class="pl-4 text-left" th:text="${item[0]}"></td>
+            <!--            tensp-->
+            <td th:text="${item[1]}"></td>
+            <!--            soluong-->
+            <td th:text="${item[11]}"></td>
+            <!--            gia-->
+            <td class="pr-4" th:text="${item[2]}"></td>
+            <!--           thành tiền-->
+        </tr>
+        </tbody>
+    </table>
+    <div class="flex flex-col pb-8" style="margin-top: 20px">
+        <div th:text="${'Phí ship: '+ listHoaDon[0][10]}"></div>
+    </div>
+    <div class="flex flex-row-reverse p-5">
+        <h2 class="font-medium  bg-gray-200 p-2 rounded">
+            Tổng tiền: <span class="text-green-600" th:text="${listHoaDon[0][3]}"></span>
+            <!--tổng tiền-->
+        </h2>
+    </div>
+    <h2 style="font-style: italic;
+        font-size: 1.2em; /* Điều chỉnh kích thước theo nhu cầu */
+        text-align: center;">----Cảm ơn quý khách----</h2>
+</div>
+<!--<div class="text-center mt-5">-->
+<!--    <a th:href="@{'/pdf/down/' + ${listHoaDon[0][12]}}">-->
+<!--        <button class="btn btn-secondary">Lưu</button>-->
+<!--    </a>-->
+<!--</div>-->
+</body>
+</html>
