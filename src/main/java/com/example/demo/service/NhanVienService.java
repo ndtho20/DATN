@@ -4,6 +4,7 @@ package com.example.demo.service;
 import com.example.demo.entity.NhanVien;
 import com.example.demo.repository.NhanVienRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -15,15 +16,23 @@ public class NhanVienService {
     @Autowired
     private NhanVienRepository nhanVienRepository;
 
+    private final PasswordEncoder passwordEncoder;
+
+    public NhanVienService(PasswordEncoder passwordEncoder) {
+        this.passwordEncoder = passwordEncoder;
+    }
+
     public List<NhanVien> getAll() {
         return nhanVienRepository.findAll();
     }
-
     ;
 
     public NhanVien addNhanVien(NhanVien nhanVien) {
         nhanVien.setNgayTao(new Date());
-        nhanVien.setVaiTro(true);
+        // Mã hóa mật khẩu trước khi lưu vào cơ sở dữ liệu
+        String encodedPassword = passwordEncoder.encode(nhanVien.getMatKhau());
+        nhanVien.setMatKhau(encodedPassword);
+        nhanVien.setTrangThai(true);
         return nhanVienRepository.save(nhanVien);
     }
 
@@ -44,7 +53,6 @@ public class NhanVienService {
             updatedNhanVien.setSoDienThoai(nhanVien.getSoDienThoai());
             updatedNhanVien.setEmail(nhanVien.getEmail());
             updatedNhanVien.setMatKhau(nhanVien.getMatKhau());
-            updatedNhanVien.setVaiTro(nhanVien.getVaiTro());
             updatedNhanVien.setNgayTao(nhanVien.getNgayTao());
             updatedNhanVien.setTrangThai(nhanVien.getTrangThai());
             nhanVienRepository.save(updatedNhanVien);

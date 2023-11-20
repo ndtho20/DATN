@@ -45,24 +45,6 @@
         <input type="email" class="form-control" th:field="${nv.email}">
         <label>Email</label>
     </div>
-    <lable>Vai Tro</lable>
-    <div class="form-check">
-        <input class="form-check-input" type="radio" name="VaiTro" th:field="${nv.VaiTro}" th:value="true">
-        <label class="form-check-label">
-            Quan Ly
-        </label>
-    </div>
-    <div class="form-check">
-        <input class="form-check-input" type="radio" name="VaiTro" th:field="${nv.VaiTro}" th:value="false"
-               checked="checked">
-        <label class="form-check-label">
-            Nhan Vien
-        </label>
-    </div>
-    <div class="form-floating mb-3">
-        <input type="date" class="form-control" th:field="${nv.ngayTao}">
-        <label>Ngay Tao</label>
-    </div>
     <button type="submit">Add</button>
 </form>
 
@@ -75,12 +57,10 @@
         <th scope="col">Ho va Ten</th>
         <th scope="col">Gioi Tinh</th>
         <th scope="col">Ngay Sinh</th>
-        <th scope="col">Mat Khau</th>
         <th scope="col">Dia Chi</th>
         <th scope="col">So Dien Thoai</th>
         <th scope="col">Email</th>
         <th scope="col">Ngay tao</th>
-        <th scope="col">Vai Tro</th>
         <th scope="col">Trang Thai</th>
         <th scope="col">Action</th>
     </tr>
@@ -91,12 +71,10 @@
         <td th:text="${nv.hoTen}"></td>
         <td th:text="${nv.gioiTinh}"></td>
         <td th:text="${#dates.format(nv.ngaySinh, 'MM-dd-yyyy')}"></td>
-        <td th:text="${nv.matKhau}"></td>
         <td th:text="${nv.diaChi}"></td>
         <td th:text="${nv.soDienThoai}"></td>
         <td th:text="${nv.email}"></td>
         <td th:text="${#dates.format(nv.ngayTao, 'MM-dd-yyyy')}"></td>
-        <td th:text="${nv.vaiTro == null ? '' : (nv.vaiTro ? 'Quan Ly' : 'Nhan Vien')}"></td>
         <td th:text="${nv.trangThai == null ? '' : (nv.trangThai ? 'Dang Lam Viec' : 'Da Nghi Viec')}"></td>
         <td>
             <a th:href="@{'/nhanvien/detail/' + ${nv.idNhanVien}}">

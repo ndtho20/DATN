@@ -1,4 +1,4 @@
-package com.example.demo.controller;
+package com.example.demo.controller.admin;
 
 
 import com.example.demo.entity.ChatLieu;
@@ -22,7 +22,7 @@ public class ChatLieuController {
         List<ChatLieu> dsChatLieu = service.getAll();
         model.addAttribute("dsChatLieu", dsChatLieu);
         model.addAttribute("pc", new ChatLieu());
-        return "ChatLieu/Index";
+        return "Admin/ChatLieu/Index";
     }
 
     @PostMapping("/add")
@@ -38,7 +38,7 @@ public class ChatLieuController {
     public String editChatLieuForm(@PathVariable("id") int Id, Model model) {
         ChatLieu ChatLieu = service.getById(Id);
         model.addAttribute("ChatLieu", ChatLieu);
-        return "ChatLieu/Detail";
+        return "Admin/ChatLieu/Detail";
     }
 
     @PostMapping("/update/{id}")

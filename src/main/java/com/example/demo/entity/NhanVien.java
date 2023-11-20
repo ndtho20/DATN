@@ -41,8 +41,8 @@ public class NhanVien {
     @Column(name = "email")
     private String email;
 
-    @Column(name = "vaitro")
-    private Boolean vaiTro;
+    @Column(name = "verificationcode")
+    private String verificationCode;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Column(name = "ngaytao")

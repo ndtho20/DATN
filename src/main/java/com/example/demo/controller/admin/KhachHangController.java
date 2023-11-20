@@ -1,4 +1,4 @@
-package com.example.demo.controller;
+package com.example.demo.controller.admin;
 
 import com.example.demo.entity.KhachHang;
 import com.example.demo.service.KhachHangService;
@@ -20,7 +20,7 @@ public class KhachHangController {
         List<KhachHang> dsKhachHang = khachHangService.getAll();
         model.addAttribute("dsKhachHang", dsKhachHang);
         model.addAttribute("kh", new KhachHang());
-        return "KhachHang/Index";
+        return "Admin/KhachHang/Index";
     }
 
     @PostMapping("/add")
@@ -36,7 +36,7 @@ public class KhachHangController {
     public String editKhachHangForm(@PathVariable("id") int Id, Model model) {
         KhachHang khachHang = khachHangService.getById(Id);
         model.addAttribute("khachHang", khachHang);
-        return "KhachHang/Detail";
+        return "Admin/KhachHang/Detail";
     }
 
     @PostMapping("/update/{id}")

@@ -7,7 +7,8 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.math.BigDecimal;
+
+import java.math.BigInteger;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -29,8 +30,16 @@ public class HoaDonService {
 
     ;
 
+    public List<HoaDon> getHoaDonByKhachHang(KhachHang kh){
+        return hoaDonRepository.findHoaDonByKhachHang(kh);
+    }
+
     public List<HoaDon> getHoaDonByTrangThai(int trangThai) {
         return hoaDonRepository.findHoaDonByTrangThai(trangThai);
+    }
+
+    public List<HoaDon> getHoaDonByKhachHangandTrangThai(KhachHang khachHang, int trangThai){
+        return hoaDonRepository.findHoaDonByKhachHangAndTrangThai(khachHang, trangThai);
     }
 
     @Transactional
@@ -54,8 +63,8 @@ public class HoaDonService {
         hoaDon.setMaHoaDon(maHD);
         hoaDon.setNhanVien(nv);
         hoaDon.setKhachHang(kh);
-        hoaDon = hoaDonRepository.save(hoaDon); // Lưu hóa đơn vào cơ sở dữ liệu
-        BigDecimal totalAmount = BigDecimal.ZERO;
+        hoaDon = hoaDonRepository.save(hoaDon);
+        BigInteger totalAmount = BigInteger.ZERO;
         for (GioHangChiTiet gioHangChiTiet : gioHangChiTietList) {
             HoaDonChiTiet hoaDonChiTiet = new HoaDonChiTiet();
             hoaDonChiTiet.setHoaDon(hoaDon);
@@ -70,6 +79,33 @@ public class HoaDonService {
         return hoaDon;
     }
 
+    public List<Object[]> getChiTietDonHang(int idHoaDon) {
+        return hoaDonRepository.findChiTietDonHang(idHoaDon);
+    }
+
+    @Transactional
+    public HoaDon xuLyThanhToanOnline(String maHD,String diaChi, KhachHang kh, List<GioHangChiTiet> gioHangChiTietList) {
+        HoaDon hoaDon = new HoaDon();
+        hoaDon.setNgayTao(new Date());
+        hoaDon.setMaHoaDon(maHD);
+        hoaDon.setKhachHang(kh);
+        hoaDon.setTrangThai(0);
+        hoaDon.setDiaChiDonHang(diaChi);
+        hoaDon = hoaDonRepository.save(hoaDon);
+        BigInteger totalAmount = BigInteger.ZERO;
+        for (GioHangChiTiet gioHangChiTiet : gioHangChiTietList) {
+            HoaDonChiTiet hoaDonChiTiet = new HoaDonChiTiet();
+            hoaDonChiTiet.setHoaDon(hoaDon);
+            hoaDonChiTiet.setGioHangChiTiet(gioHangChiTiet);
+            hoaDonChiTiet.setGhiChu("");
+            hoaDonChiTietService.createHoaDonChiTiet(hoaDonChiTiet);
+            totalAmount = totalAmount.add(gioHangChiTiet.getTongGia());
+            gioHangChiTietService.updateTrangThaiToFalse(gioHangChiTiet);
+        }
+        hoaDon.setTongTien(totalAmount);
+        hoaDon = hoaDonRepository.save(hoaDon);
+        return hoaDon;
+    }
 
 }
 

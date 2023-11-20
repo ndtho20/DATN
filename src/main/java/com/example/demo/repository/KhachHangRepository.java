@@ -12,6 +12,10 @@ import java.util.List;
 public interface KhachHangRepository extends JpaRepository<KhachHang, Integer> {
     KhachHang findKhachHangBySoDienThoai(String sdt);
 
+    KhachHang findKhachHangByEmail(String email);
+
+    KhachHang findKhachHangByVerificationCode(String code);
+
     @Query("SELECT k FROM KhachHang k WHERE k.soDienThoai IS NOT NULL")
     List<KhachHang> getKhachHang();
 }

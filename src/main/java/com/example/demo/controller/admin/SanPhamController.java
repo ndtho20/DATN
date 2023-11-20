@@ -1,4 +1,4 @@
-package com.example.demo.controller;
+package com.example.demo.controller.admin;
 
 
 import com.example.demo.entity.LoaiSanPham;
@@ -21,7 +21,7 @@ public class SanPhamController {
         List<LoaiSanPham> dsLoaiSanPham = loaiSanPhamService.getAll();
         model.addAttribute("dsSanPham", dsLoaiSanPham);
         model.addAttribute("pc", new LoaiSanPham());
-        return "LoaiSanPham/Index";
+        return "Admin/LoaiSanPham/Index";
     }
 
     @PostMapping("/add")
@@ -37,7 +37,7 @@ public class SanPhamController {
     public String editSanPhamForm(@PathVariable("id") int Id, Model model) {
         LoaiSanPham loaiSanPham = loaiSanPhamService.getById(Id);
         model.addAttribute("SanPham", loaiSanPham);
-        return "LoaiSanPham/Detail";
+        return "Admin/LoaiSanPham/Detail";
     }
 
     @PostMapping("/update/{id}")

@@ -1,4 +1,4 @@
-package com.example.demo.controller;
+package com.example.demo.controller.admin;
 
 import com.example.demo.entity.Size;
 import com.example.demo.service.SizeService;
@@ -21,7 +21,7 @@ public class SizeController {
         List<Size> dsSize = service.getAll();
         model.addAttribute("dsSize", dsSize);
         model.addAttribute("s", new Size());
-        return "Size/Index";
+        return "Admin/Size/Index";
     }
 
     @PostMapping("/add")
@@ -37,7 +37,7 @@ public class SizeController {
     public String editSizeForm(@PathVariable("id") int Id, Model model) {
         Size size = service.getById(Id);
         model.addAttribute("size", size);
-        return "Size/Detail";
+        return "Admin/Size/Detail";
     }
 
     @PostMapping("/update/{id}")

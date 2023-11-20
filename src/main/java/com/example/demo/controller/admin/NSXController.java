@@ -1,4 +1,4 @@
-package com.example.demo.controller;
+package com.example.demo.controller.admin;
 
 
 import com.example.demo.entity.NSX;
@@ -22,7 +22,7 @@ public class NSXController {
         List<NSX> dsNSX = service.getAll();
         model.addAttribute("dsNSX", dsNSX);
         model.addAttribute("pc", new NSX());
-        return "NSX/Index";
+        return "Admin/NSX/Index";
     }
 
     @PostMapping("/add")
@@ -38,7 +38,7 @@ public class NSXController {
     public String editNSXForm(@PathVariable("id") int Id, Model model) {
         NSX NSX = service.getById(Id);
         model.addAttribute("NSX", NSX);
-        return "NSX/Detail";
+        return "Admin/NSX/Detail";
     }
 
     @PostMapping("/update/{id}")

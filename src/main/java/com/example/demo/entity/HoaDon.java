@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.Date;
 
 @Data
@@ -51,7 +52,7 @@ public class HoaDon {
     private boolean hTTT;
 
     @Column(name = "tongtien")
-    private BigDecimal tongTien;
+    private BigInteger tongTien;
 
     @Column(name = "diachidonhang")
     private String diaChiDonHang;

@@ -1,4 +1,4 @@
-package com.example.demo.controller;
+package com.example.demo.controller.admin;
 
 
 import com.example.demo.entity.PhongCach;
@@ -22,7 +22,7 @@ public class PhongCachController {
         List<PhongCach> dsPhongCach = service.getAll();
         model.addAttribute("dsPhongCach", dsPhongCach);
         model.addAttribute("pc", new PhongCach());
-        return "PhongCach/Index";
+        return "Admin/PhongCach/Index";
     }
 
     @PostMapping("/add")
@@ -38,7 +38,7 @@ public class PhongCachController {
     public String editPhongCachForm(@PathVariable("id") int Id, Model model) {
         PhongCach phongCach = service.getById(Id);
         model.addAttribute("phongCach", phongCach);
-        return "PhongCach/Detail";
+        return "Admin/PhongCach/Detail";
     }
 
     @PostMapping("/update/{id}")

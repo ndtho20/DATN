@@ -22,7 +22,4 @@ public class ChiTietSanPhamService {
         return chiTietSanPhamRepository.findChiTietSanPhamByTenSanPhamContaining(ten);
     }
 
-    public ChiTietSanPham findChiTietSanPhamById(Integer idChiTietSanPham) {
-        return chiTietSanPhamRepository.findChiTietSanPhamByIdChiTietSanPham(idChiTietSanPham);
-    }
 }

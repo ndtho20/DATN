@@ -1,4 +1,4 @@
-package com.example.demo.controller;
+package com.example.demo.controller.admin;
 
 import com.example.demo.entity.MauSac;
 import com.example.demo.service.MauSacService;
@@ -22,7 +22,7 @@ public class MauSacController {
         List<MauSac> dsMauSac = service.getAll();
         model.addAttribute("dsMauSac", dsMauSac);
         model.addAttribute("pc", new MauSac());
-        return "MauSac/Index";
+        return "Admin/MauSac/Index";
     }
 
     @PostMapping("/add")
@@ -38,7 +38,7 @@ public class MauSacController {
     public String editMauSacForm(@PathVariable("id") int Id, Model model) {
         MauSac MauSac = service.getById(Id);
         model.addAttribute("MauSac", MauSac);
-        return "MauSac/Detail";
+        return "Admin/MauSac/Detail";
     }
 
     @PostMapping("/update/{id}")

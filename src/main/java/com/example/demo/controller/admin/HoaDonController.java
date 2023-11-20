@@ -1,4 +1,4 @@
-package com.example.demo.controller;
+package com.example.demo.controller.admin;
 
 
 import com.example.demo.entity.HoaDon;
@@ -20,14 +20,14 @@ public class HoaDonController {
     public String getAll(Model model) {
         List<HoaDon> dsHoaDon = hoaDonService.getAll();
         model.addAttribute("dsHoaDon", dsHoaDon);
-        return "HoaDon/Index";
+        return "Admin/HoaDon/Index";
     }
 
     @GetMapping("/{trangThai}")
     public String getHoaDonByTrangThai(@PathVariable int trangThai, Model model) {
         List<HoaDon> dsHoaDon = hoaDonService.getHoaDonByTrangThai(trangThai);
         model.addAttribute("dsHoaDon", dsHoaDon);
-        return "HoaDon/Index";
+        return "Admin/HoaDon/Index";
     }
 
     @PostMapping("/updateTrangThai/{hoaDonId}")

@@ -47,20 +47,6 @@
         <input type="email" class="form-control" th:value="${nhanVien.email}" name="email">
         <label>Email</label>
     </div>
-    <lable>Vai Tro</lable>
-    <div class="form-check">
-        <input class="form-check-input" type="radio" name="vaiTro" th:checked="${nhanVien.vaiTro == true}" value="true">
-        <label class="form-check-label">
-            Quan Ly
-        </label>
-    </div>
-    <div class="form-check">
-        <input class="form-check-input" type="radio" name="vaiTro" th:checked="${nhanVien.vaiTro == false}"
-               value="false">
-        <label class="form-check-label">
-            NhanVien
-        </label>
-    </div>
     <div class="form-floating mb-3">
         <input type="date" class="form-control" th:value="${#dates.format(nhanVien.ngayTao, 'yyyy-MM-dd')}"
                name="ngayTao">
