@@ -1,0 +1,106 @@
+
+.container {
+    margin-top: 80px;
+}
+
+.thank {
+
+}
+
+.thank__header {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.thank__img {
+    background-repeat: no-repeat;
+    background-size: contain;
+    object-fit: cover;
+    height: 250px;
+
+}
+
+.thank__container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.thank__alert {
+    font-size: 3.2rem;
+}
+
+.thank__heading {
+    font-size: 2rem;
+    font-weight: 550;
+    line-height: 3.2rem;
+}
+
+.thank__text {
+    font-size: 1.6rem;
+    line-height: 3.2rem;
+
+}
+
+.thank__actions {
+    display: flex;
+    margin: 20px 0;
+}
+
+.thank__btn {
+    width: 140px;
+    height: 40px;
+    background-color: var(--black-color);
+    color: var(--white-color);
+    margin: 0 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    font-size: 1.48rem;
+    border-top-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    cursor: pointer;
+}
+
+
+
+.thank__footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.thank__left {
+    width: 240px;
+    display: flex;
+    flex-direction: column;
+    padding: 20px 40px;
+    align-items: center;
+    border-right: 2px solid #000;
+}
+.thank__social {
+    font-size: 4.8rem;
+}
+.thank__icon {
+    opacity: 0.8;
+}
+.thank__label {
+    font-size: 2rem;
+    font-family: 'Delicious Handrawn', cursive;
+    line-height: 4rem;
+}
+.thank__link {
+    font-size: 1.8rem;
+    text-decoration: none;
+    color: var(--black-color);
+}
+.thank__right {
+    width: 240px;
+    display: flex;
+    flex-direction: column;
+    padding: 20px 40px;
+    align-items: center;
+
+}

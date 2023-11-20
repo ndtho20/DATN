@@ -6,6 +6,7 @@ import com.example.demo.repository.ChiTietSanPhamRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Service
@@ -27,6 +28,30 @@ public class ChiTietSanPhamService {
     }
 
 
+
+    public List<ChiTietSanPham> findByCategoryId(String cid) {
+        return chiTietSanPhamRepository.findByCategoryId(cid);
+    }
+
+
+    public List<String> findRelatedSizeNames(Integer id) {
+        ChiTietSanPham item = getById(id);
+
+        // Lấy các thông tin của item để truy vấn danh sách các size tương ứng
+        int idChatLieu = item.getChatLieu().getIdChatLieu();
+        int idNSX = item.getNsx().getIdNSX();
+        int idMauSac = item.getMauSac().getIdMauSac();
+        int idPhongCach = item.getPhongCach().getIdPhongCach();
+        BigDecimal giaBan = item.getGiaBan();
+        int idLoaiSanPham = item.getLoaiSanPham().getIdSanPham();
+        String tenSanPham = item.getTenSanPham();
+
+
+        // Gọi phương thức từ repository để lấy danh sách các tên size tương ứng
+        return chiTietSanPhamRepository.findRelatedSizeNames(
+                idChatLieu, idNSX, idMauSac, idPhongCach, giaBan, idLoaiSanPham, tenSanPham);
+
+    }
     public ChiTietSanPham getById(Integer id) {
         return chiTietSanPhamRepository.findById(id).orElse(null);
     }

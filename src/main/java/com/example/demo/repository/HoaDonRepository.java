@@ -39,5 +39,5 @@ public interface HoaDonRepository extends JpaRepository<HoaDon, Integer> {
     Page<HoaDon> findAllPaginationStatus(String paramString, Pageable paramPageable, Integer paramInteger);
 
     @Query("SELECT new com.example.demo.entity.HoaDon(o.idHoaDon, o.ngayTao, o.tongTien, o.tienShipHang, o.trangThai)    FROM HoaDon o WHERE o.ngayTao BETWEEN ?1 AND ?2 AND o.trangThai = ?3 ORDER BY o.ngayTao ASC")
-    List<HoaDon> findByOrderByStatusBetween(Date paramDate1, Date paramDate2, Integer paramInteger);
+    List<HoaDon> findByOrderByStatusBetween(Date paramDate1, Date paramDate2, Integer paramInteger);}
 
