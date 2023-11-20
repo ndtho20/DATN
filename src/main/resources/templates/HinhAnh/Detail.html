@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Hình Ảnh</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+</head>
+<body>
+
+<div class="container mt-5">
+    <h2 class="mb-4">Cập Nhật Hình Ảnh</h2>
+    <!-- Form cập nhật hình ảnh -->
+    <form th:action="@{'/hinhanh/update/' + ${hinhAnh.idHinhAnh}}" method="post" enctype="multipart/form-data">
+        <div class="form-group">
+            <label for="fileImage">Chọn Ảnh:</label>
+            <input type="file" class="form-control-file" id="fileImage" name="fileImage" required/>
+        </div>
+
+        <div class="form-group">
+            <label for="idChiTietSanPham">Chi Tiết Sản Phẩm:</label>
+            <select class="form-control" id="idChiTietSanPham" name="idchitietsanpham" required>
+                <option th:each="ctsp : ${listChiTietSanPham}"
+                        th:value="${ctsp.idChiTietSanPham}"
+                        th:text="${ctsp.tenSanPham}"
+                        th:selected="${ctsp.idChiTietSanPham == hinhAnh.chiTietSanPham.idChiTietSanPham}"></option>
+            </select>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Cập Nhật Hình Ảnh</button>
+    </form>
+</div>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+</body>
+</html>
