@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="container">
+    <h2>Danh Sách Chi Tiết Sản Phẩm</h2>
+
+    <!-- Thêm mới ChiTietSanPham Form -->
+    <form th:action="@{/chitietsanpham/add}" th:object="${chiTietSanPham}" method="post">
+        <!-- Các trường thông tin của ChiTietSanPham -->
+        <div class="form-group">
+            <label for="tenSanPham">Tên sản phẩm:</label>
+            <input type="text" class="form-control" id="tenSanPham" th:field="*{tenSanPham}" />
+        </div>
+
+        <div class="form-group">
+            <label for="loaiSanPham">Loại sản phẩm:</label>
+            <select class="form-control" id="loaiSanPham" th:field="*{loaiSanPham.idSanPham}">
+                <option th:each="loaiSanPham : ${listLoaiSanPham}" th:value="${loaiSanPham.idSanPham}"
+                        th:text="${loaiSanPham.ten}"></option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="chatLieu">Chất liệu:</label>
+            <select class="form-control" id="chatLieu" th:field="*{chatLieu.idChatLieu}">
+                <option th:each="chatLieu : ${listChatLieu}" th:value="${chatLieu.idChatLieu}" th:text="${chatLieu.ten}"></option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="size">Size:</label>
+            <select class="form-control" id="size" th:field="*{size.idSize}">
+                <option th:each="size : ${listSize}" th:value="${size.idSize}" th:text="${size.ten}"></option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="phongCach">Phong cách:</label>
+            <select class="form-control" id="phongCach" th:field="*{phongCach.idPhongCach}">
+                <option th:each="phongCach : ${listPhongCach}" th:value="${phongCach.idPhongCach}" th:text="${phongCach.ten}"></option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="nsx">Nhà sản xuất:</label>
+            <select class="form-control" id="nsx" th:field="*{nsx.idNSX}">
+                <option th:each="nsx : ${listNSX}" th:value="${nsx.idNSX}" th:text="${nsx.ten}"></option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="mauSac">Màu sắc:</label>
+            <select class="form-control" id="mauSac" th:field="*{mauSac.idMauSac}">
+                <option th:each="mauSac : ${listMauSac}" th:value="${mauSac.idMauSac}" th:text="${mauSac.ten}"></option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="soLuong">Số lượng:</label>
+            <input type="number" class="form-control" id="soLuong" th:field="*{soLuong}" />
+        </div>
+
+        <div class="form-group">
+            <label for="giaBan">Giá bán:</label>
+            <input type="text" class="form-control" id="giaBan" th:field="*{giaBan}" />
+        </div>
+
+        <div class="form-group">
+            <label for="trangThai">Trạng thái:</label>
+            <input type="checkbox" class="form-control" id="trangThai" th:field="*{trangThai}" />
+        </div>
+
+        <button type="submit" class="btn btn-primary">Thêm sản phẩm</button>
+    </form>
+
+    <!-- Bảng hiển thị danh sách chi tiết sản phẩm -->
+    <table class="table table-striped">
+        <thead class="thead-dark">
+        <tr>
+            <th>ID</th>
+            <th>Tên Sản Phẩm</th>
+            <th>Loại Sản Phẩm</th>
+            <th>Chất Liệu</th>
+            <th>Size</th>
+            <th>Phong Cách</th>
+            <th>NSX</th>
+            <th>Màu Sắc</th>
+            <th>Số Lượng Còn Lại</th>
+            <th>Giá Bán</th>
+            <th>Trạng Thái</th>
+            <th>Thao Tác</th>
+        </tr>
+        </thead>
+        <tbody>
+        <!-- Duyệt qua danh sách và hiển thị thông tin chi tiết sản phẩm -->
+        <tr th:each="chiTietSanPham : ${dsChiTietSanPham}">
+            <td th:text="${chiTietSanPham.idChiTietSanPham}"></td>
+            <td th:text="${chiTietSanPham.tenSanPham}"></td>
+            <td th:text="${chiTietSanPham.loaiSanPham != null ? chiTietSanPham.loaiSanPham.ten : 'N/A'}"></td>
+            <td th:text="${chiTietSanPham.chatLieu != null ? chiTietSanPham.chatLieu.ten : 'N/A'}"></td>
+            <td th:text="${chiTietSanPham.size != null ? chiTietSanPham.size.ten : 'N/A'}"></td>
+            <td th:text="${chiTietSanPham.phongCach != null ? chiTietSanPham.phongCach.ten : 'N/A'}"></td>
+            <td th:text="${chiTietSanPham.nsx != null ? chiTietSanPham.nsx.ten : 'N/A'}"></td>
+            <td th:text="${chiTietSanPham.mauSac != null ? chiTietSanPham.mauSac.ten : 'N/A'}"></td>
+            <td th:text="${chiTietSanPham.soLuong}"></td>
+            <td th:text="${chiTietSanPham.giaBan}"></td>
+            <td th:text="${chiTietSanPham.trangThai} ? 'Hoạt Động' : 'Ngừng Hoạt Động'"></td>
+            <td>
+                <a class="btn btn-info" th:href="@{'/chitietsanpham/detail/' + ${chiTietSanPham.idChiTietSanPham}}">Xem</a>
+                <a class="btn btn-danger" th:href="@{'/chitietsanpham/delete/' + ${chiTietSanPham.idChiTietSanPham}}">Xóa</a>
+            </td>
+        </tr>
+
+        </tbody>
+    </table>
+</div>
+<script src="../../static/js/bootstrap.min.js"></script>
+
+</body>
+</html>

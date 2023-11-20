@@ -54,5 +54,8 @@ public class ChiTietSanPham {
 
     @Column(name = "trangthai")
     private Boolean trangThai;
+    public Integer getIdLoaiSanPham() {
+        return loaiSanPham != null ? loaiSanPham.getIdSanPham() : null;
+    }
 
 }

@@ -2,9 +2,7 @@ package com.example.demo.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -14,6 +12,8 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@Getter
+@Setter
 @Table(name = "hoadon")
 public class HoaDon {
     @Id
@@ -64,4 +64,12 @@ public class HoaDon {
     @ManyToOne
     @JoinColumn(name = "idkhachhang")
     private KhachHang khachHang;
+    public HoaDon(Integer idHoaDon, Date ngayTao, BigDecimal tongTien, Double tienShipHang, Integer trangThai) {
+        this.idHoaDon = idHoaDon;
+        this.ngayTao = ngayTao;
+        this.tongTien = tongTien;
+        this.tienShipHang = tienShipHang;
+        this.trangThai = trangThai;
+    }
+
 }
