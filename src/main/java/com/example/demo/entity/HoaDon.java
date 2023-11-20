@@ -64,7 +64,7 @@ public class HoaDon {
     @ManyToOne
     @JoinColumn(name = "idkhachhang")
     private KhachHang khachHang;
-    public HoaDon(Integer idHoaDon, Date ngayTao, BigDecimal tongTien, Double tienShipHang, Integer trangThai) {
+    public HoaDon(Integer idHoaDon, Date ngayTao, BigInteger tongTien, Double tienShipHang, Integer trangThai) {
         this.idHoaDon = idHoaDon;
         this.ngayTao = ngayTao;
         this.tongTien = tongTien;

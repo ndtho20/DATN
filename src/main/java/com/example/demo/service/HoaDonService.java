@@ -29,7 +29,6 @@ public class HoaDonService {
     }
 
     ;
-
     public List<HoaDon> getHoaDonByKhachHang(KhachHang kh){
         return hoaDonRepository.findHoaDonByKhachHang(kh);
     }
@@ -106,6 +105,7 @@ public class HoaDonService {
         hoaDon = hoaDonRepository.save(hoaDon);
         return hoaDon;
     }
+
 
 }
 
