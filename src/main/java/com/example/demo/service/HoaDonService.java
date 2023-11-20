@@ -5,10 +5,15 @@ import com.example.demo.entity.*;
 import com.example.demo.repository.HoaDonRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 
 import java.math.BigInteger;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -24,11 +29,15 @@ public class HoaDonService {
     @Autowired
     private GioHangChiTietService gioHangChiTietService;
 
+    @Autowired
+    private NhanVienService nhanVienService;
+
     public List<HoaDon> getAll() {
         return hoaDonRepository.findAll();
     }
 
     ;
+
     public List<HoaDon> getHoaDonByKhachHang(KhachHang kh){
         return hoaDonRepository.findHoaDonByKhachHang(kh);
     }
@@ -89,6 +98,7 @@ public class HoaDonService {
         hoaDon.setMaHoaDon(maHD);
         hoaDon.setKhachHang(kh);
         hoaDon.setTrangThai(0);
+        hoaDon.setNhanVien(nhanVienService.getById(4));
         hoaDon.setDiaChiDonHang(diaChi);
         hoaDon = hoaDonRepository.save(hoaDon);
         BigInteger totalAmount = BigInteger.ZERO;
@@ -105,7 +115,41 @@ public class HoaDonService {
         hoaDon = hoaDonRepository.save(hoaDon);
         return hoaDon;
     }
+    public Integer soDonHangTheoTrangThai(Integer trangThaiDonhang) {
+        return this.hoaDonRepository.soDonHangTheoTrangThai(trangThaiDonhang);
+    }
 
+    public Integer tongSoDonHang() {
+        return this.hoaDonRepository.tongSoDonHang();
+    }
+
+    public Page<HoaDon> listByPage(int pageNumber, String sortField, String sortDir, String keyword) {
+        PageRequest pageRequest = PageRequest.of(pageNumber - 1, 10, Sort.by(SortOrder(sortField, sortDir)));
+        if (keyword != null)
+
+            return this.hoaDonRepository.findAllPagination(keyword, (Pageable) pageRequest);
+
+        return this.hoaDonRepository.findAll((Pageable) pageRequest);
+    }
+
+    public Page<HoaDon> listByPageStatus(int pageNumber, String sortField, String sortDir, String keyword, int status) {
+        PageRequest pageRequest = PageRequest.of(pageNumber - 1, 10, Sort.by(SortOrder(sortField, sortDir)));
+        if (keyword != null)
+            return this.hoaDonRepository.findAllPaginationStatus(keyword, (Pageable) pageRequest, Integer.valueOf(status));
+        return this.hoaDonRepository.findAll((Pageable) pageRequest);
+    }
+
+    public List<Sort.Order> SortOrder(String sort, String sortDirection) {
+        Sort.Direction direction = null;
+        List<Sort.Order> sorts = new ArrayList<>();
+        if (sortDirection != null) {
+            direction = Sort.Direction.fromString(sortDirection);
+        }else {
+            direction = Sort.Direction.DESC;
+        }
+        sorts.add(new Sort.Order(direction, sort));
+        return sorts;
+    }
 
 }
 

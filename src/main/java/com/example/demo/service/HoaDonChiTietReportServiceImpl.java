@@ -1,6 +1,7 @@
 package com.example.demo.service;
 
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.*;
 
 import com.example.demo.entity.*;
@@ -91,7 +92,7 @@ public class HoaDonChiTietReportServiceImpl extends AbstractReportService {
             if (gioHangChiTiet != null) {
                 ChiTietSanPham chiTietSanPham = gioHangChiTiet.getChiTietSanPham();
                 if (chiTietSanPham != null) {
-                    BigDecimal giaBan = chiTietSanPham.getGiaBan();
+                    BigInteger giaBan = chiTietSanPham.getGiaBan();
                     Integer soLuong = gioHangChiTiet.getSoLuong();
                     if (giaBan != null && soLuong != null) {
                         double netSales = giaBan.doubleValue() * soLuong.intValue();
