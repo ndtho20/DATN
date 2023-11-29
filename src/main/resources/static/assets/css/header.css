@@ -10,7 +10,7 @@
     right: 0;
     top: 0;
     border-bottom: 1px solid var(--black-color);
-    background-color: var(--white-color);
+    background-color: #fcffe8;
 }
 
 .header__between {

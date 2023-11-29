@@ -5,17 +5,28 @@
     <title>Title</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .container {
+            margin-top: 50px;
+        }
+        .table-responsive {
+            overflow: auto;
+            max-height: 300px;
+        }
+    </style>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-
 </head>
 <body>
 <div class="container">
     <div class="row">
-        <div class="col-md-7 ">
-            <div style="overflow: scroll; height: 300px;">
+        <div class="col-md-7">
+            <div class="table-responsive">
                 <h2>Đơn Hàng</h2>
-                <table class="table">
-                    <thead style="position: sticky;">
+                <table class="table table-striped">
+                    <thead class="sticky-top">
                     <tr>
                         <th scope="col">#</th>
                         <th scope="col">Sản Phẩm</th>
@@ -38,25 +49,24 @@
                         <td th:text="${ghct.chiTietSanPham.giaBan}"></td>
                         <td th:text="${ghct.tongGia}"></td>
                         <td>
-                        <td>
                             <form method="post" action="/admin/ban-hang/xoa-gio-hang-chi-tiet">
                                 <input type="hidden" name="gioHangChiTietId" th:value="${ghct.idGioHangChiTiet}"/>
                                 <button type="submit" class="btn btn-secondary">Xóa</button>
                             </form>
                         </td>
-
-                        </td>
                     </tr>
                     </tbody>
                 </table>
             </div>
+
             <h2>Sản Phẩm</h2>
             <form action="/admin/ban-hang/search/san-pham" method="post" class="input-group mb-3">
                 <input type="text" class="form-control" placeholder="Tìm Kiếm Sản Phẩm" name="ten"
                        aria-describedby="button-addon0">
                 <button class="btn btn-outline-secondary" type="submit" id="button-addon0">Search</button>
             </form>
-            <table class="table">
+
+            <table class="table table-striped">
                 <thead>
                 <tr>
                     <th scope="col">#</th>
@@ -76,17 +86,18 @@
                     <td th:text="${sp.giaBan}"></td>
                     <td th:text="${sp.mauSac.ten}"></td>
                     <td th:text="${sp.size.ten}"></td>
-                    <td><a>
+                    <td>
                         <form action="/admin/ban-hang/them-san-pham" method="post">
                             <input type="hidden" name="chiTietSanPhamId" th:value="${sp.idChiTietSanPham}">
                             <button type="submit" class="btn btn-secondary">Add</button>
                         </form>
-                    </a></td>
+                    </td>
                 </tr>
                 </tbody>
             </table>
         </div>
-        <div class="col-md-5 ">
+
+        <div class="col-md-5">
             <h2>Thông Tin</h2>
             <div class="row">
                 <div class="col-md-7">
@@ -137,8 +148,8 @@
             <div class="row">
                 <div class="col-md-6">
                     <label>Ngày Tạo</label>
-                    <div class="input-group ">
-                        <input type="text" class="form-control " th:value="${ngayTao}" readonly>
+                    <div class="input-group">
+                        <input type="text" class="form-control" th:value="${ngayTao}" readonly>
                     </div>
                 </div>
                 <div class="col-md-6">
@@ -147,7 +158,6 @@
                         <input type="text" class="form-control" th:value="${tongTien}" readonly>
                         <span class="input-group-text">VND</span>
                     </div>
-                    <br>
                 </div>
             </div>
             <br>
@@ -164,6 +174,7 @@
         </div>
     </div>
 </div>
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
         crossorigin="anonymous"></script>
@@ -187,7 +198,6 @@
                         url: "/admin/ban-hang/cap-nhat-so-luong-gio-hang",
                         data: {gioHangChiTietId: gioHangChiTietId, soLuong: quantity},
                         success: function () {
-                            // Sau khi cập nhật thành công, tải lại toàn bộ trang
                             location.reload();
                         }
                     });

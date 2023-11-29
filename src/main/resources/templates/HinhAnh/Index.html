@@ -37,7 +37,6 @@
             <th scope="col">ID</th>
             <th scope="col">Hình ảnh</th>
             <th scope="col">Ngày tạo</th>
-            <th scope="col">Trạng thái</th>
             <th scope="col">Chi Tiết Sản Phẩm</th>
             <th scope="col">Thao tác</th>
         </tr>
@@ -51,7 +50,6 @@
 
             <td th:text="${hinhAnh.ngayTao}"></td>
             <td th:text="${hinhAnh.chiTietSanPham.tenSanPham}"></td>
-            <td th:text="${hinhAnh.trangThai} ? 'Hoạt động' : 'Ngừng hoạt động'"></td>
             <td>
                 <a class="btn btn-warning" th:href="@{'/hinhanh/update/' + ${hinhAnh.idHinhAnh}}">Cập nhật</a>
                 <a class="btn btn-danger" th:href="@{'/hinhanh/delete/' + ${hinhAnh.idHinhAnh}}">Xóa</a>

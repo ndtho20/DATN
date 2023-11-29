@@ -21,7 +21,7 @@ public class NhanVienController {
         List<NhanVien> dsNhanVien = nhanVienService.getAll();
         model.addAttribute("dsNhanVien", dsNhanVien);
         model.addAttribute("nv", new NhanVien());
-        return "static/NhanVien/Index";
+        return "NhanVien/Index";
     }
 
     @PostMapping("/add")
@@ -37,7 +37,7 @@ public class NhanVienController {
     public String editNhanVienForm(@PathVariable("id") int Id, Model model) {
         NhanVien nhanVien = nhanVienService.getById(Id);
         model.addAttribute("nhanVien", nhanVien);
-        return "static/NhanVien/Detail";
+        return "NhanVien/Detail";
     }
 
     @PostMapping("/update/{id}")

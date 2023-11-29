@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.Date;
 
 @Data
@@ -30,21 +31,21 @@ public class HoaDonChiTiet {
     @JoinColumn(name = "idgiohangchitiet")
     private GioHangChiTiet gioHangChiTiet;
 
-    public HoaDonChiTiet(String tenSanPham, int soLuong, BigDecimal giaBan, double tienShipHang) {
+    public HoaDonChiTiet(String tenSanPham, int soLuong, BigInteger giaBan, double tienShipHang) {
         this.gioHangChiTiet = new GioHangChiTiet();
         this.gioHangChiTiet.setSoLuong(soLuong);
         this.ghiChu = tenSanPham;
         this.hoaDon = new HoaDon();
         this.hoaDon.setTienShipHang(tienShipHang);
     }
-    public HoaDonChiTiet(int soLuong, String tenSanPham, BigDecimal giaBan, double tienShipHang) {
+    public HoaDonChiTiet(int soLuong, String tenSanPham, BigInteger giaBan, double tienShipHang) {
         this.gioHangChiTiet = new GioHangChiTiet();
         this.gioHangChiTiet.setSoLuong(soLuong);
         this.ghiChu = tenSanPham;
         this.hoaDon = new HoaDon();
         this.hoaDon.setTienShipHang(tienShipHang);
     }
-    public HoaDonChiTiet(int idChiTietSanPham, int soLuong, BigDecimal giaBan, double tienShipHang) {
+    public HoaDonChiTiet(int idChiTietSanPham, int soLuong, BigInteger giaBan, double tienShipHang) {
         // Khởi tạo đối tượng HoaDonChiTiet với các tham số từ truy vấn JPQL
         this.gioHangChiTiet = new GioHangChiTiet();
         this.gioHangChiTiet.setChiTietSanPham(new ChiTietSanPham());

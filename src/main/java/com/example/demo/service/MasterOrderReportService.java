@@ -94,11 +94,11 @@ public class MasterOrderReportService extends AbstractReportService {
     }
 
     private void printRawData(List<HoaDon> listOrders) {
-        listOrders.forEach(order -> System.out.printf("%-3d | %s | %.3f | %.3f \n", new Object[] { order.getIdHoaDon(), order.getNgayTao(), order.getTongTien(), order.getTienShipHang() }));
+        listOrders.forEach(order -> System.out.printf("%-3d | %s | %s | %s \n", new Object[] { order.getIdHoaDon(), order.getNgayTao(), order.getTongTien(), order.getTienShipHang() }));
     }
 
     private void printRawDataStatus(List<HoaDon> listOrders) {
-        listOrders.forEach(order -> System.out.printf("%-3d | %s | %.3f | %.3f | %-3d\n", new Object[] { order.getIdHoaDon(), order.getNgayTao(), order.getTongTien(), order.getTienShipHang(), order.getTrangThai() }));
+        listOrders.forEach(order -> System.out.printf("%-3d | %s | %s | %s | %-3d\n", new Object[] { order.getIdHoaDon(), order.getNgayTao(), order.getTongTien(), order.getTienShipHang(), order.getTrangThai() }));
     }
 }
 

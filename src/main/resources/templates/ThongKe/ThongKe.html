@@ -1,14 +1,15 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="~{Dashboard/DashBoardAdmin::dashboard}">
+<head>
     <meta charset="UTF-8">
     <title>Title</title>
 
 <!--    <script type="text/javascript" th:src="@{/static/js/loader.js}"></script>-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 </head>
 <body class="sb-nav-fixed" >
-<div id="layoutSidenav" th:fragment="Thongke">
-        <div th:replace="admin/fragment/navigation:: menu"></div>
+<div id="layoutSidenav">
+<!--        <div th:replace="admin/fragment/navigation:: menu"></div>-->
     <div><h2>Thống kê</h2></div>
     <div id="layoutSidenav_content">
         <main>
@@ -72,6 +73,6 @@
 <script type="text/javascript" th:src="@{/static/sale_report_by_date.js}"></script>
 <script type="text/javascript" th:src="@{/static/sales_report_by_category.js}"></script>
 <script type="text/javascript" th:src="@{/static/sales_report_by_product.js}"></script>
-<script src="../../static/js/bootstrap.min.js"></script>
+<script type="text/javascript" th:src="@{/static/js/bootstrap.min.js}"></script>
 </body>
 </html>

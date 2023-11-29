@@ -1,6 +1,6 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org"
-th:replace="~{/layout/index :: dynamic(~{::main})}">
+th:replace="~{/Layout/index :: dynamic(~{::main})}">
 <head>
 
 </head>
@@ -28,19 +28,23 @@ th:replace="~{/layout/index :: dynamic(~{::main})}">
                     </li>
                 </ul>
             </div>
+            <form id="addToCartForm" method="post" action="/product/addToCart">
+                <input type="hidden" name="chiTietSanPhamId" th:value="${item.idChiTietSanPham}">
+                <button type="submit" class="product__btn-cart">Thêm vào giỏ hàng</button>
+            </form>
 
             <form method="POST">
                 <div class="product" th:object="${item}">
                     <div class="product__left">
                         <div class="media__thumb">
-                            <div class="media__thumb-img" th:style="'background-image: url(' + '/static/assets/img/' + *{danhSachHinhAnh[0].duongDan} + ');'"></div>
+                            <div class="media__thumb-img" th:style="'background-image: url(' + '/static/image/' + *{danhSachHinhAnh[0].duongDan} + ');'"></div>
 
 
                         </div>
                         <div class="media__select" >
                             <div th:if="*{danhSachHinhAnh.size() > 1}" >
                                 <!-- Truy cập phần tử thứ hai -->
-                                    <img th:src="@{|/static/assets/img/*{danhSachHinhAnh[1].duongDan}|}"
+                                    <img th:src="@{|/static/image/*{danhSachHinhAnh[1].duongDan}|}"
                                          class="media__select-img">
 
                             </div>
@@ -50,7 +54,7 @@ th:replace="~{/layout/index :: dynamic(~{::main})}">
                         <div class="media__select" >
                             <div th:if="*{danhSachHinhAnh.size() > 2}" >
                                 <!-- Truy cập phần tử thứ hai -->
-                                <img th:src="@{|/static/assets/img/*{danhSachHinhAnh[2].duongDan}|}"
+                                <img th:src="@{|/static/image/*{danhSachHinhAnh[2].duongDan}|}"
                                      class="media__select-img">
 
                             </div>
@@ -60,7 +64,7 @@ th:replace="~{/layout/index :: dynamic(~{::main})}">
                         <div class="media__select" >
                             <div th:if="*{danhSachHinhAnh.size() > 3}" >
                                 <!-- Truy cập phần tử thứ hai -->
-                                <img th:src="@{|/static/assets/img/*{danhSachHinhAnh[3].duongDan}|}"
+                                <img th:src="@{|/static/image/*{danhSachHinhAnh[3].duongDan}|}"
                                      class="media__select-img">
 
                             </div>
@@ -70,23 +74,18 @@ th:replace="~{/layout/index :: dynamic(~{::main})}">
                         <div class="media__select" >
                             <div th:if="*{danhSachHinhAnh.size() > 4}" >
                                 <!-- Truy cập phần tử thứ hai -->
-                                <img th:src="@{|/static/assets/img/*{danhSachHinhAnh[4].duongDan}|}"
+                                <img th:src="@{|/static/image/*{danhSachHinhAnh[4].duongDan}|}"
                                      class="media__select-img">
 
                             </div>
                             <img th:unless="*{danhSachHinhAnh.size() > 4}"
-                                 src="/static/assets/img/1681582211_nu6a.jpg" alt="ten san pham" class="media__select-img">
+                                 src="/static/image/1681582211_nu6a.jpg" alt="ten san pham" class="media__select-img">
                         </div>
                     </div>
                     <div class="product__right">
                         <h1 class="product__name"  th:text="*{tenSanPham}"></h1>
                         <div class="product__price">
                             <p class="product__price-base" th:text="*{giaBan}"></p>
-                            <p class="product__price-sale">31230000</p>
-                            <div class="sale">
-                                <span class="sale__number">10</span>
-                                <i class="fa-light fa-percent sale__icon"></i>
-                            </div>
                         </div>
                         <div class="product__color">
                             <div class="product__color-header">
@@ -221,7 +220,7 @@ th:replace="~{/layout/index :: dynamic(~{::main})}">
                         <div class="grid__column-4-12">
 
                             <div class="other__product" th:each="p:${item.loaiSanPham.chiTietSanPham}">
-                                <div class="other__product-img"  th:href="@{|/product/detail/${p.idChiTietSanPham}|}" th:style="'background-image: url(' + '/static/assets/img/' + ${p.danhSachHinhAnh[0].duongDan} + ');'"></div>
+                                <div class="other__product-img"  th:href="@{|/product/detail/${p.idChiTietSanPham}|}" th:style="'background-image: url(' + '/static/image/' + ${p.danhSachHinhAnh[0].duongDan} + ');'"></div>
                                 <div class="other__product-content">
                                     <div class="other__product-header">
                                         <h3 class="other__product-name">  [[${p.tenSanPham}]]</h3>
@@ -253,4 +252,6 @@ th:replace="~{/layout/index :: dynamic(~{::main})}">
 </main>
 
 </body>
+<!---->
+
 </html>

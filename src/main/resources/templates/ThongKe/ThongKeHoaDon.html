@@ -6,139 +6,142 @@
 </head>
 <body>
 <div th:fragment="reportStatus">
-<div class="row justify-content-center">
-    <div class="col-sm-2">
-        <div class="card">
-            <div class="card-header">
-                <b>Tổng đơn hàng</b>
-            </div>
-            <div class="card-body">
-                <span class="h3">[[${sumAll}]]</span>
+    <div class="row justify-content-center">
+        <div class="col-sm-2">
+            <div class="card">
+                <div class="card-header">
+                    <b>Tổng đơn hàng</b>
+                </div>
+                <div class="card-body">
+                    <span class="h3">[[${sumAll}]]</span>
+                </div>
             </div>
         </div>
-    </div>
 
-    <div class="col-sm-3">
-        <div class="card">
-            <div class="card-header">
-                <b>Đơn hàng hoàn thành</b>
-            </div>
-            <div class="card-body">
-                <span class="h3">[[${sumDHDone}]]</span>
+        <div class="col-sm-3">
+            <div class="card">
+                <div class="card-header">
+                    <b>Đơn hàng hoàn thành</b>
+                </div>
+                <div class="card-body">
+                    <span class="h3">[[${sumDHDone}]]</span>
+                </div>
             </div>
         </div>
-    </div>
 
-    <div class="col-sm-3">
-        <div class="card">
-            <div class="card-header">
-                <b>Đơn hàng đang giao</b>
-            </div>
-            <div class="card-body">
-                <span class="h3">[[${sumDHShipping}]]</span>
+        <div class="col-sm-3">
+            <div class="card">
+                <div class="card-header">
+                    <b>Đơn hàng đang giao</b>
+                </div>
+                <div class="card-body">
+                    <span class="h3">[[${sumDHShipping}]]</span>
+                </div>
             </div>
         </div>
-    </div>
 
-    <div class="col-sm-2">
-        <div class="card">
-            <div class="card-header">
-                <b>Đơn hàng đã hủy</b>
-            </div>
-            <div class="card-body">
-                <span class="h3">[[${sumDHCancel}]]</span>
+        <div class="col-sm-2">
+            <div class="card">
+                <div class="card-header">
+                    <b>Đơn hàng đã hủy</b>
+                </div>
+                <div class="card-body">
+                    <span class="h3">[[${sumDHCancel}]]</span>
+                </div>
             </div>
         </div>
-    </div>
 
-    <div class="col-sm-2">
-        <div class="card">
-            <div class="card-header">
-                <b>Đơn hàng đã hoàn trả</b>
-            </div>
-            <div class="card-body">
-                <span class="h3">[[${sumDHReturn}]]</span>
+        <div class="col-sm-2">
+            <div class="card">
+                <div class="card-header">
+                    <b>Đơn hàng đã hoàn trả</b>
+                </div>
+                <div class="card-body">
+                    <span class="h3">[[${sumDHReturn}]]</span>
+                </div>
             </div>
         </div>
     </div>
-</div>
-<div style="display: flex;
-    justify-content: space-between;">
-    <form th:action="@{/thong-ke/hoa-don/1}" class="form-inline m-3">
-        <div class="d-flex align-items-center">
-            <input type="hidden" name="sortField" th:value="${sortField}"/>
-            <input type="hidden" name="sortDir" th:value="${sortDir}"/>
-            <label class="sr-only">Tìm Kiếm</label>
-            <input style="width: 250px; margin-right: 10px" type="search" name="keyword" th:value="${keyword}"
-                   placeholder="tìm kiếm" class=" form-control"/>
-            <input style="margin-right: 10px" type="submit" value="Search" class="btn btn-primary ml-2"/>
-            <input type="button" value="Clear" class="btn btn-secondary ml-2" onclick="clearFilter()"/>
-        </div>
-    </form>
     <div style="display: flex;
     justify-content: space-between;">
-    <select style=" height: 42px; width: 219px; margin-top: 15px;border-radius: 5px"
-            onchange="location ='/thong-ke/hoa-don/' + this.value + '/1?sortField=ngayTao&sortDir=desc&keyword=';">
-        <option value="10">tất cả</option>
-        <option th:each="statusValue : ${statusValues}"
-                th:value="${statusValue.value}"
-                th:text="${statusValue.label}"
-                th:selected="${statusValue.value == selectedStatus}"></option>
-    </select>
+        <form th:action="@{/thong-ke/hoa-don/1}" class="form-inline m-3">
+            <div class="d-flex align-items-center">
+                <input type="hidden" name="sortField" th:value="${sortField}"/>
+                <input type="hidden" name="sortDir" th:value="${sortDir}"/>
+                <label class="sr-only">Tìm Kiếm</label>
+                <input style="width: 250px; margin-right: 10px" type="search" name="keyword" th:value="${keyword}"
+                       placeholder="tìm kiếm" class=" form-control"/>
+                <input style="margin-right: 10px" type="submit" value="Search" class="btn btn-primary ml-2"/>
+                <input type="button" value="Clear" class="btn btn-secondary ml-2" onclick="clearFilter()"/>
+            </div>
+        </form>
     </div>
-    <div class="full-details">
-        <table class="table table-bordered table-striped table-hover table-responsive-xl">
-            <tr>
-                <th>
-                    mã hóa đơn
-                </th>
-                <th>
-                    tên nhân viên
-                </th>
-                <th>
-                    Tên khách hàng
-                </th>
-                <th>
-                    trạng thái đơn
-                </th>
-                <th>
-                    phí vận chuyển
-                </th>
-                <th>
-                    phương thức thanh toán
-                </th>
-                <th>
-                    ngày tạo
-                </th>
-                <th>chuc nang</th>
-            </tr>
-            <tr th:each="dh :${listDonHang}">
-                <td style="width: 100px">[[${dh.maHoaDon}]]</td>
-                <td>[[${dh.nhanVien == null ? "" : dh.nhanVien.hoTen}]]</td>
-                <td>[[${dh.khachHang.ten}]]</td>
-                <td>[[${dh.trangThai == 0 ? "Chờ giao hàng": dh.trangThai == 1 ? "Đang chuẩn bị":
-                    dh.trangThai == 2 ? "Đang giao hàng": dh.trangThai == 3 ? "Hoàn thành":
-                    dh.trangThai == 4 ? "đã hủy": dh.trangThai == 5 ? "Yêu cầu hoàn trả":
-                    "Đã hoàn trả"}]]
-                </td>
-                <td>[[${dh.tienShipHang}]]
-                <td>[[${dh.hTTT == 0 ? "trả sau" : dh.hTTT == 1 ? "VN Pay" : ""}]]</td>
-                <td>[[${dh.ngayTao}]]</td>
-                <td>
-<!--                    <a class="btn btn-outline-danger"-->
-<!--                       th:href="@{/admin/hoa-don-chi-tiet/search/{id}(id=${dh.idHoaDon})}">-->
-<!--                                                                Xem-->
-<!--                    </a>-->
-                </td>
-            </tr>
-        </table>
+    <div style="display: flex;
+    justify-content: space-between;">
+        <select style=" height: 42px; width: 219px; margin-top: 15px;border-radius: 5px"
+                onchange="location ='/thong-ke/hoa-don/' + this.value + '/1?sortField=ngayTao&sortDir=desc&keyword=';">
+            <option value="10">tất cả</option>
+            <option th:each="statusValue : ${statusValues}"
+                    th:value="${statusValue.value}"
+                    th:text="${statusValue.label}"
+                    th:selected="${statusValue.value == selectedStatus}"></option>
+        </select>
     </div>
-</div>
-<script type="text/javascript">
-    function clearFilter() {
-        window.location = "[[@{/thong-ke/hoa-don}]]";
-    }
-</script>
+    <div style="display: flex; margin-top: 2em;
+    justify-content: space-between;">
+        <div class="full-details">
+            <table class="table table-bordered table-striped table-hover table-responsive-xl">
+                <tr>
+                    <th>
+                        mã hóa đơn
+                    </th>
+                    <th>
+                        tên nhân viên
+                    </th>
+                    <th>
+                        Tên khách hàng
+                    </th>
+                    <th>
+                        trạng thái đơn
+                    </th>
+                    <th>
+                        phí vận chuyển
+                    </th>
+                    <th>
+                        phương thức thanh toán
+                    </th>
+                    <th>
+                        ngày tạo
+                    </th>
+                    <th>chuc nang</th>
+                </tr>
+                <tr th:each="dh :${listDonHang}">
+                    <td style="width: 100px">[[${dh.maHoaDon}]]</td>
+                    <td>[[${dh.nhanVien == null ? "" : dh.nhanVien.hoTen}]]</td>
+                    <td>[[${dh.khachHang.ten}]]</td>
+                    <td>[[${dh.trangThai == 0 ? "Chờ giao hàng": dh.trangThai == 1 ? "Đang chuẩn bị":
+                        dh.trangThai == 2 ? "Đang giao hàng": dh.trangThai == 3 ? "Hoàn thành":
+                        dh.trangThai == 4 ? "đã hủy": dh.trangThai == 5 ? "Yêu cầu hoàn trả":
+                        "Đã hoàn trả"}]]
+                    </td>
+                    <td>[[${dh.tienShipHang}]]
+                    <td>[[${dh.hTTT == 0 ? "trả sau" : dh.hTTT == 1 ? "VN Pay" : ""}]]</td>
+                    <td>[[${dh.ngayTao}]]</td>
+                    <td>
+                        <!--                    <a class="btn btn-outline-danger"-->
+                        <!--                       th:href="@{/admin/hoa-don-chi-tiet/search/{id}(id=${dh.idHoaDon})}">-->
+                        <!--                                                                Xem-->
+                        <!--                    </a>-->
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <script type="text/javascript">
+        function clearFilter() {
+            window.location = "[[@{/thong-ke/hoa-don}]]";
+        }
+    </script>
 </div>
 </script>
 </body>

@@ -1,6 +1,6 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org"
-      th:replace="~{/layout/index :: dynamic(~{::main})}">
+      th:replace="~{/Layout/index :: dynamic(~{::main})}">
 
 <body>
 <main class="row">
@@ -9,9 +9,32 @@
             <div class="slider">
                 <div class="slider__list">
                     <div class="slider__item">
-                        <a href="" class="slider__link">
-                            <img src="/static/assets/img/slider.jpg" alt="" class="slider__img">
-                        </a>
+                        <div id="carouselExampleIndicators" class="carousel slide">
+                            <div class="carousel-indicators">
+                                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                            </div>
+                            <div class="carousel-inner">
+                                <div class="carousel-item active">
+                                    <img src="..." class="d-block w-100" alt="...">
+                                </div>
+                                <div class="carousel-item">
+                                    <img src="..." class="d-block w-100" alt="...">
+                                </div>
+                                <div class="carousel-item">
+                                    <img src="..." class="d-block w-100" alt="...">
+                                </div>
+                            </div>
+                            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Previous</span>
+                            </button>
+                            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Next</span>
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -24,12 +47,6 @@
                                 <div class="content__actions-item">
                                     <div class="content__actions-btn">Tất cả</div>
                                 </div>
-                                <div class="content__actions-item">
-                                    <div class="content__actions-btn">Nam</div>
-                                </div>
-                                <div class="content__actions-item">
-                                    <div class="content__actions-btn">Nữ</div>
-                                </div>
                             </div>
                         </div>
                         <div class="grid__row">
@@ -39,7 +56,7 @@
                                     <div class="product__wrapper">
                                         <a th:href="@{|/product/detail/${chiTietSanPham.idChiTietSanPham}|}"
                                            class="product__link">
-                                            <img th:src="@{|/static/assets/img/${chiTietSanPham.danhSachHinhAnh[0].duongDan}|}"
+                                            <img th:src="@{|/static/image/${chiTietSanPham.danhSachHinhAnh[0].duongDan}|}"
                                                  class="product__img">
                                         </a>
 
@@ -48,7 +65,7 @@
                                             <!-- Truy cập phần tử thứ hai -->
                                             <a th:href="@{|/product/detail/${chiTietSanPham.idChiTietSanPham}|}"
                                                class="product__link">
-                                                <img th:src="@{|/static/assets/img/${chiTietSanPham.danhSachHinhAnh[1].duongDan}|}"
+                                                <img th:src="@{|/static/image/${chiTietSanPham.danhSachHinhAnh[1].duongDan}|}"
                                                      class="product__img">
                                             </a>
                                         </div>
@@ -86,12 +103,6 @@
                                 <div class="content__actions-item">
                                     <div class="content__actions-btn">Tất cả</div>
                                 </div>
-                                <div class="content__actions-item">
-                                    <div class="content__actions-btn">Nam</div>
-                                </div>
-                                <div class="content__actions-item">
-                                    <div class="content__actions-btn">Nữ</div>
-                                </div>
                             </div>
                         </div>
                         <div class="grid__row">
@@ -128,14 +139,10 @@
                                         </div>
                                     </div>
                                 </div>
-
                             </div>
-
-
                         </div>
                         <a href="" class="btn btn--primary content__show">Xem Tất Cả</a>
                     </div>
-
                 </div>
             </div>
         </div>

@@ -11,7 +11,7 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.List;
 import java.util.Optional;
 
@@ -38,7 +38,7 @@ public class GioHangChiTietService {
             // Giỏ hàng chi tiết đã tồn tại, tăng số lượng lên 1
             existingCartItem.setSoLuong(existingCartItem.getSoLuong() + 1);
             existingCartItem.setTrangThai(true);
-            existingCartItem.setTongGia(BigDecimal.valueOf(existingCartItem.getSoLuong()).multiply(chiTietSanPham.getGiaBan()));
+            existingCartItem.setTongGia(BigInteger.valueOf(existingCartItem.getSoLuong()).multiply(chiTietSanPham.getGiaBan()));
             gioHangChiTietRepository.save(existingCartItem);
         } else {
             if (gioHang != null && chiTietSanPham != null) {
@@ -49,7 +49,7 @@ public class GioHangChiTietService {
                 newCartItem.setSoLuong(1);
                 newCartItem.setTrangThai(true);
                 // Thực hiện tính toán tổng giá và các hoạt động khác
-                newCartItem.setTongGia(BigDecimal.valueOf(newCartItem.getSoLuong()).multiply(chiTietSanPham.getGiaBan()));
+                newCartItem.setTongGia(BigInteger.valueOf(newCartItem.getSoLuong()).multiply(chiTietSanPham.getGiaBan()));
                 // Lưu đối tượng GioHangChiTiet vào cơ sở dữ liệu
                 gioHangChiTietRepository.save(newCartItem);
             } else {// Xử lý trường hợp không tìm thấy GioHang hoặc ChiTietSanPham
@@ -66,7 +66,7 @@ public class GioHangChiTietService {
         GioHangChiTiet existingCartItem = gioHangChiTietRepository.findById(gioHangChiTietId).orElse(null);
         if (existingCartItem != null) {
             existingCartItem.setSoLuong(soLuong);
-            existingCartItem.setTongGia(BigDecimal.valueOf(existingCartItem.getSoLuong()).multiply(chiTietSanPham.getGiaBan()));
+            existingCartItem.setTongGia(BigInteger.valueOf(existingCartItem.getSoLuong()).multiply(chiTietSanPham.getGiaBan()));
             gioHangChiTietRepository.save(existingCartItem);
         }
     }
@@ -78,20 +78,29 @@ public class GioHangChiTietService {
             gioHangChiTiet.setTrangThai(false);
             return gioHangChiTietRepository.save(gioHangChiTiet);
         } else {
-            // Xử lý trường hợp giỏ hàng chi tiết là null
+
             return null;
         }
     }
 
     public void deleteCartItem(Integer gioHangChiTietId) {
         Optional<GioHangChiTiet> gioHangChiTietOptional = gioHangChiTietRepository.findById(gioHangChiTietId);
-
         if (gioHangChiTietOptional.isPresent()) {
             GioHangChiTiet gioHangChiTiet = gioHangChiTietOptional.get();
             gioHangChiTietRepository.delete(gioHangChiTiet);
         } else {
-            // Xử lý trường hợp không tìm thấy giỏ hàng chi tiết
         }
     }
 
+    public Optional<GioHangChiTiet> getGioHangChiTiet(Integer idGHCT){
+        return gioHangChiTietRepository.findById(idGHCT);
+    }
+
+    public List<Object[]> findDetailsById(List<Integer> listId){
+        return gioHangChiTietRepository.findDetailsById(listId);
+    }
+
+    public List<GioHangChiTiet> findByIds(List<Integer> listId){
+        return gioHangChiTietRepository.findByIds(listId);
+    }
 }

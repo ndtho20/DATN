@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.List;
 
 @Service
@@ -42,7 +43,7 @@ public class ChiTietSanPhamService {
         int idNSX = item.getNsx().getIdNSX();
         int idMauSac = item.getMauSac().getIdMauSac();
         int idPhongCach = item.getPhongCach().getIdPhongCach();
-        BigDecimal giaBan = item.getGiaBan();
+        BigInteger giaBan = item.getGiaBan();
         int idLoaiSanPham = item.getLoaiSanPham().getIdSanPham();
         String tenSanPham = item.getTenSanPham();
 

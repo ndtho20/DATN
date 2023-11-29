@@ -1,12 +1,11 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org"
-      th:replace="~{/layout/index :: dynamic(~{::main})}">
+      th:replace="~{/Layout/index :: dynamic(~{::main})}">
 
 <body>
 <main class="row">
     <div class="container">
         <div class="grid">
-
             <div class="grid__row container__wrapper">
                 <div class="body">
                     <div class="content">
@@ -26,7 +25,7 @@
                                     <div class="product__wrapper">
                                         <a th:href="@{|/product/detail/${chiTietSanPham.idChiTietSanPham}|}"
                                            class="product__link">
-                                            <img th:src="@{|/static/assets/img/${chiTietSanPham.danhSachHinhAnh[0].duongDan}|}"
+                                            <img th:src="@{|/static/image/${chiTietSanPham.danhSachHinhAnh[0].duongDan}|}"
                                                  class="product__img">
                                         </a>
 
@@ -35,7 +34,7 @@
                                             <!-- Truy cập phần tử thứ hai -->
                                             <a th:href="@{|/product/detail/${chiTietSanPham.idChiTietSanPham}|}"
                                                class="product__link">
-                                                <img th:src="@{|/static/assets/img/${chiTietSanPham.danhSachHinhAnh[1].duongDan}|}"
+                                                <img th:src="@{|/static/image/${chiTietSanPham.danhSachHinhAnh[1].duongDan}|}"
                                                      class="product__img">
                                             </a>
                                         </div>
@@ -63,8 +62,6 @@
                                     </div>
                                 </div>
                             </div>
-
-
                         </div>
                         <a href="" class="btn btn--primary content__show">Xem Tất Cả</a>
                     </div>

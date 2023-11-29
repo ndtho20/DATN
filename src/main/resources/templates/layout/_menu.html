@@ -7,13 +7,14 @@
             <div class="header__between">
                 <ul class="header__between-list">
                     <li class="header__between-item">
-                        <a class="header__between-link" href="/product/trangchu">Trang chủ</a>
+                        <a class="header__between-link" href="/home">Trang chủ</a>
 
                     </li>
                     <li class="header__between-item">
                         <a class="header__between-link" href="/product/list">Sản phẩm</a>
                     </li>
-                    <li class="header__between-item"><a href="/product/baohanh" class="header__between-link">Bảo hành và đổi trả</a></li>
+                    <li class="header__between-item"><a href="/product/baohanh" class="header__between-link">Bảo hành và
+                        đổi trả</a></li>
                     <li class="header__between-item"><a href="" class="header__between-link">Liên hệ</a></li>
                     <li class="header__between-item"><a href="" class="header__between-link">Về chúng tôi</a></li>
                 </ul>
@@ -22,7 +23,8 @@
                 <div class="header__right-search">
                     <div class="header__right-wrapper">
                         <form action="/website__mvc/search" method="POST">
-                            <input type="text" name="search" class="header__right-input" placeholder="Nhập từ tìm kiếm" value="">
+                            <input type="text" name="search" class="header__right-input" placeholder="Nhập từ tìm kiếm"
+                                   value="">
                             <button type="submit" class="header__right-btn" value="submit">
                                 <i class="fa-solid fa-magnifying-glass icon__btn"></i>
                             </button>
@@ -30,9 +32,10 @@
                     </div>
                 </div>
                 <div class="header__right-cart">
-                    <i class="fa-solid fa-cart-shopping header__icon header__cart-icon"></i>
-                    <span class="header__cart-value">
-                                 </span>
+                    <a href="/user/gio-hang">
+                        <i class="fa-solid fa-cart-shopping header__icon header__cart-icon"></i>
+                        <span class="header__cart-value"></span>
+                    </a>
                 </div>
                 <div class="header__right-user">
                     <a href="/website__mvc/customers/login" class="header__right-user--link">
@@ -65,7 +68,7 @@
             <div class="empty">
                 <img src="'.Base_URL.''.'/public/assets/img/cartisempty.png'.'" alt="Ảnh Trống" class="empty__img">
                 <h3 class="empty__header"> Giỏ Hàng Trống </h3>
-                <p class="empty__label"> Thêm sản phẩm vào giở hàng  </p>
+                <p class="empty__label"> Thêm sản phẩm vào giở hàng </p>
             </div>
             <div class="modals__product">
                 <div class="modals__product-left">
@@ -94,7 +97,8 @@
                                         <i class="fa-solid fa-minus product__quantity-icon"></i>
                                     </div>
                                 </div>
-                                <input id="quantityInput" type="number" min="1" value="" name="quantity" size="10" class="product__quantity-input quantity__input--s quantity__size--s cartQuantity">
+                                <input id="quantityInput" type="number" min="1" value="" name="quantity" size="10"
+                                       class="product__quantity-input quantity__input--s quantity__size--s cartQuantity">
                                 <div id="stepUp" class="product__quantity-plus quantity__btn--s">
                                     <div class="product__quantity-btn quantity__size--s">
                                         <i class="fa-solid fa-plus product__quantity-icon"></i>

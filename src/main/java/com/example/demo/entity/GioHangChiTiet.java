@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
+import java.math.BigInteger;
 
 @Data
 @AllArgsConstructor
@@ -29,8 +30,8 @@ public class GioHangChiTiet {
     @Column(name = "soluong")
     private Integer soLuong;
 
-    @Column(name = "tonggia", precision = 18, scale = 2)
-    private BigDecimal tongGia;
+    @Column(name = "tonggia", scale = 0)
+    private BigInteger tongGia;
 
     @Column(name = "trangthai")
     private boolean trangThai;

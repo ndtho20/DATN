@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.Date;
 
 @Data
@@ -51,7 +52,7 @@ public class HoaDon {
     private boolean hTTT;
 
     @Column(name = "tongtien")
-    private BigDecimal tongTien;
+    private BigInteger tongTien;
 
     @Column(name = "diachidonhang")
     private String diaChiDonHang;
@@ -63,7 +64,7 @@ public class HoaDon {
     @ManyToOne
     @JoinColumn(name = "idkhachhang")
     private KhachHang khachHang;
-    public HoaDon(Integer idHoaDon, Date ngayTao, BigDecimal tongTien, Double tienShipHang, Integer trangThai) {
+    public HoaDon(Integer idHoaDon, Date ngayTao, BigInteger tongTien, Double tienShipHang, Integer trangThai) {
         this.idHoaDon = idHoaDon;
         this.ngayTao = ngayTao;
         this.tongTien = tongTien;

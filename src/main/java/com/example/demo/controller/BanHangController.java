@@ -11,7 +11,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.math.BigDecimal;
+
+import java.math.BigInteger;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Random;
@@ -62,7 +63,7 @@ public class BanHangController {
             model.addAttribute("listGHCT", gioHangChiTietList);
             session.setAttribute("listGHCT", gioHangChiTietList);
         }
-        BigDecimal tongTien = gioHangService.calculateTotalPriceOfGioHang(khachhang.getGioHang().getIdGioHang());
+        BigInteger tongTien = gioHangService.calculateTotalPriceOfGioHang(khachhang.getGioHang().getIdGioHang());
         model.addAttribute("tongTien", tongTien);
         String maHD = (String) session.getAttribute("maHD");
         if (maHD == null) {
@@ -76,7 +77,6 @@ public class BanHangController {
         model.addAttribute("ngayTao", ngayHienTai);
         return "BanHang/Index";
     }
-
 
     private String generateRandomMaHoaDon() {
         // Tạo số ngẫu nhiên 10 chữ số
