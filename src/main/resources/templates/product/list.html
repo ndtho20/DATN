@@ -1,0 +1,77 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{/Layout/index :: dynamic(~{::main})}">
+
+<body>
+<main class="row">
+    <div class="container">
+        <div class="grid">
+            <div class="grid__row container__wrapper">
+                <div class="body">
+                    <div class="content">
+                        <div class="content__header">
+                            <div class="content__actions">
+                                <div class="content__actions-item" th:each="c:${cates}">
+                                    <div class="content__actions-btn" th:href="@{|/product/list?cid=${c.idLoaiSanPham}|}">[[${c.ten}]]</div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="grid__row">
+
+                            <div class="grid__column-4-12" th:each="chiTietSanPham : ${items}">
+                                <div class="product">
+                                    <div class="product__wrapper">
+                                        <a th:href="@{|/product/detail/${chiTietSanPham.idChiTietSanPham}|}"
+                                           class="product__link">
+                                            <img th:src="@{|/static/image/${chiTietSanPham.danhSachHinhAnh[0].duongDan}|}"
+                                                 class="product__img">
+                                        </a>
+
+                                        <!-- Kiểm tra nếu danhSachHinhAnh có ít nhất 2 phần tử -->
+                                        <div th:if="${chiTietSanPham.danhSachHinhAnh.size() > 1}" class="img_hover">
+                                            <!-- Truy cập phần tử thứ hai -->
+                                            <a th:href="@{|/product/detail/${chiTietSanPham.idChiTietSanPham}|}"
+                                               class="product__link">
+                                                <img th:src="@{|/static/image/${chiTietSanPham.danhSachHinhAnh[1].duongDan}|}"
+                                                     class="product__img">
+                                            </a>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="product__content">
+                                        <p class="product__name" th:text="${chiTietSanPham.tenSanPham}"></p>
+                                        <div class="product__detail">
+                                            <div class="product__price">
+                                                <span class="product__price-de"
+                                                      th:text="${chiTietSanPham.giaBan}"></span>
+                                                <span class="product__price-sale"></span>
+                                            </div>
+                                            <div class="product__action">
+                                                <div class="product__wishlist">
+                                                    <!-- <i class="fa-regular fa-heart"></i> -->
+                                                    <i class="fa-solid fa-heart"></i>
+                                                </div>
+                                                <div class="product__cart">
+                                                    <i class="fa-solid fa-cart-shopping"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="" class="btn btn--primary content__show">Xem Tất Cả</a>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+</body>
+</html>

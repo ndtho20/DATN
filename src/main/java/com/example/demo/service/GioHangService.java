@@ -1,8 +1,10 @@
 package com.example.demo.service;
 
 
+import com.example.demo.entity.GioHang;
 import com.example.demo.entity.GioHangChiTiet;
 import com.example.demo.entity.KhachHang;
+import com.example.demo.repository.GioHangChiTietRepository;
 import com.example.demo.repository.GioHangRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,7 +19,7 @@ public class GioHangService {
     @Autowired
     private GioHangChiTietService gioHangChiTietService;
     @Autowired
-    private GioHangRepository gioHangRepository;
+    private GioHangChiTietRepository gioHangChiTietRepository;
 
     public BigInteger calculateTotalPriceOfGioHang(int gioHangId) {
         List<GioHangChiTiet> gioHangChiTietList = gioHangChiTietService.getGioHangChiTietByGioHang(gioHangId);
@@ -31,7 +33,7 @@ public class GioHangService {
     }
 
     public List<Object[]> findGioHangDetailsByKhachHang(KhachHang khachHang){
-        return gioHangRepository.findGioHangDetailsByKhachHang(khachHang);
-    };
+        return gioHangChiTietRepository.findGioHangDetailsByKhachHang(khachHang);
+    }
 
 }

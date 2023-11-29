@@ -5,7 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.math.BigDecimal;
+
+import java.util.List;
 import java.math.BigInteger;
 
 @Data
@@ -54,8 +55,11 @@ public class ChiTietSanPham {
 
     @Column(name = "trangthai")
     private Boolean trangThai;
+
     public Integer getIdLoaiSanPham() {
         return loaiSanPham != null ? loaiSanPham.getIdSanPham() : null;
     }
 
+    @OneToMany(mappedBy = "chiTietSanPham")
+    private List<HinhAnh> danhSachHinhAnh;
 }

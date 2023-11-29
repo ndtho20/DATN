@@ -78,19 +78,17 @@ public class GioHangChiTietService {
             gioHangChiTiet.setTrangThai(false);
             return gioHangChiTietRepository.save(gioHangChiTiet);
         } else {
-            // Xử lý trường hợp giỏ hàng chi tiết là null
+
             return null;
         }
     }
 
     public void deleteCartItem(Integer gioHangChiTietId) {
         Optional<GioHangChiTiet> gioHangChiTietOptional = gioHangChiTietRepository.findById(gioHangChiTietId);
-
         if (gioHangChiTietOptional.isPresent()) {
             GioHangChiTiet gioHangChiTiet = gioHangChiTietOptional.get();
             gioHangChiTietRepository.delete(gioHangChiTiet);
         } else {
-            // Xử lý trường hợp không tìm thấy giỏ hàng chi tiết
         }
     }
 

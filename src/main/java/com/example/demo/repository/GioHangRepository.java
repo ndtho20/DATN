@@ -11,11 +11,5 @@ import java.util.List;
 @Repository
 public interface GioHangRepository extends JpaRepository<GioHang, Integer> {
 
-    @Query("SELECT gct.idGioHangChiTiet,c.tenSanPham, c.giaBan, gct.soLuong, gct.tongGia " +
-            "FROM GioHangChiTiet gct " +
-            "JOIN gct.gioHang gh " +
-            "JOIN gct.chiTietSanPham c " +
-            "WHERE gh.khachHang = :khachHang")
-    List<Object[]> findGioHangDetailsByKhachHang(KhachHang khachHang);
 
 }

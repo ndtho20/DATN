@@ -24,7 +24,7 @@ public class CustomAuthSucessHandler implements AuthenticationSuccessHandler {
         if (roles.contains("ROLE_ADMIN")) {
             response.sendRedirect("/admin/ban-hang");
         } else {
-            response.sendRedirect("/");
+            response.sendRedirect("/home");
         }
 
     }

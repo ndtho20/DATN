@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -30,5 +31,8 @@ public class LoaiSanPham {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Column(name = "ngaytao")
     private Date ngayTao;
+    @OneToMany(mappedBy = "loaiSanPham")
+    private List<ChiTietSanPham> chiTietSanPham;
+
 
 }

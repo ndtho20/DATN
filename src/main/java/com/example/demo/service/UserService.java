@@ -1,6 +1,8 @@
 package com.example.demo.service;
 
+import com.example.demo.entity.GioHang;
 import com.example.demo.entity.KhachHang;
+import com.example.demo.repository.GioHangRepository;
 import com.example.demo.repository.KhachHangRepository;
 import jakarta.mail.internet.MimeMessage;
 import jakarta.servlet.http.HttpSession;
@@ -19,7 +21,8 @@ import java.util.UUID;
 public class UserService {
     @Autowired
     private KhachHangRepository khachHangRepository;
-
+    @Autowired
+    private GioHangRepository gioHangRepository;
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
 
@@ -28,13 +31,16 @@ public class UserService {
 
 
     public KhachHang saveUser(KhachHang user,String url) {
-
         String password = passwordEncoder.encode(user.getMatKhau());
         user.setMatKhau(password);
         user.setTrangThai(false);
         user.setNgayTao(new Date());
         user.setVerificationCode(UUID.randomUUID().toString());
         KhachHang newuser = khachHangRepository.save(user);
+        GioHang gioHang = new GioHang();
+        gioHang.setKhachHang(newuser);
+        gioHang.setNgayTao(new Date());
+        gioHangRepository.save(gioHang);
         if (newuser != null) {
             sendEmail(newuser, url);
         }

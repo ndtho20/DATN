@@ -42,7 +42,7 @@ public class PDFXuatHoaDonController {
     public String getXemHoaDon(Model model, @PathVariable(name = "idHoaDon") Integer idHoaDon) {
         List<Object[]> listHoaDon = repository.findXuatHoaDon(idHoaDon);
         model.addAttribute("listHoaDon", listHoaDon);
-        return "Admin/HoaDon/xem-hoa-don";
+        return "HoaDon/xem-hoa-don";
     }
 
 //    @RequestMapping(path = "/down/{idHoaDon}")

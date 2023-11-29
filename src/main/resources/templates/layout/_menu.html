@@ -1,0 +1,125 @@
+<header class="header">
+    <div class="grid header__content">
+        <div class="grid__row" style="align-items: center;">
+            <div class="header__left">
+                <img src="" alt="" class="header__left-logo">
+            </div>
+            <div class="header__between">
+                <ul class="header__between-list">
+                    <li class="header__between-item">
+                        <a class="header__between-link" href="/home">Trang chủ</a>
+
+                    </li>
+                    <li class="header__between-item">
+                        <a class="header__between-link" href="/product/list">Sản phẩm</a>
+                    </li>
+                    <li class="header__between-item"><a href="/product/baohanh" class="header__between-link">Bảo hành và
+                        đổi trả</a></li>
+                    <li class="header__between-item"><a href="" class="header__between-link">Liên hệ</a></li>
+                    <li class="header__between-item"><a href="" class="header__between-link">Về chúng tôi</a></li>
+                </ul>
+            </div>
+            <div class="header__right">
+                <div class="header__right-search">
+                    <div class="header__right-wrapper">
+                        <form action="/website__mvc/search" method="POST">
+                            <input type="text" name="search" class="header__right-input" placeholder="Nhập từ tìm kiếm"
+                                   value="">
+                            <button type="submit" class="header__right-btn" value="submit">
+                                <i class="fa-solid fa-magnifying-glass icon__btn"></i>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+                <div class="header__right-cart">
+                    <a href="/user/gio-hang">
+                        <i class="fa-solid fa-cart-shopping header__icon header__cart-icon"></i>
+                        <span class="header__cart-value"></span>
+                    </a>
+                </div>
+                <div class="header__right-user">
+                    <a href="/website__mvc/customers/login" class="header__right-user--link">
+                        <i class="fa-solid fa-user header__icon"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+</header>
+<div class="modals disabled">
+    <div class="modals__header">
+        <div class="modals__header-left">
+            <h3 class="modals__header-heading">
+                Giỏ Hàng
+            </h3>
+            <span class="modals__header-num">
+
+                        </span>
+        </div>
+        <div id="modals__bnt-close" class="modals__header-right">
+            <i class="fa-solid fa-xmark modals__header-icon"></i>
+        </div>
+    </div>
+    <div class="modals__body">
+        <div class="modals__product-wrap">
+            <div class="empty">
+                <img src="'.Base_URL.''.'/public/assets/img/cartisempty.png'.'" alt="Ảnh Trống" class="empty__img">
+                <h3 class="empty__header"> Giỏ Hàng Trống </h3>
+                <p class="empty__label"> Thêm sản phẩm vào giở hàng </p>
+            </div>
+            <div class="modals__product">
+                <div class="modals__product-left">
+                    <div class="modals__product-thumb" style="background-image: url('.->imgPro?>');"></div>
+                </div>
+                <div class="modals__product-right">
+                    <p class="modals__product-name"></p>
+                    <div class="modals__product-property">
+                        <div class="modals__product-color">
+                            <span class="modals__product-color--label">Màu sắc:</span>
+                            <span class="modals__product-color--name">
+                                        </span>
+                        </div>
+                        <div class="modals__product-size">
+                            <span class="modals__product-color--label">Size:</span>
+                            <span class="modals__product-color--name">
+
+                                        </span>
+                        </div>
+                    </div>
+                    <div class="modals__product-num">
+                        <div class=" modals__product-quantity">
+                            <div class="product__quantity-action quantity__s">
+                                <div id="stepDown" class="product__quantity-minus quantity__btn--s">
+                                    <div class="product__quantity-btn quantity__size--s">
+                                        <i class="fa-solid fa-minus product__quantity-icon"></i>
+                                    </div>
+                                </div>
+                                <input id="quantityInput" type="number" min="1" value="" name="quantity" size="10"
+                                       class="product__quantity-input quantity__input--s quantity__size--s cartQuantity">
+                                <div id="stepUp" class="product__quantity-plus quantity__btn--s">
+                                    <div class="product__quantity-btn quantity__size--s">
+                                        <i class="fa-solid fa-plus product__quantity-icon"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modals__product-price"></div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="modals__footer-total">
+            <span class="modals__footer-tag">Tạm tính:</span>
+            <span class="modals__footer-value"></span>
+        </div>
+    </div>
+    <div class="modals__footer">
+        <a href="/website__mvc/cart" class="modals__footer-btn">
+            <span class="modals__footer-text">Xem Giỏ Hàng</span>
+        </a>
+    </div>
+</div>

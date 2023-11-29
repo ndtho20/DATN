@@ -1,21 +1,54 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org"
-      th:fragment="layout(content)">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:fragment="layout(content)">
 <head>
-    <meta charset="ISO-8859-1">
-    <title>Insert title here</title>
-    <link
-            href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
-            rel="stylesheet"
-            integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
-            crossorigin="anonymous">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YAMET</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+          crossorigin="anonymous">
+    <style>
+        /* Custom styles go here */
+        body {
+            background-color: #f8f9fa;
+        }
+
+        .navbar {
+            background-color: #fcffe8;
+        }
+
+        .navbar-brand img {
+            width: 30px; /* Adjust the size of the image */
+            height: auto;
+            margin-right: 10px;
+        }
+
+        .navbar-brand span {
+            font-weight: bold;
+            color: white;
+        }
+
+        .navbar-toggler-icon {
+            background-color: white;
+        }
+
+        .nav-link {
+            color: white;
+        }
+
+        .nav-link:hover {
+            color: #ffc107; /* Change color on hover */
+        }
+    </style>
 </head>
 <body>
-<!-- start navbar -->
-
 <nav class="navbar navbar-expand-lg navbar-dark bg-success">
     <div class="container-fluid">
-        <a class="navbar-brand" href="#">User Management</a>
+        <!-- Replace "User Management" with an image -->
+        <a class="navbar-brand" href="#">
+            <img src="static/image/logo.png" alt="Logo">
+            <span>YAMET</span>
+        </a>
         <button class="navbar-toggler" type="button"
                 data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -23,26 +56,23 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <ul class="navbar-nav ms-auto">
                 <li class="nav-item"><a class="nav-link active"
-                                        aria-current="page" href="/">Home</a></li>
+                                        aria-current="page" href="">Home</a></li>
                 <th:block th:if="${user==NULL}">
                     <li class="nav-item"><a class="nav-link" href="register">Register</a></li>
                     <li class="nav-item"><a class="nav-link" href="login">Login</a></li>
                 </th:block>
-
             </ul>
         </div>
     </div>
 </nav>
 
-<!-- End Navbar -->
+<div class="container mt-3">
+    <div th:replace="${content}"></div>
+</div>
 
-
-<div th:replace="${content}"></div>
-
-<script
-        src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
         crossorigin="anonymous"></script>
 </body>

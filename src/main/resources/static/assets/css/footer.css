@@ -1,0 +1,39 @@
+.footer {
+    /* position: absolute; */
+    /* bottom: 0;
+    left: 0;
+    right: 0; */
+    background-color: var(--black-color);
+    height: 120px;
+    width: 100%;
+    padding: 8px;
+}
+
+.copy__rights {
+    color: var(--white-color);
+    text-align: center;
+    font-size: 1.6rem;
+    line-height: 2rem;
+}
+
+.contact {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.contact__left {
+    font-size: 1.6rem;
+    color: var(--white-color);
+    padding: 4px;
+}
+
+.contact__right {
+    font-size: 1.6rem;
+    
+    padding: 4px;
+}
+
+.contact__link {
+    text-decoration: none;
+    color: var(--white-color);
+}
