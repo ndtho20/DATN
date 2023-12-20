@@ -28,9 +28,6 @@ public class SizeController {
         model.addAttribute("pc", new Size());
         return "Size/Index";
 
-        model.addAttribute("s", new Size());
-        return "Size/index";
-
     }
 
     @PostMapping("/add")
