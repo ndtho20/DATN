@@ -62,29 +62,6 @@ public class ChitietSanPhamController {
     }
 
     @PostMapping("/add")
-
-    public String addChiTietSanPham(@Validated @ModelAttribute("chiTietSanPham") ChiTietSanPham chiTietSanPham, BindingResult result, Model model, RedirectAttributes redirectAttributes) {
-        chiTietSanPham.setTrangThai(true);
-        if (result.hasErrors()) {
-            List<ChiTietSanPham> dsHinhAnh = chiTietSanPhamService.getAll();
-            model.addAttribute("listLoaiSanPham", loaiSanPhamService.getAll());
-            model.addAttribute("listChatLieu", chatLieuService.getAll());
-            model.addAttribute("listSize", sizeService.getAll());
-            model.addAttribute("listPhongCach", phongCachService.getAll());
-            model.addAttribute("listNSX", nsxService.getAll());
-            model.addAttribute("listMauSac", mauSacService.getAll());
-
-
-            model.addAttribute("dsChiTietSanPham", dsHinhAnh);
-            model.addAttribute("chiTietSanPham", chiTietSanPham);
-            redirectAttributes.addFlashAttribute("dsChiTietSanPham", dsHinhAnh); // Giữ lại giá trị đã submit
-            redirectAttributes.addFlashAttribute("errorMessage", "Vui lòng điền đúng thông tin!");
-            return "ChiTietSanPham/Index";
-        } else{
-            chiTietSanPhamService.addChiTietSanPham(chiTietSanPham);
-            redirectAttributes.addFlashAttribute("successMessage", "Dữ liệu đã được thêm thành công!");
-            return "redirect:/chitietsanpham";
-        }
     public String addChiTietSanPham(@ModelAttribute ChiTietSanPham chiTietSanPham, Model model,
                                     @RequestParam("fileImages") MultipartFile[] fileImages,
                                     RedirectAttributes ra) {
