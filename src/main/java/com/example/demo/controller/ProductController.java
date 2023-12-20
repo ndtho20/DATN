@@ -40,7 +40,7 @@ public class ProductController {
             List<ChiTietSanPham> list = chiTietSanPhamService.getAll();
             model.addAttribute("items", list);
         }
-        return "product/list";
+        return "clients/shop-style-2";
     }
 
     @GetMapping("/product/detail/{id}")

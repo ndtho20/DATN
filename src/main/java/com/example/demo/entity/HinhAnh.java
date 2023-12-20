@@ -2,6 +2,7 @@ package com.example.demo.entity;
 
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -21,6 +22,7 @@ public class HinhAnh {
     private Integer idHinhAnh;
 
     @Column(name = "duongdan")
+    @NotBlank(message = "không được để trống đường dẫn")
     private String duongDan;
 
     @ManyToOne

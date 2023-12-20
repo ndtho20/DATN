@@ -5,7 +5,10 @@ import com.example.demo.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -59,6 +62,29 @@ public class ChitietSanPhamController {
     }
 
     @PostMapping("/add")
+
+    public String addChiTietSanPham(@Validated @ModelAttribute("chiTietSanPham") ChiTietSanPham chiTietSanPham, BindingResult result, Model model, RedirectAttributes redirectAttributes) {
+        chiTietSanPham.setTrangThai(true);
+        if (result.hasErrors()) {
+            List<ChiTietSanPham> dsHinhAnh = chiTietSanPhamService.getAll();
+            model.addAttribute("listLoaiSanPham", loaiSanPhamService.getAll());
+            model.addAttribute("listChatLieu", chatLieuService.getAll());
+            model.addAttribute("listSize", sizeService.getAll());
+            model.addAttribute("listPhongCach", phongCachService.getAll());
+            model.addAttribute("listNSX", nsxService.getAll());
+            model.addAttribute("listMauSac", mauSacService.getAll());
+
+
+            model.addAttribute("dsChiTietSanPham", dsHinhAnh);
+            model.addAttribute("chiTietSanPham", chiTietSanPham);
+            redirectAttributes.addFlashAttribute("dsChiTietSanPham", dsHinhAnh); // Giữ lại giá trị đã submit
+            redirectAttributes.addFlashAttribute("errorMessage", "Vui lòng điền đúng thông tin!");
+            return "ChiTietSanPham/Index";
+        } else{
+            chiTietSanPhamService.addChiTietSanPham(chiTietSanPham);
+            redirectAttributes.addFlashAttribute("successMessage", "Dữ liệu đã được thêm thành công!");
+            return "redirect:/chitietsanpham";
+        }
     public String addChiTietSanPham(@ModelAttribute ChiTietSanPham chiTietSanPham, Model model,
                                     @RequestParam("fileImages") MultipartFile[] fileImages,
                                     RedirectAttributes ra) {
@@ -115,13 +141,28 @@ public class ChitietSanPhamController {
     }
 
     @PostMapping("/update/{id}")
-    public String updateChiTietSanPham(@PathVariable("id") Integer id, @ModelAttribute ChiTietSanPham chiTietSanPham) {
-        chiTietSanPhamService.updateChiTietSanPham(id, chiTietSanPham);
-        return "redirect:/chitietsanpham";
+    public String updateChiTietSanPham(@PathVariable("id") Integer id, @Validated @ModelAttribute("chiTietSanPham") ChiTietSanPham chiTietSanPham,BindingResult result,Model model) {
+        if (result.hasErrors()) {
+            List<ChiTietSanPham> dsHinhAnh = chiTietSanPhamService.getAll();
+            model.addAttribute("listLoaiSanPham", loaiSanPhamService.getAll());
+            model.addAttribute("listChatLieu", chatLieuService.getAll());
+            model.addAttribute("listSize", sizeService.getAll());
+            model.addAttribute("listPhongCach", phongCachService.getAll());
+            model.addAttribute("listNSX", nsxService.getAll());
+            model.addAttribute("listMauSac", mauSacService.getAll());
+
+
+            model.addAttribute("dsChiTietSanPham", dsHinhAnh);
+            model.addAttribute("chiTietSanPham", chiTietSanPham);
+           return "ChiTietSanPham/Detail";
+        }else {
+            chiTietSanPhamService.updateChiTietSanPham(id, chiTietSanPham);
+            return "redirect:/chitietsanpham";
+        }
     }
 
-    @GetMapping("/delete/{id}")
-    public String deleteChiTietSanPham(@PathVariable("id") Integer id) {
+    @GetMapping("/delete")
+    public String deleteChiTietSanPham(@RequestParam("id") Integer id) {
         chiTietSanPhamService.deleteChiTietSanPham(id);
         return "redirect:/chitietsanpham";
     }

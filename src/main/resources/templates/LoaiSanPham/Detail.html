@@ -6,7 +6,7 @@
     <title>Title</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
-
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <!-- Custom styles -->
     <style>
         body {
@@ -49,40 +49,57 @@
 </head>
 
 <body>
+
 <div th:replace="~{admin/index::index}"></div>
 
-<form th:action="@{'/SanPham/update/' + ${SanPham.idSanPham}}" method="post">
+<form id="myForm" th:action="@{'/SanPham/update/' + ${sanpham.idSanPham}}" th:object="${sanpham}" method="post">
     <div class="form-floating mb-3">
-        <input type="text" class="form-control" th:value="${SanPham.ma}" name="ma">
+        <input type="text" class="form-control" th:field="*{ma}">
         <label>Ma San Pham</label>
+        <i th:errors="*{ma}"></i><br>
+
     </div>
     <div class="form-floating mb-3">
-        <input type="text" class="form-control" th:value="${SanPham.ten}" name="ten">
+        <input type="text" class="form-control" th:field="*{ten}">
         <label>Ten San Pham</label>
+        <i th:errors="*{ten}"></i><br>
+
     </div>
     <div class="form-floating mb-3">
-        <input type="date" class="form-control" th:value="${#dates.format(SanPham.ngayTao, 'yyyy-MM-dd')}" name="ngayTao">
+        <input type="date" class="form-control" th:field="*{ngayTao}">
         <label>Ngay Tao</label>
+        <i th:errors="*{ngayTao}"></i><br>
     </div>
 
-    <div class="form-check">
-        <input class="form-check-input" type="radio" name="trangThai" th:checked="${SanPham.trangThai == true}" value="true">
-        <label class="form-check-label">
-            Dang Hoat Dong
-        </label>
+    <div class="form-group">
+        <label for="trangThai">Trạng thái:</label>
+        <input type="checkbox" id="trangThai" th:field="*{trangThai}"/>
     </div>
-    <div class="form-check">
-        <input class="form-check-input" type="radio" name="trangThai" th:checked="${SanPham.trangThai == false}" value="false">
-        <label class="form-check-label">
-            Ngung Hoat Dong
-        </label>
-    </div>
-    <button type="submit" class="btn btn-rounded btn-info">
-            <span class="btn-icon-start text-info"><i
-                    class="fa fa-plus color-info"></i>
-                                    </span>update
-    </button>
+    <input type="submit" class="btn btn-success" onclick="return confirmSave()" value="Save"/>
 </form>
+<script>
+    function confirmSave() {
+        Swal.fire({
+            title: 'Bạn có chắc muốn lưu không?',
+            text: 'Thay đổi này sẽ được áp dụng!',
+            icon: 'info',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Lưu',
+            cancelButtonText: 'Hủy'
+        }).then(result => {
+            if (result.isConfirmed) {
+
+                document.getElementById('myForm').submit(); // Tiến hành submit form
+                alert("Lưu thành công!"); // Hiển thị thông báo lưu thành công
+            } else {
+                Swal.fire('Hủy lưu!', '', 'info'); // Hiển thị thông báo hủy lưu
+            }
+        });
+        return false; // Trả về false để ngăn chặn hành động submit mặc định của form
+    }
+</script>
 </body>
 
 </html>

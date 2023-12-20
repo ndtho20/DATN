@@ -1,12 +1,16 @@
 package com.example.demo.controller;
 
 
+import com.example.demo.entity.MauSac;
 import com.example.demo.entity.NSX;
 import com.example.demo.service.NSXService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
@@ -26,29 +30,49 @@ public class NSXController {
     }
 
     @PostMapping("/add")
-    public String addNSX(@ModelAttribute NSX NSX, Model model) {
+    public String addNSX(@Validated @ModelAttribute("pc") NSX NSX, BindingResult result, Model model, RedirectAttributes redirectAttributes) {
         NSX.setTrangThai(true);
-        service.addNSX(NSX);
-        List<NSX> dsNSX = service.getAll();
-        model.addAttribute("dsNSX", dsNSX);
-        return "redirect:/NSX";
+        if (result.hasErrors()) {
+            List<NSX> dsNSX = service.getAll();
+            model.addAttribute("dsNSX", dsNSX);
+            model.addAttribute("pc", NSX);
+            redirectAttributes.addFlashAttribute("dsNSX", dsNSX); // Giữ lại giá trị đã submit
+            redirectAttributes.addFlashAttribute("errorMessage", "Vui lòng điền đúng thông tin!");
+            return "NSX/Index";
+        } else {
+            service.addNSX(NSX);
+            redirectAttributes.addFlashAttribute("successMessage", "Dữ liệu đã được thêm thành công!");
+            return "redirect:/NSX";
+        }
+
     }
 
     @GetMapping("/detail/{id}")
     public String editNSXForm(@PathVariable("id") int Id, Model model) {
         NSX NSX = service.getById(Id);
-        model.addAttribute("NSX", NSX);
+        model.addAttribute("ms", NSX);
         return "NSX/Detail";
     }
 
     @PostMapping("/update/{id}")
-    public String updateNSX(@PathVariable("id") int id, @ModelAttribute NSX NSX) {
-        service.updateNSX(id, NSX);
-        return "redirect:/NSX";
+    public String updateNSX(@PathVariable("id") int id, @Validated @ModelAttribute("ms") NSX NSX, BindingResult result, Model model) {
+
+        if (result.hasErrors()) {
+            List<NSX> dsNSX = service.getAll();
+            model.addAttribute("pc", NSX);
+            model.addAttribute("dsNSX", dsNSX); // Giữ lại giá trị đã submit
+
+            return "NSX/Detail";
+        } else {
+
+
+            service.updateNSX(id, NSX);
+            return "redirect:/NSX";
+        }
     }
 
-    @GetMapping("/delete/{id}")
-    public String deleteNSX(@PathVariable("id") int id) {
+    @GetMapping("/delete")
+    public String deleteNSX(@RequestParam("id") int id) {
         service.deleteNSX(id);
         return "redirect:/NSX";
     }

@@ -1,6 +1,8 @@
 package com.example.demo.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -22,6 +24,7 @@ public class ChiTietSanPham {
     private Integer idChiTietSanPham;
 
     @Column(name = "tensanpham")
+    @NotBlank(message = "không được để trống tên sản phẩm")
     private String tenSanPham;
 
     @ManyToOne
@@ -49,9 +52,11 @@ public class ChiTietSanPham {
     private MauSac mauSac;
 
     @Column(name = "soluongconlai")
+    @NotNull(message = "không được để trống số lượng ")
     private Integer soLuong;
 
     @Column(name = "giaban")
+    @NotNull(message = "không được để trống giá bán")
     private BigInteger giaBan;
 
     @Column(name = "trangthai")
