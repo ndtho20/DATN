@@ -4,28 +4,36 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <title>Danh sách Hình ảnh</title>
 </head>
 <body>
 
 <div class="container mt-3">
-    <form th:id="addHinhAnhForm" th:action="@{/hinhanh/add}" method="post" enctype="multipart/form-data" class="mt-4">
-    <div class="form-group">
-        <label for="fileImage">Select Image:</label>
-        <input type="file" class="form-control-file" id="fileImage" name="fileImage" required/>
-    </div>
+    <form class="container col-6" action="/hinhanh/add" th:object="${pc}" method="post">
 
-    <div class="form-group">
-        <label for="idChiTietSanPham">ChiTietSanPham:</label>
-        <select class="form-control" id="idChiTietSanPham" name="idchitietsanpham" required>
-            <option th:each="ctsp : ${listChiTietSanPham}"
-                    th:value="${ctsp.idChiTietSanPham}"
-                    th:text="${ctsp.tenSanPham}"></option>
-        </select>
-    </div>
+        <div>
+            <label for="fileImage">Select Image:</label>
+            <input type="file" th:field="*{duongDan}" class="form-control-file" id="fileImage" name="fileImage"
+                   required/>
+            <i th:errors="*{duongDan}"></i><br>
+            <br>
+        </div>
+        <div style="clear: both; display: block; height: 10px"></div>
 
-    <button type="submit" class="btn btn-primary">Add HinhAnh</button>
-</form>
+
+
+            <div class="form-group">
+                <label for="idChiTietSanPham">ChiTietSanPham:</label>
+                <select class="form-control" id="idChiTietSanPham" name="idchitietsanpham" required>
+                    <option th:each="ctsp : ${listChiTietSanPham}"
+                            th:value="${ctsp.idChiTietSanPham}"
+                            th:text="${ctsp.tenSanPham}"></option>
+                </select>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Add HinhAnh</button>
+    </form>
 
 
     <h2>Danh sách Hình ảnh</h2>
@@ -51,8 +59,32 @@
             <td th:text="${hinhAnh.ngayTao}"></td>
             <td th:text="${hinhAnh.chiTietSanPham.tenSanPham}"></td>
             <td>
-                <a class="btn btn-warning" th:href="@{'/hinhanh/update/' + ${hinhAnh.idHinhAnh}}">Cập nhật</a>
-                <a class="btn btn-danger" th:href="@{'/hinhanh/delete/' + ${hinhAnh.idHinhAnh}}">Xóa</a>
+                <a th:href="@{'/hinhanh/update/' + ${hinhAnh.idHinhAnh}}">
+                    <button class="btn btn-primary">Detail</button>
+                </a>
+                <a th:href="@{'/PhongCach/delete?id=' + ${hinhAnh.idHinhAnh}}"
+                   th:onclick="'return confirmDelete(event, ' + ${hinhAnh.idHinhAnh} + ')'"
+                   class="btn btn-danger">Delete</a>
+                <script>
+                    const confirmDelete = (event, id) => {
+                        event.preventDefault();
+                        Swal.fire({
+                            title: 'Bạn có chắc muốn xóa không?',
+                            text: 'Thao tác này sẽ xóa dữ liệu vĩnh viễn!',
+                            icon: 'warning',
+                            showCancelButton: true,
+                            confirmButtonColor: '#d33',
+                            cancelButtonColor: '#3085d6',
+                            confirmButtonText: 'Xóa',
+                            cancelButtonText: 'Hủy'
+                        }).then(result => {
+                            if (result.isConfirmed) {
+                                window.location.href = `/hinhanh/delete?id=${id}`;
+                                Swal.fire('Xóa thành công!', '', 'success');
+                            }
+                        });
+                    };
+                </script>
             </td>
         </tr>
         </tbody>
@@ -60,7 +92,7 @@
 </div>
 
 <!-- Modal -->
-        <!-- Thêm form thêm hình ảnh ở đây -->
+<!-- Thêm form thêm hình ảnh ở đây -->
 <!--<script th:inline="javascript">-->
 <!--    $(document).ready(function () {-->
 <!--        // Xử lý sự kiện khi biểu mẫu thêm mới hình ảnh được submit-->
@@ -112,8 +144,16 @@
 <!--    });-->
 <!--</script>-->
 
-
-
+<script th:inline="javascript">
+    /* Kiểm tra nếu có successMessage thì hiển thị SweetAlert */
+    var successMessage = /*[[${successMessage}]]*/ null;
+    if (successMessage !== null) {
+        Swal.fire({
+            title: 'Save thành công!',
+            icon: 'success'
+        });
+    }
+</script>
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>

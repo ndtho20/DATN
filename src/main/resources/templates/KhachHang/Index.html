@@ -5,6 +5,8 @@
     <title>Title</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <style>
         body {
             background-color: #f8f9fa;
@@ -45,18 +47,24 @@
     </style>
 </head>
 <body>
-<form action="/khachhang/add" method="post">
+<div th:if="${errorMessage}"  class="error-message">
+    <p class="error-text" th:text="${errorMessage}"></p>
+</div>
+<form action="/khachhang/add" th:object="${kh}" method="post">
     <div class="form-floating mb-3">
-        <input type="text" class="form-control" th:field="${kh.ten}">
+        <input type="text" class="form-control" th:field="*{ten}">
         <label>Ho Ten Khach Hang</label>
+        <i th:errors="*{ten}"></i><br>
     </div>
     <div class="form-floating mb-3">
-        <input type="date" class="form-control" th:field="${kh.ngaySinh}">
+        <input type="date" class="form-control" th:field="*{ngaySinh}">
         <label>Ngay Sinh</label>
+        <i th:errors="*{ngaySinh}"></i><br>
+
     </div>
     <div class="form-check">
-        <input class="form-check-input" type="radio" name="gioiTinh" id="flexRadioDefault1" th:field="${kh.gioiTinh}"
-               th:value="Nu">
+        <input class="form-check-input" type="radio" name="gioiTinh" id="flexRadioDefault1" th:field="*{gioiTinh}"
+               th:value="Nu" >
         <label class="form-check-label" for="flexRadioDefault1">
             Nu
         </label>
@@ -67,32 +75,41 @@
             Nam
         </label>
     </div>
+    <i th:errors="*{gioiTinh}"></i><br>
     <div class="form-floating mb-3">
-        <input type="number" class="form-control" th:field="${kh.soDienThoai}">
+        <input type="number" class="form-control" th:field="*{soDienThoai}">
         <label>So Dien Thoai</label>
+        <i th:errors="*{soDienThoai}"></i><br>
+
     </div>
     <div class="form-floating">
-        <input type="password" class="form-control" id="floatingPassword" th:field="${kh.matKhau}">
+        <input type="password" class="form-control" id="floatingPassword" th:field="*{matKhau}">
         <label for="floatingPassword">Mat Khau</label>
+        <i th:errors="*{matKhau}"></i><br>
     </div>
+
     <div class="form-floating mb-3">
-        <textarea class="form-control" th:field="${kh.diaChi}" rows="4"></textarea>
+        <textarea class="form-control" th:field="*{diaChi}" rows="4"></textarea>
         <label>Dia Chi</label>
+        <i th:errors="*{diaChi}"></i><br>
     </div>
     <div class="form-floating mb-3">
-        <input type="email" class="form-control" th:field="${kh.email}">
+        <input type="email" class="form-control" th:field="*{email}">
         <label>Email</label>
+        <i th:errors="*{email}"></i><br>
+
     </div>
     <div class="form-floating mb-3">
-        <input type="date" class="form-control" th:field="${kh.ngayTao}">
+        <input type="date" class="form-control" th:field="*{ngayTao}">
         <label>Ngay Tao</label>
+        <i th:errors="*{ngayTao}"></i><br>
     </div>
     <button type="submit">Add</button>
 </form>
 
 <!-- Table for displaying the list of Khach Hang -->
 <h3 style="text-align: center; padding-bottom: 15px">Danh Sach Khach Hang</h3>
-<table class="table">
+<table class="table container col-8">
     <!-- Table header -->
     <thead>
     <tr>
@@ -126,14 +143,45 @@
             <a th:href="@{'/khachhang/detail/' + ${kh.idKhachHang}}">
                 <button class="btn btn-primary">Detail</button>
             </a>
-            <a th:href="@{'/khachhang/delete/' + ${kh.idKhachHang}}">
-                <button class="btn btn-danger">Delete</button>
+            <a th:href="@{'/khachhang/delete?id=' + ${kh.idKhachHang}}"
+               th:onclick="'return confirmDelete(event, ' + ${kh.idKhachHang} + ')'"
+               class="btn btn-danger">
+             Delete
             </a>
+            <script>
+                const confirmDelete = (event, id) => {
+                    event.preventDefault();
+                    Swal.fire({
+                        title: 'Bạn có chắc muốn xóa không?',
+                        text: 'Thao tác này sẽ xóa dữ liệu vĩnh viễn!',
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#d33',
+                        cancelButtonColor: '#3085d6',
+                        confirmButtonText: 'Xóa',
+                        cancelButtonText: 'Hủy'
+                    }).then(result => {
+                        if (result.isConfirmed) {
+                            window.location.href = `/khachhang/delete?id=${id}`;
+                            Swal.fire('Xóa thành công!', '', 'success');
+                        }
+                    });
+                };
+            </script>
         </td>
     </tr>
     </tbody>
 </table>
-
+<script th:inline="javascript">
+    /* Kiểm tra nếu có successMessage thì hiển thị SweetAlert */
+    var successMessage = /*[[${successMessage}]]*/ null;
+    if (successMessage !== null) {
+        Swal.fire({
+            title: 'Save thành công!',
+            icon: 'success'
+        });
+    }
+</script>
 <!-- Bootstrap JS and Popper.js -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"

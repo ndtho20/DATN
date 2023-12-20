@@ -6,7 +6,7 @@
     <title>Title</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
-
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <!-- Custom styles -->
     <style>
         body {
@@ -28,6 +28,10 @@
             margin-bottom: 15px;
         }
 
+        .form-check {
+            margin-bottom: 15px;
+        }
+
         button {
             width: 100%;
             padding: 10px;
@@ -41,76 +45,34 @@
         button:hover {
             background-color: #0056b3;
         }
-
-        h3 {
-            text-align: center;
-            padding-bottom: 15px;
-            color: #007bff;
-        }
-
-        table {
-            width: 100%;
-            margin-top: 20px;
-            border-collapse: collapse;
-            background-color: #ffffff;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-
-        th, td {
-            padding: 12px;
-            text-align: left;
-            border-bottom: 1px solid #dee2e6;
-        }
-
-        th {
-            background-color: #007bff;
-            color: white;
-        }
-
-        tr:hover {
-            background-color: #f5f5f5;
-        }
-
-        .btn-primary {
-            background-color: #007bff;
-            color: white;
-            border: none;
-            border-radius: 5px;
-        }
-
-        .btn-danger {
-            background-color: #dc3545;
-            color: white;
-            border: none;
-            border-radius: 5px;
-        }
-
-        .btn-primary, .btn-danger {
-            padding: 8px;
-            margin-right: 5px;
-        }
     </style>
 </head>
 
 <body>
-<form action="/SanPham/add" method="post">
+<form action="/SanPham/add" th:object="${sanpham}" method="post">
     <div class="form-floating mb-3">
-        <input type="text" class="form-control" th:field="${pc.ma}">
+        <input type="text" class="form-control" th:field="*{ma}">
         <label>Ma San Pham</label>
+        <i th:errors="*{ma}"></i><br>
+
     </div>
     <div class="form-floating mb-3">
-        <input type="text" class="form-control" th:field="${pc.ten}">
+        <input type="text" class="form-control" th:field="*{ten}">
         <label>Ten San Pham</label>
+        <i th:errors="*{ten}"></i><br>
+
     </div>
     <div class="form-floating mb-3">
-        <input type="date" class="form-control" th:field="${pc.ngayTao}">
+        <input type="date" class="form-control" th:field="*{ngayTao}">
         <label>Ngay Tao</label>
+        <i th:errors="*{ngayTao}"></i><br>
     </div>
     <button type="submit">Add</button>
 </form>
 
-<h3>Danh Sach San Pham</h3>
-<table class="table">
+<h3 style="text-align: center; padding-bottom: 15px">Danh Sach San Pham</h3>
+
+<table class="table container col-8">
     <thead>
     <tr>
         <th scope="col">ID SanPham</th>
@@ -129,17 +91,48 @@
         <td th:text="${#dates.format(pc.ngayTao, 'MM-dd-yyyy')}"></td>
         <td th:text="${pc.trangThai == null ? '' : (pc.trangThai ? 'Dang Hoat Dong' : 'Ngung Hoat Dong')}"></td>
         <td>
-            <a th:href="@{'/SanPham/detail/' + ${pc.idSanPham}}">
-                <button class="btn btn-primary">Detail</button>
+            <a th:href="@{'/SanPham/detail/' + ${pc.idSanPham}}" class="btn btn-primary">
+                Detail
             </a>
-            <a th:href="@{'/SanPham/delete/' + ${pc.idSanPham}}">
-                <button class="btn btn-danger">Delete</button>
-            </a>
+
+
+            <a th:href="@{'/SanPham/delete?id=' + ${pc.idSanPham}}"
+               th:onclick="'return confirmDelete(event, ' + ${pc.idSanPham} + ')'"
+               class="btn btn-danger">Delete</a>
+            <script>
+                const confirmDelete = (event, id) => {
+                    event.preventDefault();
+                    Swal.fire({
+                        title: 'Bạn có chắc muốn xóa không?',
+                        text: 'Thao tác này sẽ xóa dữ liệu vĩnh viễn!',
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#d33',
+                        cancelButtonColor: '#3085d6',
+                        confirmButtonText: 'Xóa',
+                        cancelButtonText: 'Hủy'
+                    }).then(result => {
+                        if (result.isConfirmed) {
+                            window.location.href = `/SanPham/delete?id=${id}`;
+                            Swal.fire('Xóa thành công!', '', 'success');
+                        }
+                    });
+                };
+            </script>
         </td>
     </tr>
     </tbody>
 </table>
-
+<script th:inline="javascript">
+    /* Kiểm tra nếu có successMessage thì hiển thị SweetAlert */
+    var successMessage = /*[[${successMessage}]]*/ null;
+    if (successMessage !== null) {
+        Swal.fire({
+            title: 'Save thành công!',
+            icon: 'success'
+        });
+    }
+</script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
         crossorigin="anonymous"></script>

@@ -3,66 +3,122 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+          integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
+            integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct"
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.5/angular.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
+
 <body>
-<form action="/MauSac/add" method="post">
-    <div class="form-floating mb-3">
-        <input type="text" class="form-control" th:field="${pc.ma}">
-        <label>Ma Mau Sac</label>
-    </div>
-    <div class="form-floating mb-3">
-        <input type="text" class="form-control" th:field="${pc.ten}">
-        <label>Ten Mau Sac</label>
-    </div>
-    <div class="form-floating mb-3">
-        <input type="date" class="form-control" th:field="${pc.ngayTao}">
-        <label>Ngay Tao</label>
-    </div>
-    <button type="submit">Add</button>
-</form>
+<h3>MauSac</h3>
+<div th:if="${errorMessage}" class="error-message">
+    <p class="error-text" th:text="${errorMessage}"></p>
+</div>
+<div class="col-md-auto ">
+    <form class="container col-6" action="/MauSac/add" th:object="${pc}" method="post">
+        <div>
+            <label th:text="Mã" th:for="ma"></label>
+            <input type="text" th:field="*{ma}" class="form-control" placeholder="Mã"/>
+            <i th:errors="*{ma}"></i><br>
+            <br>
+        </div>
+        <div style="clear: both; display: block; height: 10px"></div>
+        <div>
+            <label th:text="Tên" th:for="ten"></label>
+            <input type="text" th:field="*{ten}" class="form-control" placeholder="Tên"/>
+            <i th:errors="*{ten}"></i><br>
+            <br>
+        </div>
+        <div style="clear: both; display: block; height: 10px"></div>
+        <div>
+            <label th:text="Date" th:for="ngayTao"></label>
+            <input type="date" th:field="*{ngayTao}" class="form-control" placeholder="Ngày tạo"/>
+            <i th:errors="*{ngayTao}"></i><br>
+        </div>
+        <div style="clear: both; display: block; height: 10px"></div>
+
+        <div style="clear: both; display: block; height: 10px"></div>
+        <input type="submit" class="btn btn-success" value="Save"/>
 
 
-<h3 style="text-align: center; padding-bottom: 15px">Danh Sach Mau Sac</h3>
-<table class="table">
-    <thead>
-    <tr>
-        <th scope="col">ID MauSac</th>
-        <th scope="col">Ma</th>
-        <th scope="col">Ten</th>
-        <th scope="col">Ngay tao</th>
-        <th scope="col">Trang Thai</th>
-        <th scope="col">Action</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="pc : ${dsMauSac}">
-        <td th:text="${pc.idMauSac}"></td>
-        <td th:text="${pc.ma}"></td>
-        <td th:text="${pc.ten}"></td>
-        <td th:text="${#dates.format(pc.ngayTao, 'MM-dd-yyyy')}"></td>
-        <td th:text="${pc.trangThai == null ? '' : (pc.trangThai ? 'Dang Hoat Dong' : 'Ngung Hoat Dong')}"></td>
-        <td>
-            <a th:href="@{'/MauSac/detail/' + ${pc.idMauSac}}">
-                <button class="btn btn-primary">Detail</button>
-            </a>
-            <a th:href="@{'/MauSac/delete/' + ${pc.idMauSac}}">
-                <button class="btn btn-danger">Delete</button>
-            </a>
-        </td>
-    </tr>
-    </tbody>
-</table>
+    </form>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
-        crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.7/dist/umd/popper.min.js"
-        integrity="sha384-zYPOMqeu1DAVkHiLqWBUTcbYfZ8osu1Nd6Z89ify25QV9guujx43ITvfi12/QExE"
-        crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.min.js"
-        integrity="sha384-Y4oOpwW3duJdCWv5ly8SCFYWqFDsfob/3GkgExXKV4idmbt98QcxXYs9UoXAB7BZ"
-        crossorigin="anonymous"></script>
+    <h3 style="text-align: center; padding-bottom: 15px">Danh Sach Mau Sac</h3>
+    <table class="table container col-8">
+        <thead>
+        <tr>
+            <th scope="col">ID MauSac</th>
+            <th scope="col">Ma</th>
+            <th scope="col">Ten</th>
+            <th scope="col">Ngay tao</th>
+            <th scope="col">Trang Thai</th>
+            <th scope="col">Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="pc : ${dsMauSac}">
+            <td th:text="${pc.idMauSac}"></td>
+            <td th:text="${pc.ma}"></td>
+            <td th:text="${pc.ten}"></td>
+            <td th:text="${#dates.format(pc.ngayTao, 'MM-dd-yyyy')}"></td>
+            <td th:text="${pc.trangThai == null ? '' : (pc.trangThai ? 'Dang Hoat Dong' : 'Ngung Hoat Dong')}"></td>
+            <td>
+                <a th:href="@{'/MauSac/detail/' + ${pc.idMauSac}}">
+                    <button class="btn btn-primary">Detail</button>
+                </a>
+                <a th:href="@{'/MauSac/delete?id=' + ${pc.idMauSac}}"
+                   th:onclick="'return confirmDelete(event, ' + ${pc.idMauSac} + ')'"
+                   class="btn btn-danger">Delete</a>
+                <script>
+                    const confirmDelete = (event, id) => {
+                        event.preventDefault();
+                        Swal.fire({
+                            title: 'Bạn có chắc muốn xóa không?',
+                            text: 'Thao tác này sẽ xóa dữ liệu vĩnh viễn!',
+                            icon: 'warning',
+                            showCancelButton: true,
+                            confirmButtonColor: '#d33',
+                            cancelButtonColor: '#3085d6',
+                            confirmButtonText: 'Xóa',
+                            cancelButtonText: 'Hủy'
+                        }).then(result => {
+                            if (result.isConfirmed) {
+                                window.location.href = `/MauSac/delete?id=${id}`;
+                                Swal.fire('Xóa thành công!', '', 'success');
+                            }
+                        });
+                    };
+                </script>
+
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <script th:inline="javascript">
+        /* Kiểm tra nếu có successMessage thì hiển thị SweetAlert */
+        var successMessage = /*[[${successMessage}]]*/ null;
+        if (successMessage !== null) {
+            Swal.fire({
+                title: 'Save thành công!',
+                icon: 'success'
+            });
+        }
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.7/dist/umd/popper.min.js"
+            integrity="sha384-zYPOMqeu1DAVkHiLqWBUTcbYfZ8osu1Nd6Z89ify25QV9guujx43ITvfi12/QExE"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.min.js"
+            integrity="sha384-Y4oOpwW3duJdCWv5ly8SCFYWqFDsfob/3GkgExXKV4idmbt98QcxXYs9UoXAB7BZ"
+            crossorigin="anonymous"></script>
 </body>
 </html>
