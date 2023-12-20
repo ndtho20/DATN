@@ -24,5 +24,21 @@ public interface ChiTietSanPhamRepository extends JpaRepository<ChiTietSanPham, 
             @Param("idChatLieu") Integer idChatLieu, @Param("idNSX") Integer idNSX, @Param("idMauSac") Integer idMauSac,
             @Param("idPhongCach") Integer idPhongCach, @Param("giaBan") BigInteger giaBan, @Param("idLoaiSanPham") Integer idLoaiSanPham,
             @Param("tenSanPham") String tenSanPham);
+
+    @Query("SELECT COUNT(c.nsx) FROM ChiTietSanPham c WHERE c.nsx.idNSX = ?1")
+    int countByNhaSanXuatId(int nsxId);
+
+    @Query("SELECT COUNT(c.chatLieu) FROM ChiTietSanPham c WHERE c.chatLieu.idChatLieu = ?1")
+    int countByChatLieuId(int nsxId);
+
+    @Query("SELECT COUNT(c.size) FROM ChiTietSanPham c WHERE c.size.idSize = ?1")
+    int countBySizeId(int nsxId);
+
+    @Query("SELECT COUNT(c.phongCach) FROM ChiTietSanPham c WHERE c.phongCach.idPhongCach = ?1")
+    int countByPhongCachId(int nsxId);
+
+    @Query("SELECT COUNT(c.mauSac) FROM ChiTietSanPham c WHERE c.mauSac.idMauSac = ?1")
+    int countByMauSacId(int nsxId);
+
 }
 

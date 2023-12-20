@@ -47,6 +47,8 @@
     </style>
 </head>
 <body>
+<div th:replace="~{admin/index::index}"></div>
+<div class="content-body">
 <div th:if="${errorMessage}"  class="error-message">
     <p class="error-text" th:text="${errorMessage}"></p>
 </div>
@@ -140,14 +142,12 @@
         <td th:text="${#dates.format(kh.ngayTao, 'MM-dd-yyyy')}"></td>
         <td th:text="${kh.trangThai == null ? '' : (kh.trangThai ? 'Dang Hoat Dong' : 'Ngung Hoat Dong')}"></td>
         <td>
-            <a th:href="@{'/khachhang/detail/' + ${kh.idKhachHang}}">
-                <button class="btn btn-primary">Detail</button>
-            </a>
-            <a th:href="@{'/khachhang/delete?id=' + ${kh.idKhachHang}}"
-               th:onclick="'return confirmDelete(event, ' + ${kh.idKhachHang} + ')'"
-               class="btn btn-danger">
-             Delete
-            </a>
+                          <div class="d-flex">
+                    <a th:href="@{'/khachhang/detail/' + ${kh.idKhachHang}}" class="btn btn-primary shadow btn-xs sharp me-1"><i class="fas fa-pencil-alt"></i></a>
+                    <a th:href="@{'/khachhang/delete?id=' + ${kh.idKhachHang}}"
+               th:onclick="'return confirmDelete(event, ' + ${kh.idKhachHang} + ')'" class="btn btn-danger shadow btn-xs sharp"><i class="fa fa-trash"></i></a>
+                </div>
+           
             <script>
                 const confirmDelete = (event, id) => {
                     event.preventDefault();
@@ -182,6 +182,8 @@
         });
     }
 </script>
+</div>
+
 <!-- Bootstrap JS and Popper.js -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"

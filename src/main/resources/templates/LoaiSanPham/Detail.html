@@ -49,6 +49,9 @@
 </head>
 
 <body>
+
+<div th:replace="~{admin/index::index}"></div>
+
 <form id="myForm" th:action="@{'/SanPham/update/' + ${sanpham.idSanPham}}" th:object="${sanpham}" method="post">
     <div class="form-floating mb-3">
         <input type="text" class="form-control" th:field="*{ma}">
@@ -72,9 +75,7 @@
         <label for="trangThai">Trạng thái:</label>
         <input type="checkbox" id="trangThai" th:field="*{trangThai}"/>
     </div>
-
     <input type="submit" class="btn btn-success" onclick="return confirmSave()" value="Save"/>
-
 </form>
 <script>
     function confirmSave() {

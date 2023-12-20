@@ -77,13 +77,16 @@
     </style>
 </head>
 <body>
-<div class="container">
+<div th:replace="~{admin/index::index}"></div>
+
+<div class="content-body">
     <h2>Danh Sách Chi Tiết Sản Phẩm</h2>
     <div th:if="${errorMessage}" class="error-message">
         <p class="error-text" th:text="${errorMessage}"></p>
     </div>
     <!-- Thêm mới ChiTietSanPham Form -->
-    <form action="/chitietsanpham/add" th:object="${chiTietSanPham}" method="post">
+
+   <form th:action="@{/chitietsanpham/add}" th:object="${chiTietSanPham}" method="post" enctype="multipart/form-data">
         <!-- Các trường thông tin của ChiTietSanPham -->
         <div class="form-group">
             <label th:for="tenSanPham">Tên sản phẩm:</label>
@@ -154,10 +157,15 @@
             <label for="trangThai">Trạng thái:</label>
             <input type="checkbox" id="trangThai" th:field="*{trangThai}"/>
         </div>
-
-        <button type="submit" class="btn btn-primary">Thêm sản phẩm</button>
-
-
+        <div class="form-group">
+            <label for="fileImages">Select Images:</label>
+            <input type="file" class="form-control-file" id="fileImages" name="fileImages" multiple required/>
+        </div>
+        <button type="submit" class="btn btn-rounded btn-info">
+            <span class="btn-icon-start text-info"><i
+                    class="fa fa-plus color-info"></i>
+                                    </span>Add
+        </button>
     </form>
 
     <!-- Bảng hiển thị danh sách chi tiết sản phẩm -->
@@ -193,12 +201,13 @@
             <td th:text="${chiTietSanPham.giaBan}"></td>
             <td th:text="${chiTietSanPham.trangThai} ? 'Hoạt Động' : 'Ngừng Hoạt Động'"></td>
             <td>
-                <a th:href="@{'/chitietsanpham/detail/' + ${chiTietSanPham.idChiTietSanPham}}">
-                    <button class="btn btn-primary">Detail</button>
-                </a>
-                <a th:href="@{'/chitietsanpham/delete?id=' + ${chiTietSanPham.idChiTietSanPham}}"
-                   th:onclick="'return confirmDelete(event, ' + ${chiTietSanPham.idChiTietSanPham} + ')'"
-                   class="btn btn-danger">Delete</a>
+            <div class="d-flex">
+                    <a th:href="@{'/chitietsanpham/detail/' + ${chiTietSanPham.idChiTietSanPham}}" class="btn btn-primary shadow btn-xs sharp me-1"><i
+                            class="fas fa-pencil-alt"></i></a>
+                    <a th:href="@{'/chitietsanpham/delete?id=' + ${chiTietSanPham.idChiTietSanPham}}"
+                   th:onclick="'return confirmDelete(event, ' + ${chiTietSanPham.idChiTietSanPham} + ')'" class="btn btn-danger shadow btn-xs sharp"><i
+                            class="fa fa-trash"></i></a>
+                </div>              
                 <script>
                     const confirmDelete = (event, id) => {
                         event.preventDefault();
@@ -219,7 +228,6 @@
                         });
                     };
                 </script>
-
             </td>
         </tr>
 

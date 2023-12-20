@@ -52,8 +52,6 @@ function prepareChartDataForSalesReportByProduct(responseJSON) {
     });
 
     console.log(data);
-
-    // Đoạn này có thể làm bất kỳ xử lý nào bạn cần với data hoặc các biến tổng.
 }
 
 

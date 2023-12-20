@@ -8,6 +8,9 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
+
+            <div th:replace="~{admin/index::index}"></div>
+<div class="content-body">
 <h3>NSX</h3>
 <div th:if="${errorMessage}" class="error-message">
     <p class="error-text" th:text="${errorMessage}"></p>
@@ -32,11 +35,12 @@
         <input type="date" th:field="*{ngayTao}" class="form-control" placeholder="Ngày tạo"/>
         <i th:errors="*{ngayTao}"></i><br>
     </div>
+
     <div style="clear: both; display: block; height: 10px"></div>
 
     <div style="clear: both; display: block; height: 10px"></div>
     <input type="submit" class="btn btn-success" value="Save"/>
-
+</form>
 
 </form>
 
@@ -60,12 +64,11 @@
         <td th:text="${#dates.format(pc.ngayTao, 'MM-dd-yyyy')}"></td>
         <td th:text="${pc.trangThai == null ? '' : (pc.trangThai ? 'Dang Hoat Dong' : 'Ngung Hoat Dong')}"></td>
         <td>
-            <a th:href="@{'/NSX/detail/' + ${pc.idNSX}}">
-                <button class="btn btn-primary">Detail</button>
-            </a>
-            <a th:href="@{'/NSX/delete?id=' + ${pc.idNSX}}"
-               th:onclick="'return confirmDelete(event, ' + ${pc.idNSX} + ')'"
-               class="btn btn-danger">Delete</a>
+            <div class="d-flex">
+                <a th:href="@{'/NSX/detail/' + ${pc.idNSX}}" class="btn btn-primary shadow btn-xs sharp me-1"><i class="fas fa-pencil-alt"></i></a>
+                <a th:href="@{'/NSX/delete?id=' + ${pc.idNSX}}"
+               th:onclick="'return confirmDelete(event, ' + ${pc.idNSX} + ')'" class="btn btn-danger shadow btn-xs sharp"><i class="fa fa-trash"></i></a>
+            </div>        
             <script>
                 const confirmDelete = (event, id) => {
                     event.preventDefault();
@@ -86,7 +89,6 @@
                     });
                 };
             </script>
-
         </td>
     </tr>
     </tbody>
@@ -100,7 +102,8 @@
             icon: 'success'
         });
     }
-</script>
+  </script>
+</div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"

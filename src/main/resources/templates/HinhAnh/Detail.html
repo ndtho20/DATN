@@ -10,8 +10,8 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 </head>
 <body>
-
-<div class="container mt-5">
+<div th:replace="~{admin/index::index}"></div>
+<div class="content-body">
     <h2 class="mb-4">Cập Nhật Hình Ảnh</h2>
     <!-- Form cập nhật hình ảnh -->
     <form id="myForm" th:action="@{'/hinhanh/update/' + ${hinhAnh.idHinhAnh}}" method="post" enctype="multipart/form-data">
@@ -29,8 +29,11 @@
                         th:selected="${ctsp.idChiTietSanPham == hinhAnh.chiTietSanPham.idChiTietSanPham}"></option>
             </select>
         </div>
-
-        <input type="submit" class="btn btn-success" onclick="return confirmSave()" value="Save"/>
+        <button type="submit" class="btn btn-rounded btn-info">
+            <span class="btn-icon-start text-info"><i
+                    class="fa fa-plus color-info"></i>
+                                    </span>update
+        </button>
     </form>
 </div>
 <script>

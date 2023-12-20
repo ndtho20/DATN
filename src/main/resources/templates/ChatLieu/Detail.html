@@ -8,11 +8,22 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
+
 <form class="container col-6" id="myForm" th:action="@{'/ChatLieu/update/' + ${ms.idChatLieu}}" method="post">
     <div hidden>
         <label th:text="ID" th:for="idChatLieu"></label>
         <input type="text" th:field="${ms.idChatLieu}" class="form-control" placeholder="Mã"/>
         <i th:errors="*{ms.idChatLieu}"></i><br>
+
+<div th:replace="~{admin/index::index}"></div>
+<div class="content-body">
+    <div class="card-header">
+        <h4 class="title">Chất liệu</h4>
+    </div>
+<form th:action="@{'/ChatLieu/update/' + ${ChatLieu.idChatLieu}}" method="post">
+    <div class="form-floating mb-3">
+        <input type="text" class="form-control" th:value="${ChatLieu.ma}" name="ma">
+        <label>Ma Chat Lieu</label>
     </div>
     <div>
         <label th:text="Mã" th:for="ma"></label>
@@ -49,6 +60,7 @@
     <input type="submit" class="btn btn-success" onclick="return confirmSave()" value="Save"/>
 
 
+
 </form>
 <script>
     function confirmSave() {
@@ -73,5 +85,13 @@
         return false; // Trả về false để ngăn chặn hành động submit mặc định của form
     }
 </script>
+
+    <button type="submit" class="btn btn-rounded btn-info">
+            <span class="btn-icon-start text-info"><i
+                    class="fa fa-plus color-info"></i>
+                                    </span>update
+    </button>
+</form></div>
+
 </body>
 </html>

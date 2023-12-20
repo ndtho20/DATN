@@ -9,6 +9,8 @@
 
 </head>
 <body>
+<div th:replace="~{admin/index::index}"></div>
+  <div class="content-body">
 <form class="container col-8"  id="myForm" th:action="@{'/nhanvien/update/' + ${nv.idNhanVien}}" th:object="${nv}" method="post">
     <div class="form-floating mb-3">
         <input type="text" class="form-control" th:field="*{hoTen}">
@@ -72,11 +74,10 @@
         <input type="checkbox" id="trangThai" th:field="*{trangThai}"/>
     </div>
 
+
     <input type="submit" class="btn btn-success" onclick="return confirmSave()" value="Save"/>
-
-
-
 </form>
+      </div>
 <script>
     function confirmSave() {
         Swal.fire({

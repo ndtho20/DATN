@@ -7,7 +7,10 @@
           integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
+
 <body class="container col-8">
+<div th:replace="~{admin/index::index}"></div>
+  <div class="content-body">
 <form action="/nhanvien/add" th:object="${nv}" method="post">
     <div class="form-floating mb-3">
         <input type="text" class="form-control" th:field="*{hoTen}">
@@ -63,7 +66,11 @@
         <label>Ngay Tao</label>
         <i th:errors="*{ngayTao}"></i><br>
     </div>
-    <button type="submit">Add</button>
+    <button type="submit" class="btn btn-rounded btn-info">
+            <span class="btn-icon-start text-info"><i
+                    class="fa fa-plus color-info"></i>
+                                    </span>Add
+    </button>
 </form>
 
 
@@ -95,13 +102,14 @@
         <td th:text="${#dates.format(nv.ngayTao, 'MM-dd-yyyy')}"></td>
         <td th:text="${nv.trangThai == null ? '' : (nv.trangThai ? 'Dang Lam Viec' : 'Da Nghi Viec')}"></td>
         <td>
-            <a th:href="@{'/nhanvien/detail/' + ${nv.idNhanVien}}"
-               class="btn btn-primary">Detail
-            </a>
-
-            <a th:href="@{'/nhanvien/delete/' + ${nv.idNhanVien}}"
-               th:onclick="'return confirmDelete(event, ' + ${nv.idNhanVien} + ')'"
-               class="btn btn-danger">Delete</a>
+            <div class="d-flex">
+                <a th:href="@{'/nhanvien/detail/' + ${nv.idNhanVien}}"
+                   class="btn btn-primary shadow btn-xs sharp me-1"><i class="fas fa-pencil-alt"></i></a>
+                <a th:href="@{'/nhanvien/delete/' + ${nv.idNhanVien}}"
+               th:onclick="'return confirmDelete(event, ' + ${nv.idNhanVien} + ')'" class="btn btn-danger shadow btn-xs sharp"><i
+                        class="fa fa-trash"></i></a>
+            </div>
+           
             <script>
                 const confirmDelete = (event, id) => {
                     event.preventDefault();
@@ -136,6 +144,7 @@
         });
     }
 </script>
+      </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
         crossorigin="anonymous"></script>
