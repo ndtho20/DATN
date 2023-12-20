@@ -51,38 +51,38 @@ public class HinhAnhController {
 //        return "HinhAnh/Detail";
 //    }
 
-    @PostMapping("/add")
-    public String addHinhAnh(@RequestParam("fileImage") MultipartFile fileImage,
-                             @RequestParam("idchitietsanpham") Integer idChiTietSanPham,
-                             RedirectAttributes ra) {
-
-        // Kiểm tra nếu file rỗng
-        if (fileImage.isEmpty()) {
-            ra.addFlashAttribute("message", "Vui lòng chọn một file hình ảnh.");
-            return "redirect:/hinhanh";
-        }
-
-        try {
-            // Lưu file vào thư mục tạm thời hoặc bất kỳ logic lưu trữ file nào bạn muốn
-            String fileName = fileUploadUtil.saveFile(fileImage);
-            // Tạo đối tượng HinhAnh và cập nhật thông tin
-            HinhAnh hinhAnh = new HinhAnh();
-            hinhAnh.setDuongDan(fileName);
-
-            // Lấy ChiTietSanPham từ cơ sở dữ liệu
-            ChiTietSanPham chiTietSanPham = chiTietSanPhamService.findChiTietSanPhamById(idChiTietSanPham);
-            hinhAnh.setChiTietSanPham(chiTietSanPham);
-
-            // Lưu đối tượng HinhAnh vào cơ sở dữ liệu
-            hinhAnhService.addHinhAnh(hinhAnh);
-
-            ra.addFlashAttribute("message", "Thêm hình ảnh thành công.");
-        } catch (IOException e) {
-            ra.addFlashAttribute("message", "Lỗi khi thêm hình ảnh: " + e.getMessage());
-        }
-
-        return "redirect:/hinhanh";
-    }
+//    @PostMapping("/add")
+//    public String addHinhAnh(@RequestParam("fileImage") MultipartFile fileImage,
+//                             @RequestParam("idchitietsanpham") Integer idChiTietSanPham,
+//                             RedirectAttributes ra) {
+//
+//        // Kiểm tra nếu file rỗng
+//        if (fileImage.isEmpty()) {
+//            ra.addFlashAttribute("message", "Vui lòng chọn một file hình ảnh.");
+//            return "redirect:/hinhanh";
+//        }
+//
+//        try {
+//            // Lưu file vào thư mục tạm thời hoặc bất kỳ logic lưu trữ file nào bạn muốn
+//            String fileName = fileUploadUtil.saveFile(fileImage);
+//            // Tạo đối tượng HinhAnh và cập nhật thông tin
+//            HinhAnh hinhAnh = new HinhAnh();
+//            hinhAnh.setDuongDan(fileName);
+//
+//            // Lấy ChiTietSanPham từ cơ sở dữ liệu
+//            ChiTietSanPham chiTietSanPham = chiTietSanPhamService.findChiTietSanPhamById(idChiTietSanPham);
+//            hinhAnh.setChiTietSanPham(chiTietSanPham);
+//
+//            // Lưu đối tượng HinhAnh vào cơ sở dữ liệu
+//            hinhAnhService.addHinhAnh(hinhAnh);
+//
+//            ra.addFlashAttribute("message", "Thêm hình ảnh thành công.");
+//        } catch (IOException e) {
+//            ra.addFlashAttribute("message", "Lỗi khi thêm hình ảnh: " + e.getMessage());
+//        }
+//
+//        return "redirect:/hinhanh";
+//    }
 
     // Xử lý cập nhật hình ảnh
     @PostMapping("/update/{id}")

@@ -2,6 +2,7 @@ package com.example.demo.service;
 
 
 import com.example.demo.entity.PhongCach;
+import com.example.demo.repository.ChiTietSanPhamRepository;
 import com.example.demo.repository.PhongCachRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,7 +15,8 @@ public class PhongCachService {
 
     @Autowired
     private PhongCachRepository repository;
-
+    @Autowired
+    private ChiTietSanPhamRepository chiTietSanPhamRepository;
     public List<PhongCach> getAll() {
         return repository.findAll();
     }
@@ -41,6 +43,13 @@ public class PhongCachService {
     }
 
     public void deletePhongCach(int id) {
-        repository.deleteById(id);
+        if(chiTietSanPhamRepository.countByPhongCachId(id)==0){
+            repository.deleteById(id);
+        }else {
+            Optional<PhongCach> existingNSX = repository.findById(id);
+            PhongCach updatedNSX = existingNSX.get();
+            updatedNSX.setTrangThai(false);
+            repository.save(updatedNSX);
+        }
     }
 }

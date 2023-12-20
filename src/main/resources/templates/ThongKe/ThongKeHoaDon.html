@@ -128,10 +128,10 @@
                     <td>[[${dh.hTTT == 0 ? "trả sau" : dh.hTTT == 1 ? "VN Pay" : ""}]]</td>
                     <td>[[${dh.ngayTao}]]</td>
                     <td>
-                        <!--                    <a class="btn btn-outline-danger"-->
-                        <!--                       th:href="@{/admin/hoa-don-chi-tiet/search/{id}(id=${dh.idHoaDon})}">-->
-                        <!--                                                                Xem-->
-                        <!--                    </a>-->
+                                            <a class="btn btn-outline-danger"
+                                               th:href="@{/pdf/xem-hoa-don/{id}(id=${dh.idHoaDon})}">
+                                                                                        Xem
+                                            </a>
                     </td>
                 </tr>
             </table>

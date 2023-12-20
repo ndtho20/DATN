@@ -8,8 +8,8 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 </head>
 <body>
-
-<div class="container mt-5">
+<div th:replace="~{admin/index::index}"></div>
+<div class="content-body">
     <h2 class="mb-4">Cập Nhật Hình Ảnh</h2>
     <!-- Form cập nhật hình ảnh -->
     <form th:action="@{'/hinhanh/update/' + ${hinhAnh.idHinhAnh}}" method="post" enctype="multipart/form-data">
@@ -28,7 +28,11 @@
             </select>
         </div>
 
-        <button type="submit" class="btn btn-primary">Cập Nhật Hình Ảnh</button>
+        <button type="submit" class="btn btn-rounded btn-info">
+            <span class="btn-icon-start text-info"><i
+                    class="fa fa-plus color-info"></i>
+                                    </span>update
+        </button>
     </form>
 </div>
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>

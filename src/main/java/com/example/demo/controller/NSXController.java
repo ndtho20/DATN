@@ -52,4 +52,6 @@ public class NSXController {
         service.deleteNSX(id);
         return "redirect:/NSX";
     }
+
+
 }

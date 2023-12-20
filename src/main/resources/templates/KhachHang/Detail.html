@@ -38,6 +38,8 @@
     </style>
 </head>
 <body>
+<div th:replace="~{admin/index::index}"></div>
+<div class="content-body">
 <form th:action="@{'/khachhang/update/' + ${khachHang.idKhachHang}}" method="post">
     <div class="form-floating mb-3">
         <input type="text" class="form-control" th:value="${khachHang.ten}" name="ten">
@@ -100,7 +102,12 @@
         </label>
     </div>
 
-    <button type="submit">Update</button>
+    <button type="submit" class="btn btn-rounded btn-info">
+            <span class="btn-icon-start text-info"><i
+                    class="fa fa-plus color-info"></i>
+                                    </span>update
+    </button>
 </form>
+</div>
 </body>
 </html>

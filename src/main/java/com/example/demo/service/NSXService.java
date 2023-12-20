@@ -2,6 +2,7 @@ package com.example.demo.service;
 
 
 import com.example.demo.entity.NSX;
+import com.example.demo.repository.ChiTietSanPhamRepository;
 import com.example.demo.repository.NSXRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,7 +15,8 @@ public class NSXService {
 
     @Autowired
     private NSXRepository repository;
-
+    @Autowired
+    private ChiTietSanPhamRepository chiTietSanPhamRepository;
     public List<NSX> getAll() {
         return repository.findAll();
     }
@@ -41,6 +43,13 @@ public class NSXService {
     }
 
     public void deleteNSX(int id) {
-        repository.deleteById(id);
+        if(chiTietSanPhamRepository.countByNhaSanXuatId(id)==0){
+            repository.deleteById(id);
+        }else {
+            Optional<NSX> existingNSX = repository.findById(id);
+            NSX updatedNSX = existingNSX.get();
+            updatedNSX.setTrangThai(false);
+            repository.save(updatedNSX);
+        }
     }
 }

@@ -29,7 +29,9 @@ function loadSalesReportByDateForCategory(period) {
         }
     })
         .fail(function(jqXHR, textStatus, errorThrown) {
-            console.error("AJAX request failed:", textStatus, errorThrown);
+            console.error("Yêu cầu AJAX thất bại:", textStatus, errorThrown);
+            console.log("Văn bản phản hồi:", jqXHR.responseText);
+            console.log("Tiêu đề phản hồi:", jqXHR.getAllResponseHeaders());
         });
 
 }

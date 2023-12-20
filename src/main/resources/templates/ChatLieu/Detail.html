@@ -43,6 +43,11 @@
     </style>
 </head>
 <body>
+<div th:replace="~{admin/index::index}"></div>
+<div class="content-body">
+    <div class="card-header">
+        <h4 class="title">Chất liệu</h4>
+    </div>
 <form th:action="@{'/ChatLieu/update/' + ${ChatLieu.idChatLieu}}" method="post">
     <div class="form-floating mb-3">
         <input type="text" class="form-control" th:value="${ChatLieu.ma}" name="ma">
@@ -73,7 +78,11 @@
         </label>
     </div>
 
-    <button type="submit">Update</button>
-</form>
+    <button type="submit" class="btn btn-rounded btn-info">
+            <span class="btn-icon-start text-info"><i
+                    class="fa fa-plus color-info"></i>
+                                    </span>update
+    </button>
+</form></div>
 </body>
 </html>
