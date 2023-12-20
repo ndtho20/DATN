@@ -3,6 +3,8 @@
       th:replace="~{/Layout/index :: dynamic(~{::main})}">
 
 <body>
+<div th:replace="~{admin/index::index}"></div>
+<div class="content-body">
 <main class="row">
     <div class="container">
         <div class="grid">
@@ -72,6 +74,6 @@
         </div>
     </div>
 </main>
-
+</div>
 </body>
 </html>

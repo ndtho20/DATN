@@ -7,6 +7,8 @@
           integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
 </head>
 <body>
+<div th:replace="~{admin/index::index}"></div>
+
 <form action="/nhanvien/add" method="post">
     <div class="form-floating mb-3">
         <input type="text" class="form-control" th:field="${nv.hoTen}">
@@ -45,7 +47,11 @@
         <input type="email" class="form-control" th:field="${nv.email}">
         <label>Email</label>
     </div>
-    <button type="submit">Add</button>
+    <button type="submit" class="btn btn-rounded btn-info">
+            <span class="btn-icon-start text-info"><i
+                    class="fa fa-plus color-info"></i>
+                                    </span>Add
+    </button>
 </form>
 
 
@@ -77,12 +83,12 @@
         <td th:text="${#dates.format(nv.ngayTao, 'MM-dd-yyyy')}"></td>
         <td th:text="${nv.trangThai == null ? '' : (nv.trangThai ? 'Dang Lam Viec' : 'Da Nghi Viec')}"></td>
         <td>
-            <a th:href="@{'/nhanvien/detail/' + ${nv.idNhanVien}}">
-                <button class="btn btn-primary">Detail</button>
-            </a>
-            <a th:href="@{'/nhanvien/delete/' + ${nv.idNhanVien}}">
-                <button class="btn btn-danger">Delete</button>
-            </a>
+            <div class="d-flex">
+                <a th:href="@{'/nhanvien/detail/' + ${nv.idNhanVien}}"
+                   class="btn btn-primary shadow btn-xs sharp me-1"><i class="fas fa-pencil-alt"></i></a>
+                <a th:href="@{'/nhanvien/delete/' + ${nv.idNhanVien}}" class="btn btn-danger shadow btn-xs sharp"><i
+                        class="fa fa-trash"></i></a>
+            </div>
         </td>
     </tr>
     </tbody>

@@ -2,6 +2,7 @@ package com.example.demo.service;
 
 
 import com.example.demo.entity.MauSac;
+import com.example.demo.repository.ChiTietSanPhamRepository;
 import com.example.demo.repository.MauSacRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,7 +15,8 @@ public class MauSacService {
 
     @Autowired
     private MauSacRepository repository;
-
+    @Autowired
+    private ChiTietSanPhamRepository chiTietSanPhamRepository;
     public List<MauSac> getAll() {
         return repository.findAll();
     }
@@ -42,5 +44,16 @@ public class MauSacService {
 
     public void deleteMauSac(int id) {
         repository.deleteById(id);
+    }
+
+    public void deleteNSX(int id) {
+        if(chiTietSanPhamRepository.countByMauSacId(id)==0){
+            repository.deleteById(id);
+        }else {
+            Optional<MauSac> existingNSX = repository.findById(id);
+            MauSac updatedNSX = existingNSX.get();
+            updatedNSX.setTrangThai(false);
+            repository.save(updatedNSX);
+        }
     }
 }

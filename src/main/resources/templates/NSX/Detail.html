@@ -7,37 +7,44 @@
           integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
 </head>
 <body>
-<form th:action="@{'/NSX/update/' + ${NSX.idNSX}}" method="post">
-    <div class="form-floating mb-3">
-        <input type="text" class="form-control" th:value="${NSX.ma}" name="ma">
-        <label>Ma NSX</label>
-    </div>
-    <div class="form-floating mb-3">
-        <input type="text" class="form-control" th:value="${NSX.ten}" name="ten">
-        <label>Ten NSX</label>
-    </div>
-    <div class="form-floating mb-3">
-        <input type="date" class="form-control" th:value="${#dates.format(NSX.ngayTao, 'yyyy-MM-dd')}"
-               name="ngayTao">
-        <label>Ngay Tao</label>
-    </div>
+<div th:replace="~{admin/index::index}"></div>
+<div class="content-body">
+    <form th:action="@{'/NSX/update/' + ${NSX.idNSX}}" method="post">
+        <div class="form-floating mb-3">
+            <input type="text" class="form-control" th:value="${NSX.ma}" name="ma">
+            <label>Ma NSX</label>
+        </div>
+        <div class="form-floating mb-3">
+            <input type="text" class="form-control" th:value="${NSX.ten}" name="ten">
+            <label>Ten NSX</label>
+        </div>
+        <div class="form-floating mb-3">
+            <input type="date" class="form-control" th:value="${#dates.format(NSX.ngayTao, 'yyyy-MM-dd')}"
+                   name="ngayTao">
+            <label>Ngay Tao</label>
+        </div>
 
-    <div class="form-check">
-        <input class="form-check-input" type="radio" name="trangThai" th:checked="${NSX.trangThai == true}"
-               value="true">
-        <label class="form-check-label">
-            Dang Hoat Dong
-        </label>
-    </div>
-    <div class="form-check">
-        <input class="form-check-input" type="radio" name="trangThai" th:checked="${NSX.trangThai == false}"
-               value="false">
-        <label class="form-check-label">
-            Ngung Hoat Dong
-        </label>
-    </div>
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="trangThai" th:checked="${NSX.trangThai == true}"
+                   value="true">
+            <label class="form-check-label">
+                Dang Hoat Dong
+            </label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="trangThai" th:checked="${NSX.trangThai == false}"
+                   value="false">
+            <label class="form-check-label">
+                Ngung Hoat Dong
+            </label>
+        </div>
 
-    <button type="submit">Update</button>
-</form>
+        <button type="submit" class="btn btn-rounded btn-info">
+            <span class="btn-icon-start text-info"><i
+                    class="fa fa-plus color-info"></i>
+                                    </span>update
+        </button>
+    </form>
+</div>
 </body>
 </html>

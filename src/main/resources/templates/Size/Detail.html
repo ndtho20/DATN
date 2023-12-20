@@ -7,7 +7,12 @@
           integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
 </head>
 <body>
+<div th:replace="~{admin/index::index}"></div>
+<div class="content-body">
 <form th:action="@{'/Size/update/' + ${size.idSize}}" method="post">
+    <div class="card-header">
+        <h4 class="title">Size</h4>
+    </div>
     <div class="form-floating mb-3">
         <input type="text" class="form-control" th:value="${size.ma}" name="ma">
         <label>Ma Size</label>
@@ -36,7 +41,12 @@
         </label>
     </div>
 
-    <button type="submit">Update</button>
+    <button type="submit" class="btn btn-rounded btn-info">
+            <span class="btn-icon-start text-info"><i
+                    class="fa fa-plus color-info"></i>
+                                    </span>update
+    </button>
 </form>
+</div>
 </body>
 </html>

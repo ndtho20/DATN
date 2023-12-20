@@ -7,6 +7,8 @@
           integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
 </head>
 <body>
+<div th:replace="~{admin/index::index}"></div>
+<div class="content-body">
 <form th:action="@{'/PhongCach/update/' + ${phongCach.idPhongCach}}" method="post">
     <div class="form-floating mb-3">
         <input type="text" class="form-control" th:value="${phongCach.ma}" name="ma">
@@ -37,7 +39,12 @@
         </label>
     </div>
 
-    <button type="submit">Update</button>
+    <button type="submit" class="btn btn-rounded btn-info">
+            <span class="btn-icon-start text-info"><i
+                    class="fa fa-plus color-info"></i>
+                                    </span>update
+    </button>
 </form>
+</div>
 </body>
 </html>

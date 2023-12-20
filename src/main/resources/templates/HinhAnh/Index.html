@@ -7,8 +7,8 @@
     <title>Danh sách Hình ảnh</title>
 </head>
 <body>
-
-<div class="container mt-3">
+<div th:replace="~{admin/index::index}"></div>
+<div class="content-body">
     <form th:id="addHinhAnhForm" th:action="@{/hinhanh/add}" method="post" enctype="multipart/form-data" class="mt-4">
     <div class="form-group">
         <label for="fileImage">Select Image:</label>
@@ -24,7 +24,11 @@
         </select>
     </div>
 
-    <button type="submit" class="btn btn-primary">Add HinhAnh</button>
+        <button type="submit" class="btn btn-rounded btn-info">
+            <span class="btn-icon-start text-info"><i
+                    class="fa fa-plus color-info"></i>
+                                    </span>Add
+        </button>
 </form>
 
 
@@ -51,68 +55,17 @@
             <td th:text="${hinhAnh.ngayTao}"></td>
             <td th:text="${hinhAnh.chiTietSanPham.tenSanPham}"></td>
             <td>
-                <a class="btn btn-warning" th:href="@{'/hinhanh/update/' + ${hinhAnh.idHinhAnh}}">Cập nhật</a>
-                <a class="btn btn-danger" th:href="@{'/hinhanh/delete/' + ${hinhAnh.idHinhAnh}}">Xóa</a>
+                <div class="d-flex">
+                    <a th:href="@{'/hinhanh/update/' + ${hinhAnh.idHinhAnh}}" class="btn btn-primary shadow btn-xs sharp me-1"><i
+                            class="fas fa-pencil-alt"></i></a>
+                    <a th:href="@{'/hinhanh/delete/' + ${hinhAnh.idHinhAnh}}" class="btn btn-danger shadow btn-xs sharp"><i
+                            class="fa fa-trash"></i></a>
+                </div>
             </td>
         </tr>
         </tbody>
     </table>
 </div>
-
-<!-- Modal -->
-        <!-- Thêm form thêm hình ảnh ở đây -->
-<!--<script th:inline="javascript">-->
-<!--    $(document).ready(function () {-->
-<!--        // Xử lý sự kiện khi biểu mẫu thêm mới hình ảnh được submit-->
-<!--        $('#addHinhAnhForm').submit(function (event) {-->
-<!--            event.preventDefault();-->
-
-<!--            var form = $(this);-->
-<!--            var formData = new FormData(form[0]);-->
-
-<!--            // Thực hiện AJAX để thêm mới hình ảnh-->
-<!--            $.ajax({-->
-<!--                type: 'POST',-->
-<!--                url: form.attr('action'),-->
-<!--                data: formData,-->
-<!--                processData: false,-->
-<!--                contentType: false,-->
-<!--                success: function (data) {-->
-<!--                    // Hiển thị thông báo (nếu cần)-->
-<!--                    alert(data.message);-->
-
-<!--                    // Cập nhật bảng-->
-<!--                    updateTable();-->
-<!--                },-->
-<!--                error: function (xhr, status, error) {-->
-<!--                    // Xử lý lỗi (nếu cần)-->
-<!--                    console.error(xhr.responseText);-->
-<!--                }-->
-<!--            });-->
-<!--        });-->
-
-<!--        // Hàm cập nhật bảng-->
-<!--        function updateTable() {-->
-<!--            $.get('/hinhanh/list', function (data) {-->
-<!--                // Xóa nội dung cũ của bảng-->
-<!--                $('#hinhAnhTable tbody').empty();-->
-
-<!--                // Thêm dữ liệu mới vào bảng-->
-<!--                $.each(data, function (index, hinhAnh) {-->
-<!--                    var row = $('<tr>');-->
-<!--                    row.append($('<td>').text(hinhAnh.idHinhAnh));-->
-<!--                    row.append($('<td>').text(hinhAnh.duongDan));-->
-<!--                    // Thêm các cột khác tương ứng với dữ liệu của hình ảnh-->
-
-<!--                    // Thêm dòng vào bảng-->
-<!--                    $('#hinhAnhTable tbody').append(row);-->
-<!--                });-->
-<!--            });-->
-<!--        }-->
-<!--    });-->
-<!--</script>-->
-
-
 
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>

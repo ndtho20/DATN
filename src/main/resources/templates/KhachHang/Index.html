@@ -45,95 +45,100 @@
     </style>
 </head>
 <body>
-<form action="/khachhang/add" method="post">
-    <div class="form-floating mb-3">
-        <input type="text" class="form-control" th:field="${kh.ten}">
-        <label>Ho Ten Khach Hang</label>
-    </div>
-    <div class="form-floating mb-3">
-        <input type="date" class="form-control" th:field="${kh.ngaySinh}">
-        <label>Ngay Sinh</label>
-    </div>
-    <div class="form-check">
-        <input class="form-check-input" type="radio" name="gioiTinh" id="flexRadioDefault1" th:field="${kh.gioiTinh}"
-               th:value="Nu">
-        <label class="form-check-label" for="flexRadioDefault1">
-            Nu
-        </label>
-    </div>
-    <div class="form-check">
-        <input class="form-check-input" type="radio" name="gioiTinh" th:field="${kh.gioiTinh}" th:value="Nam">
-        <label class="form-check-label">
-            Nam
-        </label>
-    </div>
-    <div class="form-floating mb-3">
-        <input type="number" class="form-control" th:field="${kh.soDienThoai}">
-        <label>So Dien Thoai</label>
-    </div>
-    <div class="form-floating">
-        <input type="password" class="form-control" id="floatingPassword" th:field="${kh.matKhau}">
-        <label for="floatingPassword">Mat Khau</label>
-    </div>
-    <div class="form-floating mb-3">
-        <textarea class="form-control" th:field="${kh.diaChi}" rows="4"></textarea>
-        <label>Dia Chi</label>
-    </div>
-    <div class="form-floating mb-3">
-        <input type="email" class="form-control" th:field="${kh.email}">
-        <label>Email</label>
-    </div>
-    <div class="form-floating mb-3">
-        <input type="date" class="form-control" th:field="${kh.ngayTao}">
-        <label>Ngay Tao</label>
-    </div>
-    <button type="submit">Add</button>
-</form>
+<div th:replace="~{admin/index::index}"></div>
+<div class="content-body">
+    <form action="/khachhang/add" method="post" >
+        <div class="form-floating ">
+            <input type="text" class="form-control" th:field="${kh.ten}">
+            <label>Ho Ten Khach Hang</label>
+        </div>
+        <div class="form-floating ">
+            <input type="date" class="form-control" th:field="${kh.ngaySinh}">
+            <label>Ngay Sinh</label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="gioiTinh" id="flexRadioDefault1"
+                   th:field="${kh.gioiTinh}"
+                   th:value="Nu">
+            <label class="form-check-label" for="flexRadioDefault1">
+                Nu
+            </label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="gioiTinh" th:field="${kh.gioiTinh}" th:value="Nam">
+            <label class="form-check-label">
+                Nam
+            </label>
+        </div>
+        <div class="form-floating ">
+            <input type="number" class="form-control" th:field="${kh.soDienThoai}">
+            <label>So Dien Thoai</label>
+        </div>
+        <div class="form-floating">
+            <input type="password" class="form-control" id="floatingPassword" th:field="${kh.matKhau}">
+            <label for="floatingPassword">Mat Khau</label>
+        </div>
+        <div class="form-floating ">
+            <textarea class="form-control" th:field="${kh.diaChi}" rows="4"></textarea>
+            <label>Dia Chi</label>
+        </div>
+        <div class="form-floating ">
+            <input type="email" class="form-control" th:field="${kh.email}">
+            <label>Email</label>
+        </div>
+        <div class="form-floating ">
+            <input type="date" class="form-control" th:field="${kh.ngayTao}">
+            <label>Ngay Tao</label>
+        </div>
+        <button type="submit" class="btn btn-rounded btn-info">
+            <span class="btn-icon-start text-info"><i
+                class="fa fa-plus color-info"></i>
+                                    </span>Add
+        </button>
+    </form>
 
-<!-- Table for displaying the list of Khach Hang -->
-<h3 style="text-align: center; padding-bottom: 15px">Danh Sach Khach Hang</h3>
-<table class="table">
-    <!-- Table header -->
-    <thead>
-    <tr>
-        <th scope="col">ID Khach Hang</th>
-        <th scope="col">Ho va Ten</th>
-        <th scope="col">Gioi Tinh</th>
-        <th scope="col">Ngay Sinh</th>
-        <th scope="col">Mat Khau</th>
-        <th scope="col">Dia Chi</th>
-        <th scope="col">So Dien Thoai</th>
-        <th scope="col">Email</th>
-        <th scope="col">Ngay tao</th>
-        <th scope="col">Trang Thai</th>
-        <th scope="col">Action</th>
-    </tr>
-    </thead>
-    <!-- Table body with Thymeleaf iteration -->
-    <tbody>
-    <tr th:each="kh : ${dsKhachHang}">
-        <td th:text="${kh.idKhachHang}"></td>
-        <td th:text="${kh.ten}"></td>
-        <td th:text="${kh.gioiTinh}"></td>
-        <td th:text="${#dates.format(kh.ngaySinh, 'MM-dd-yyyy')}"></td>
-        <td th:text="${kh.matKhau}"></td>
-        <td th:text="${kh.diaChi}"></td>
-        <td th:text="${kh.soDienThoai}"></td>
-        <td th:text="${kh.email}"></td>
-        <td th:text="${#dates.format(kh.ngayTao, 'MM-dd-yyyy')}"></td>
-        <td th:text="${kh.trangThai == null ? '' : (kh.trangThai ? 'Dang Hoat Dong' : 'Ngung Hoat Dong')}"></td>
-        <td>
-            <a th:href="@{'/khachhang/detail/' + ${kh.idKhachHang}}">
-                <button class="btn btn-primary">Detail</button>
-            </a>
-            <a th:href="@{'/khachhang/delete/' + ${kh.idKhachHang}}">
-                <button class="btn btn-danger">Delete</button>
-            </a>
-        </td>
-    </tr>
-    </tbody>
-</table>
-
+    <!-- Table for displaying the list of Khach Hang -->
+    <h3 style="text-align: center; padding-bottom: 15px">Danh Sach Khach Hang</h3>
+    <table class="table">
+        <!-- Table header -->
+        <thead>
+        <tr>
+            <th scope="col">ID Khach Hang</th>
+            <th scope="col">Ho va Ten</th>
+            <th scope="col">Gioi Tinh</th>
+            <th scope="col">Ngay Sinh</th>
+            <th scope="col">Mat Khau</th>
+            <th scope="col">Dia Chi</th>
+            <th scope="col">So Dien Thoai</th>
+            <th scope="col">Email</th>
+            <th scope="col">Ngay tao</th>
+            <th scope="col">Trang Thai</th>
+            <th scope="col">Action</th>
+        </tr>
+        </thead>
+        <!-- Table body with Thymeleaf iteration -->
+        <tbody>
+        <tr th:each="kh : ${dsKhachHang}">
+            <td th:text="${kh.idKhachHang}"></td>
+            <td th:text="${kh.ten}"></td>
+            <td th:text="${kh.gioiTinh}"></td>
+            <td th:text="${#dates.format(kh.ngaySinh, 'MM-dd-yyyy')}"></td>
+            <td th:text="${kh.matKhau}"></td>
+            <td th:text="${kh.diaChi}"></td>
+            <td th:text="${kh.soDienThoai}"></td>
+            <td th:text="${kh.email}"></td>
+            <td th:text="${#dates.format(kh.ngayTao, 'MM-dd-yyyy')}"></td>
+            <td th:text="${kh.trangThai == null ? '' : (kh.trangThai ? 'Dang Hoat Dong' : 'Ngung Hoat Dong')}"></td>
+            <td>
+                <div class="d-flex">
+                    <a th:href="@{'/khachhang/detail/' + ${kh.idKhachHang}}" class="btn btn-primary shadow btn-xs sharp me-1"><i class="fas fa-pencil-alt"></i></a>
+                    <a th:href="@{'/khachhang/delete/' + ${kh.idKhachHang}}" class="btn btn-danger shadow btn-xs sharp"><i class="fa fa-trash"></i></a>
+                </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
 <!-- Bootstrap JS and Popper.js -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"

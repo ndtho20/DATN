@@ -24,4 +24,8 @@ public interface HoaDonChiTietRepository extends JpaRepository<HoaDonChiTiet, In
 
     @Query("SELECT count(hd) FROM HoaDonChiTiet hd WHERE hd.hoaDon.idHoaDon = ?1")
     Integer countHD(Integer paramInteger);
+    @Query("SELECT COUNT(c.gioHangChiTiet) FROM HoaDonChiTiet c WHERE c.gioHangChiTiet.idGioHangChiTiet = ?1")
+    int countByGioHangChiTietId(int nsxId);
+    @Query("SELECT COUNT(c.hoaDon) FROM HoaDonChiTiet c WHERE c.hoaDon.idHoaDon = ?1")
+    int countByHoaDonId(int nsxId);
 }

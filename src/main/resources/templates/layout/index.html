@@ -1,42 +1,15 @@
-<!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org" th:fragment="dynamic(main)">
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      th:replace="Layout/base::layout(~{::section})">
 <head>
-    <title>Trang chủ | YAMET</title>
-    <link rel="icon" href="/static/image/logo.png" sizes="16*16"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
-          integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
-          crossorigin="anonymous" referrerpolicy="no-referrer"/>
-    <link rel="stylesheet" href="/static/assets/css/base.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css"
-          integrity="sha512-NhSC1YmyruXifcj/KFRWoC561YpHpc5Jtzgvbuzx5VozKpWvQ+4nXhPdFgmx8xqexRcpAglTj9sIBWINXa8x5w=="
-          crossorigin="anonymous" referrerpolicy="no-referrer"/>
-    <link rel="stylesheet" href="/static/assets/css/header.css">
-    <link rel="stylesheet" href="/static/assets/css/main.css">
-    <link rel="stylesheet" href="/static/assets/css/modals.css">
-    <link rel="stylesheet" href="/static/assets/css/footer.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.min.js"
-            integrity="sha512-STof4xm1wgkfm7heWqFJVn58Hm3EtS31XFaagaa8VMReCXAkQnJZ+jEy8PCC/iT18dFy95WcExNHFTqLyp72eQ=="
-            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,500;0,700;0,900;1,400&display=swap"
-          rel="stylesheet">
-    <script src="https://kit.fontawesome.com/3426ec3618.js" crossorigin="anonymous"></script>
+    <meta charset="ISO-8859-1">
+    <title>Insert title here</title>
 
 </head>
-<body class="container">
-<header class="row"></header>
-<nav class="row">
-    <div th:replace="/Layout/_menu.html"></div>
-</nav>
-<div class="row">
-    <article class="col-sm-9">
-        <div th:replace="${main}"></div>
-    </article>
-</div>
-<script src="/assets/js/main.js'"></script>
-<script type="text/javascript">
-</script>
+<body>
+<section>
+    <h1>Index Page</h1>
+</section>
+
 </body>
 </html>

@@ -31,4 +31,7 @@ public interface GioHangChiTietRepository extends JpaRepository<GioHangChiTiet, 
 
     @Query("SELECT ghct FROM GioHangChiTiet ghct WHERE ghct.idGioHangChiTiet IN :ids")
     List<GioHangChiTiet> findByIds(List<Integer> ids);
+
+    @Query("SELECT COUNT(c.chiTietSanPham) FROM GioHangChiTiet c WHERE c.chiTietSanPham.idChiTietSanPham = ?1")
+    int countByChiTietSanPhamId(int nsxId);
 }

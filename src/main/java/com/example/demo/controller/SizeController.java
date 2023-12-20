@@ -21,7 +21,7 @@ public class SizeController {
         List<Size> dsSize = service.getAll();
         model.addAttribute("dsSize", dsSize);
         model.addAttribute("s", new Size());
-        return "Size/Index";
+        return "Size/index";
     }
 
     @PostMapping("/add")

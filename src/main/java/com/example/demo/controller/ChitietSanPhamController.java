@@ -6,7 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.io.IOException;
 import java.util.List;
 
 @Controller
@@ -35,6 +38,12 @@ public class ChitietSanPhamController {
     @Autowired
     private MauSacService mauSacService;
 
+    @Autowired
+    private HinhAnhService hinhAnhService;
+
+    @Autowired
+    private FileUploadUtil fileUploadUtil;
+
     @GetMapping()
     public String getAll(Model model) {
         List<ChiTietSanPham> dsChiTietSanPham = chiTietSanPhamService.getAll();
@@ -50,11 +59,38 @@ public class ChitietSanPhamController {
     }
 
     @PostMapping("/add")
-    public String addChiTietSanPham(@ModelAttribute ChiTietSanPham chiTietSanPham, Model model) {
+    public String addChiTietSanPham(@ModelAttribute ChiTietSanPham chiTietSanPham, Model model,
+                                    @RequestParam("fileImages") MultipartFile[] fileImages,
+                                    RedirectAttributes ra) {
         chiTietSanPham.setTrangThai(true);
         chiTietSanPhamService.addChiTietSanPham(chiTietSanPham);
-        List<ChiTietSanPham> dsChiTietSanPham = chiTietSanPhamService.getAll();
-        model.addAttribute("dsChiTietSanPham", dsChiTietSanPham);
+
+        if (fileImages.length == 0) {
+            ra.addFlashAttribute("message", "Vui lòng chọn ít nhất một file hình ảnh.");
+            return "redirect:/chitietsanpham";
+        }
+
+        try {
+            for (MultipartFile fileImage : fileImages) {
+                // Lưu file vào thư mục tạm thời hoặc bất kỳ logic lưu trữ file nào bạn muốn
+                String fileName = fileUploadUtil.saveFile(fileImage);
+
+                // Tạo đối tượng HinhAnh và cập nhật thông tin
+                HinhAnh hinhAnh = new HinhAnh();
+                hinhAnh.setDuongDan(fileName);
+
+                // Sử dụng id đã lưu của ChiTietSanPham để thiết lập liên kết
+                hinhAnh.setChiTietSanPham(chiTietSanPham);
+
+                // Lưu đối tượng HinhAnh vào cơ sở dữ liệu
+                hinhAnhService.addHinhAnh(hinhAnh);
+            }
+
+            ra.addFlashAttribute("message", "Thêm sản phẩm và hình ảnh thành công.");
+        } catch (IOException e) {
+            ra.addFlashAttribute("message", "Lỗi khi thêm hình ảnh: " + e.getMessage());
+        }
+
         return "redirect:/chitietsanpham";
     }
 

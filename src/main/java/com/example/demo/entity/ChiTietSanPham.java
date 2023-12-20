@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 
+import java.util.ArrayList;
 import java.util.List;
 import java.math.BigInteger;
 
@@ -60,6 +61,7 @@ public class ChiTietSanPham {
         return loaiSanPham != null ? loaiSanPham.getIdSanPham() : null;
     }
 
-    @OneToMany(mappedBy = "chiTietSanPham")
-    private List<HinhAnh> danhSachHinhAnh;
+    @OneToMany(mappedBy = "chiTietSanPham", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<HinhAnh> hinhAnhList = new ArrayList<>();
+
 }
