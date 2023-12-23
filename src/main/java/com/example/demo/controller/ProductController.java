@@ -24,6 +24,7 @@ public class ProductController {
     @Autowired
     private KhachHangRepository khachHangRepository;
 
+
     @GetMapping("home")
     public String trangchu(Model model) {
         List<ChiTietSanPham> list = chiTietSanPhamService.getAll();
@@ -40,7 +41,7 @@ public class ProductController {
             List<ChiTietSanPham> list = chiTietSanPhamService.getAll();
             model.addAttribute("items", list);
         }
-        return "clients/shop-style-2";
+        return "product/list";
     }
 
     @GetMapping("/product/detail/{id}")

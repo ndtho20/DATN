@@ -36,7 +36,7 @@ public class GioHangController {
         KhachHang kh = khachHangRepository.findKhachHangByEmail(email);
         List<Object[]> dsSanPham = gioHangService.findGioHangDetailsByKhachHang(kh);
         model.addAttribute("dsSanPham", dsSanPham);
-        return "GioHang/Index";
+        return "clients/shoping-cart";
     }
 
     @PostMapping("/xoa")
