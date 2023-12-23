@@ -65,7 +65,7 @@ public class GioHangController {
         List<Integer> selectedProductIds = (List<Integer>) session.getAttribute("selectedProductIds");
         List<Object[]> detailsList = gioHangChiTietService.findDetailsById(selectedProductIds);
         model.addAttribute("detailsList", detailsList);
-        return "GioHang/Checkout";
+        return "clients/checkout";
     }
 
     private String generateRandomMaHoaDon() {
