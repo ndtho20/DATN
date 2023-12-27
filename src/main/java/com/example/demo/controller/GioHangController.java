@@ -36,7 +36,7 @@ public class GioHangController {
         KhachHang kh = khachHangRepository.findKhachHangByEmail(email);
         List<Object[]> dsSanPham = gioHangService.findGioHangDetailsByKhachHang(kh);
         model.addAttribute("dsSanPham", dsSanPham);
-        return "GioHang/Index";
+        return "clients/shoping-cart";
     }
 
     @PostMapping("/xoa")
@@ -65,7 +65,7 @@ public class GioHangController {
         List<Integer> selectedProductIds = (List<Integer>) session.getAttribute("selectedProductIds");
         List<Object[]> detailsList = gioHangChiTietService.findDetailsById(selectedProductIds);
         model.addAttribute("detailsList", detailsList);
-        return "GioHang/Checkout";
+        return "clients/checkout";
     }
 
     private String generateRandomMaHoaDon() {
