@@ -67,6 +67,6 @@ public class ChiTietSanPham {
     }
 
     @OneToMany(mappedBy = "chiTietSanPham", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<HinhAnh> hinhAnhList = new ArrayList<>();
+    private List<HinhAnh> danhSachHinhAnh = new ArrayList<>();
 
 }
