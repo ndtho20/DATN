@@ -53,7 +53,7 @@ public class ProductController {
             productPage = chiTietSanPhamService.findAll(pageable);
             model.addAttribute("items", productPage);
         }
-        return "product/list";
+        return "clients/shop-style-2";
     }
 //    @GetMapping("/product/list")
 //    public String list(Model model,
