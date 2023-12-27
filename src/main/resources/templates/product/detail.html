@@ -1,6 +1,6 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org"
-th:replace="~{/Layout/index :: dynamic(~{::main})}">
+      th:replace="~{/Layout/index :: dynamic(~{::main})}">
 <head>
 
 </head>
@@ -8,7 +8,7 @@ th:replace="~{/Layout/index :: dynamic(~{::main})}">
 <div th:replace="~{admin/index::index}"></div>
 <div class="content-body">
 <main >
-    <link rel="stylesheet" href="/static/clients/New%20folder/assets/css/detail.css">
+    <link rel="stylesheet" href="/static/assets/css/detail.css">
     <div class="container">
         <div class="grid">
             <div class="container__router">
@@ -46,12 +46,12 @@ th:replace="~{/Layout/index :: dynamic(~{::main})}">
                         <div class="media__select" >
                             <div th:if="*{danhSachHinhAnh.size() > 1}" >
                                 <!-- Truy cập phần tử thứ hai -->
-                                    <img th:src="@{|/static/image/*{danhSachHinhAnh[1].duongDan}|}"
-                                         class="media__select-img">
+                                <img th:src="@{|/static/image/*{danhSachHinhAnh[1].duongDan}|}"
+                                     class="media__select-img">
 
                             </div>
                             <img th:unless="*{danhSachHinhAnh.size() > 1}"
-                                 src="/static/clients/New%20folder/assets/img/1681582211_nu6a.jpg" alt="ten san pham" class="media__select-img">
+                                 src="/static/assets/img/1681582211_nu6a.jpg" alt="ten san pham" class="media__select-img">
                         </div>
                         <div class="media__select" >
                             <div th:if="*{danhSachHinhAnh.size() > 2}" >
@@ -61,7 +61,7 @@ th:replace="~{/Layout/index :: dynamic(~{::main})}">
 
                             </div>
                             <img th:unless="*{danhSachHinhAnh.size() > 2}"
-                                 src="/static/clients/New%20folder/assets/img/1681582211_nu6a.jpg" alt="ten san pham" class="media__select-img">
+                                 src="/static/assets/img/1681582211_nu6a.jpg" alt="ten san pham" class="media__select-img">
                         </div>
                         <div class="media__select" >
                             <div th:if="*{danhSachHinhAnh.size() > 3}" >
@@ -71,7 +71,7 @@ th:replace="~{/Layout/index :: dynamic(~{::main})}">
 
                             </div>
                             <img th:unless="*{danhSachHinhAnh.size() > 3}"
-                                 src="/static/clients/New%20folder/assets/img/1681582211_nu6a.jpg" alt="ten san pham" class="media__select-img">
+                                 src="/static/assets/img/1681582211_nu6a.jpg" alt="ten san pham" class="media__select-img">
                         </div>
                         <div class="media__select" >
                             <div th:if="*{danhSachHinhAnh.size() > 4}" >
@@ -101,36 +101,36 @@ th:replace="~{/Layout/index :: dynamic(~{::main})}">
                                                 <a href="" class="product__color-link"></a>
                                             </span>
                                 </label>
-<!--                                <label class="product__color-item">-->
-<!--                                    <input type="radio" name="color" value="2" class="product__color-input">-->
-<!--                                    <span class="product__color-none den">-->
-<!--                                                <a href="" class="product__color-link"></a>-->
-<!--                                            </span>-->
-<!--                                </label>-->
-<!--                                <label class="product__color-item">-->
-<!--                                    <input type="radio" name="color" value="3" class="product__color-input">-->
-<!--                                    <span class="product__color-none do">-->
-<!--                                                <a href="" class="product__color-link"></a>-->
-<!--                                            </span>-->
-<!--                                </label>-->
-<!--                                <label class="product__color-item">-->
-<!--                                    <input type="radio" name="color" value="4" class="product__color-input">-->
-<!--                                    <span class="product__color-none be">-->
-<!--                                                <a href="" class="product__color-link"></a>-->
-<!--                                            </span>-->
-<!--                                </label>-->
-<!--                                <label class="product__color-item">-->
-<!--                                    <input type="radio" name="color" value="5" class="product__color-input">-->
-<!--                                    <span class="product__color-none xanhxam">-->
-<!--                                                <a href="" class="product__color-link"></a>-->
-<!--                                            </span>-->
-<!--                                </label>-->
-<!--                                <label class="product__color-item">-->
-<!--                                    <input type="radio" name="color" value="6" class="product__color-input">-->
-<!--                                    <span class="product__color-none hongphan">-->
-<!--                                                <a href="" class="product__color-link"></a>-->
-<!--                                            </span>-->
-<!--                                </label>-->
+                                <!--                                <label class="product__color-item">-->
+                                <!--                                    <input type="radio" name="color" value="2" class="product__color-input">-->
+                                <!--                                    <span class="product__color-none den">-->
+                                <!--                                                <a href="" class="product__color-link"></a>-->
+                                <!--                                            </span>-->
+                                <!--                                </label>-->
+                                <!--                                <label class="product__color-item">-->
+                                <!--                                    <input type="radio" name="color" value="3" class="product__color-input">-->
+                                <!--                                    <span class="product__color-none do">-->
+                                <!--                                                <a href="" class="product__color-link"></a>-->
+                                <!--                                            </span>-->
+                                <!--                                </label>-->
+                                <!--                                <label class="product__color-item">-->
+                                <!--                                    <input type="radio" name="color" value="4" class="product__color-input">-->
+                                <!--                                    <span class="product__color-none be">-->
+                                <!--                                                <a href="" class="product__color-link"></a>-->
+                                <!--                                            </span>-->
+                                <!--                                </label>-->
+                                <!--                                <label class="product__color-item">-->
+                                <!--                                    <input type="radio" name="color" value="5" class="product__color-input">-->
+                                <!--                                    <span class="product__color-none xanhxam">-->
+                                <!--                                                <a href="" class="product__color-link"></a>-->
+                                <!--                                            </span>-->
+                                <!--                                </label>-->
+                                <!--                                <label class="product__color-item">-->
+                                <!--                                    <input type="radio" name="color" value="6" class="product__color-input">-->
+                                <!--                                    <span class="product__color-none hongphan">-->
+                                <!--                                                <a href="" class="product__color-link"></a>-->
+                                <!--                                            </span>-->
+                                <!--                                </label>-->
 
 
                             </div>

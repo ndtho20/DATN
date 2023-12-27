@@ -10,21 +10,21 @@
 <body>
 <div th:replace="~{admin/index::index}"></div>
 <div class="content-body">
-<div class="container mt-3">
-    <form class="container col-6" action="/hinhanh/add" th:object="${pc}" method="post" >
+    <div class="container mt-3">
+        <form class="container col-6" action="/hinhanh/add" th:object="${pc}" method="post" >
 
-    <div class="form-group">
-        <label for="fileImage">Select Image:</label>
-        <input type="file" class="form-control-file" id="fileImage" name="fileImage" required/>
-    </div>
-        <div>
-            <label for="fileImage">Select Image:</label>
-            <input type="file" th:field="*{duongDan}" class="form-control-file" id="fileImage" name="fileImage"
-                   required/>
-            <i th:errors="*{duongDan}"></i><br>
-            <br>
-        </div>
-        <div style="clear: both; display: block; height: 10px"></div>
+            <div class="form-group">
+                <label for="fileImage">Select Image:</label>
+                <input type="file" class="form-control-file" id="fileImage" name="fileImage" required/>
+            </div>
+            <div>
+                <label for="fileImage">Select Image:</label>
+                <input type="file" th:field="*{duongDan}" class="form-control-file" id="fileImage" name="fileImage"
+                       required/>
+                <i th:errors="*{duongDan}"></i><br>
+                <br>
+            </div>
+            <div style="clear: both; display: block; height: 10px"></div>
             <div class="form-group">
                 <label for="idChiTietSanPham">ChiTietSanPham:</label>
                 <select class="form-control" id="idChiTietSanPham" name="idchitietsanpham" required>
@@ -35,70 +35,70 @@
             </div>
 
 
-        <button type="submit" class="btn btn-rounded btn-info">
+            <button type="submit" class="btn btn-rounded btn-info">
             <span class="btn-icon-start text-info"><i
                     class="fa fa-plus color-info"></i>
                                     </span>Add
-        </button>
-</form>
+            </button>
+        </form>
 
 
 
-    <h2>Danh sách Hình ảnh</h2>
+        <h2>Danh sách Hình ảnh</h2>
 
-    <!-- Table -->
-    <table class="table mt-3" id="hinhAnhTable">
-        <thead>
-        <tr>
-            <th scope="col">ID</th>
-            <th scope="col">Hình ảnh</th>
-            <th scope="col">Ngày tạo</th>
-            <th scope="col">Chi Tiết Sản Phẩm</th>
-            <th scope="col">Thao tác</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="hinhAnh : ${dsHinhAnh}">
-            <td th:text="${hinhAnh.idHinhAnh}"></td>
-            <td>
-                <img th:src="@{'/static/image/' + ${hinhAnh.duongDan}}" alt="Hình ảnh" width="100" height="100"/>
-            </td>
+        <!-- Table -->
+        <table class="table mt-3" id="hinhAnhTable">
+            <thead>
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Hình ảnh</th>
+                <th scope="col">Ngày tạo</th>
+                <th scope="col">Chi Tiết Sản Phẩm</th>
+                <th scope="col">Thao tác</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="hinhAnh : ${dsHinhAnh}">
+                <td th:text="${hinhAnh.idHinhAnh}"></td>
+                <td>
+                    <img th:src="@{'/static/image/' + ${hinhAnh.duongDan}}" alt="Hình ảnh" width="100" height="100"/>
+                </td>
 
-            <td th:text="${hinhAnh.ngayTao}"></td>
-            <td th:text="${hinhAnh.chiTietSanPham.tenSanPham}"></td>
-            <td>
-            <div class="d-flex">
-                    <a th:href="@{'/hinhanh/update/' + ${hinhAnh.idHinhAnh}}" class="btn btn-primary shadow btn-xs sharp me-1"><i
-                            class="fas fa-pencil-alt"></i></a>
-                    <a th:href="@{'/hinhanh/delete?id=' + ${hinhAnh.idHinhAnh}}"
-                   th:onclick="'return confirmDelete(event, ' + ${hinhAnh.idHinhAnh} + ')'" class="btn btn-danger shadow btn-xs sharp"><i
-                            class="fa fa-trash"></i></a>
-                </div>
-                <script>
-                    const confirmDelete = (event, id) => {
-                        event.preventDefault();
-                        Swal.fire({
-                            title: 'Bạn có chắc muốn xóa không?',
-                            text: 'Thao tác này sẽ xóa dữ liệu vĩnh viễn!',
-                            icon: 'warning',
-                            showCancelButton: true,
-                            confirmButtonColor: '#d33',
-                            cancelButtonColor: '#3085d6',
-                            confirmButtonText: 'Xóa',
-                            cancelButtonText: 'Hủy'
-                        }).then(result => {
-                            if (result.isConfirmed) {
-                                window.location.href = `/hinhanh/delete?id=${id}`;
-                                Swal.fire('Xóa thành công!', '', 'success');
-                            }
-                        });
-                    };
-                </script>
-            </td>
-        </tr>
-        </tbody>
-    </table>
-</div>
+                <td th:text="${hinhAnh.ngayTao}"></td>
+                <td th:text="${hinhAnh.chiTietSanPham.tenSanPham}"></td>
+                <td>
+                    <div class="d-flex">
+                        <a th:href="@{'/hinhanh/update/' + ${hinhAnh.idHinhAnh}}" class="btn btn-primary shadow btn-xs sharp me-1"><i
+                                class="fas fa-pencil-alt"></i></a>
+                        <a th:href="@{'/hinhanh/delete?id=' + ${hinhAnh.idHinhAnh}}"
+                           th:onclick="'return confirmDelete(event, ' + ${hinhAnh.idHinhAnh} + ')'" class="btn btn-danger shadow btn-xs sharp"><i
+                                class="fa fa-trash"></i></a>
+                    </div>
+                    <script>
+                        const confirmDelete = (event, id) => {
+                            event.preventDefault();
+                            Swal.fire({
+                                title: 'Bạn có chắc muốn xóa không?',
+                                text: 'Thao tác này sẽ xóa dữ liệu vĩnh viễn!',
+                                icon: 'warning',
+                                showCancelButton: true,
+                                confirmButtonColor: '#d33',
+                                cancelButtonColor: '#3085d6',
+                                confirmButtonText: 'Xóa',
+                                cancelButtonText: 'Hủy'
+                            }).then(result => {
+                                if (result.isConfirmed) {
+                                    window.location.href = `/hinhanh/delete?id=${id}`;
+                                    Swal.fire('Xóa thành công!', '', 'success');
+                                }
+                            });
+                        };
+                    </script>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
 </div>
 
 <script th:inline="javascript">

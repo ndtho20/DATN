@@ -6,6 +6,8 @@ import com.example.demo.repository.ChiTietSanPhamRepository;
 import com.example.demo.repository.GioHangChiTietRepository;
 import com.example.demo.repository.HinhAnhRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -22,10 +24,12 @@ public class ChiTietSanPhamService {
     @Autowired
     private GioHangChiTietRepository gioHangChiTietRepository;
 
+    public Page<ChiTietSanPham> findAll(Pageable pageable) {
+        return chiTietSanPhamRepository.findAll(pageable);
+    }
     public List<ChiTietSanPham> getAll() {
         return chiTietSanPhamRepository.findAll();
     }
-
     public List<ChiTietSanPham> searchSanPham(String ten) {
         return chiTietSanPhamRepository.findChiTietSanPhamByTenSanPhamContaining(ten);
     }
@@ -36,8 +40,8 @@ public class ChiTietSanPhamService {
 
 
 
-    public List<ChiTietSanPham> findByCategoryId(String cid) {
-        return chiTietSanPhamRepository.findByCategoryId(cid);
+    public List<ChiTietSanPham> findByCategoryId(Integer categoryId) {
+        return chiTietSanPhamRepository.findByCategoryId(categoryId);
     }
 
 
@@ -86,7 +90,26 @@ public class ChiTietSanPhamService {
             chiTietSanPhamRepository.save(existingChiTietSanPham);
         }
     }
+    public List<ChiTietSanPham> findByMauSac(String color) {
+        return chiTietSanPhamRepository.findByColor(color);
+    }
 
+    public List<ChiTietSanPham> findBySize(String size) {
+        return chiTietSanPhamRepository.findBySize(size);
+    }
+
+    public List<ChiTietSanPham> findByCategoryAndMauSacAndSize(Integer categoryId, String color, String size) {
+        return chiTietSanPhamRepository.findByLoaiSanPhamIdSanPhamAndMauSacMaAndSizeMa(categoryId, color, size);
+    }
+    public List<ChiTietSanPham> findByCategoryAndMauSac(Integer categoryId, String color) {
+        return chiTietSanPhamRepository.findByLoaiSanPhamIdSanPhamAndMauSacMa(categoryId, color);
+    }
+    public List<ChiTietSanPham> findByCategoryAndSize(Integer categoryId,String size) {
+        return chiTietSanPhamRepository.findByLoaiSanPhamIdSanPhamAndSizeMa(categoryId, size);
+    }
+    public List<ChiTietSanPham> findByMauSacAndSize( String color, String size) {
+        return chiTietSanPhamRepository.findByMauSacMaAndSizeMa( color, size);
+    }
     public void deleteChiTietSanPham(Integer id) {
         if(gioHangChiTietRepository.countByChiTietSanPhamId(id)==0||hinhAnhRepository.coundChitiet(id)==0){
             chiTietSanPhamRepository.deleteById(id);
@@ -95,6 +118,9 @@ public class ChiTietSanPhamService {
             existingChiTietSanPham.setTrangThai(false);
             chiTietSanPhamRepository.save(existingChiTietSanPham);
         }
+    }
+    public int countProductsByCategory(String categoryId) {
+        return chiTietSanPhamRepository.countByLoaiSanPham_IdSanPham(categoryId);
     }
 }
 

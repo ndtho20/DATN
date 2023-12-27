@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  th:replace="~{/Layout/index :: dynamic(~{::main})}">
+
+<!-- Mirrored from themezhub.net/kumo-demo-2/kumo/shop-style-2.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 07 Apr 2023 12:24:05 GMT -->
+<head>
+
+
+</head>
+
+<body>
+<main>
+<!-- ============================================================== -->
+<!-- Preloader - style you can find in spinners.css -->
+<!-- ============================================================== -->
+
+
+<!-- ============================================================== -->
+<!-- Main wrapper - style you can find in pages.scss -->
+<!-- ============================================================== -->
+
+
+	<!-- ============================================================== -->
+	<!-- Top header  -->
+	<!-- ============================================================== -->
+
+	<!-- End Navigation -->
+
+	<!-- ============================================================== -->
+	<!-- Top header  -->
+	<!-- ============================================================== -->
+
+	<!-- ======================= Shop Style 1 ======================== -->
+	<section class="bg-cover" style="background:url(../../static/clients/assets/img/bg.jpg) no-repeat;">
+		<div class="container">
+			<div class="row align-items-center justify-content-center">
+				<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+					<div class="text-center py-5 mt-3 mb-3">
+						<h1 class="ft-medium mb-3">Shop</h1>
+						<ul class="shop_categories_list m-0 p-0">
+							<li><a href="#">Men</a></li>
+							<li><a href="#">Speakers</a></li>
+							<li><a href="#">Women</a></li>
+							<li><a href="#">Accessories</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- ======================= Shop Style 1 ======================== -->
+
+
+	<!-- ======================= Filter Wrap Style 1 ======================== -->
+	<section class="py-2 br-bottom br-top">
+		<div class="container">
+			<div class="row align-items-center justify-content-between">
+				<div class="col-xl-3 col-lg-4 col-md-5 col-sm-12">
+					<nav aria-label="breadcrumb">
+						<ol class="breadcrumb">
+							<li class="breadcrumb-item"><a href="#">Home</a></li>
+							<li class="breadcrumb-item"><a href="#">Shop</a></li>
+							<li class="breadcrumb-item active" aria-current="page">Women's</li>
+						</ol>
+					</nav>
+				</div>
+
+				<div class="col-xl-9 col-lg-8 col-md-7 col-sm-12">
+					<div class="filter_wraps elspo_wrap d-flex align-items-center justify-content-end">
+						<div class="single_fitres elspo_filter mr-2 br-right">
+							<a href="#filterBox" class="simple-button px-2" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="filterBox"><i class="lni lni-text-align-right mr-2"></i><span class="hide_mob">Filters</span></a>
+						</div>
+						<div class="single_fitres mr-2 br-right">
+							<select class="custom-select simple">
+								<option value="1" selected="">Default Sorting</option>
+								<option value="2">Sort by price: Low price</option>
+								<option value="3">Sort by price: Hight price</option>
+								<option value="4">Sort by rating</option>
+								<option value="5">Sort by trending</option>
+							</select>
+						</div>
+						<div class="single_fitres">
+							<a href="shop-style-4.html" class="simple-button mr-1"><i class="ti-layout-grid3"></i></a>
+							<a href="shop-grid-3.html" class="simple-button mr-1"><i class="ti-layout-grid2"></i></a>
+							<a href="shop-list-view.html" class="simple-button active"><i class="ti-view-list"></i></a>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="row align-items-center justify-content-center">
+				<div class="col-xl-12 col-lg-12 col-md-12">
+					<div class="collapse" id="filterBox">
+						<div class="card py-3 b-0">
+							<div class="row">
+
+								<!-- Choose Category -->
+								<div class="col-xl-3 col-lg-3 col-md-6 col-sm-6">
+									<div class="single_filter_title mb-2"><h6 class="mb-0 fs-sm ft-medium text-muted">Choose Categories</h6></div>
+									<div class="single_filter_card mb-2">
+										<h5><a href="#mens" data-toggle="collapse" class="collapsed" aria-expanded="false" role="button">Men's<i class="accordion-indicator ti-angle-down"></i></a></h5>
+										<div class="collapse" id="mens" data-parent="#mens-categories">
+											<div class="card-body">
+												<div class="inner_widget_link">
+													<ul class="m-0 p-0" th:each="c:${cates}">
+														<li><a th:href="@{|/product/list?cid=${c.idSanPham}|}">[[${c.ten}]]</a></li>
+													</ul>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+
+								<!-- Choose Category -->
+								<div class="col-xl-3 col-lg-3 col-md-6 col-sm-6">
+									<div class="single_filter_title mb-2"><h6 class="mb-0 fs-sm ft-medium text-muted">Choose Size</h6></div>
+									<div class="text-left pb-0 pt-2">
+										<div class="form-check form-option form-check-inline mb-2" th:each="size: ${sizes}">
+											<input class="form-check-input" type="radio" name="size" th:id="${size}" th:value="${size}">
+											<label class="form-option-label" th:for="${size}" th:text="${size}"></label>
+										</div>
+									</div>
+								</div>
+
+								<!-- Choose Category -->
+								<div class="col-xl-3 col-lg-3 col-md-6 col-sm-6">
+									<div class="single_filter_title mb-2"><h6 class="mb-0 fs-sm ft-medium text-muted">Choose Colors</h6></div>
+									<div class="text-left">
+										<div class="form-check form-option form-check-inline mb-1" th:each="color: ${colors}">
+											<input class="form-check-input" type="radio" name="color" th:id="${color}" th:value="${color}">
+											<label class="form-option-label rounded-circle" th:for="${color}">
+												<span th:class="'form-option-color rounded-circle ' + ${color}"></span>
+											</label>
+										</div>
+									</div>
+								</div>
+
+								<!-- Choose Category -->
+								<div class="col-xl-3 col-lg-3 col-md-6 col-sm-6">
+									<div class="single_filter_title mb-2"><h6 class="mb-0 fs-sm ft-medium text-muted">Filter By Price</h6></div>
+									<div class="side-list mb-2">
+										<div class="rg-slider">
+											<input type="text" class="js-range-slider" name="my_range" value="" />
+										</div>
+									</div>
+								</div>
+
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</section>
+	<!-- ============================= Filter Wrap ============================== -->
+
+
+	<!-- ======================= All Product List ======================== -->
+	<section class="middle">
+		<div class="container">
+
+			<div class="row align-items-center rows-products">
+
+
+
+				<!-- Single -->
+				<div class="col-xl-3 col-lg-4 col-md-6 col-6" th:each="chiTietSanPham : ${items}">
+					<div class="product_grid card b-0">
+
+						<div class="card-body p-0">
+							<div class="shop_thumb position-relative">
+								<a class="card-img-top d-block overflow-hidden" th:href="@{|/product/detail/${chiTietSanPham.idChiTietSanPham}|}"><img class="card-img-top" th:src="@{|/static/image/${chiTietSanPham.danhSachHinhAnh[0].duongDan}|}" alt="..."></a>
+								<div class="product-hover-overlay d-flex align-items-center justify-content-between">
+									<div class="edlio"><a href="javascript:void(0);" class="text-underline fs-sm ft-bold snackbar-addcart">Add To Cart</a></div>
+									<div class="edlio d-flex align-items-center">
+										<button class="btn auto btn_love mr-2 snackbar-wishlist"><i class="far fa-heart"></i></button>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="card-footer b-0 p-0 pt-2 bg-white d-flex align-items-start justify-content-between">
+							<div class="text-left">
+								<div class="text-left">
+									<div class="star-rating align-items-center d-flex justify-content-left mb-1 p-0">
+										<i class="fas fa-star filled"></i>
+										<i class="fas fa-star filled"></i>
+										<i class="fas fa-star filled"></i>
+										<i class="fas fa-star filled"></i>
+										<i class="fas fa-star"></i>
+										<span class="small">(5 Reviews)</span>
+									</div>
+									<h5 class="fs-md mb-0 lh-1 mb-1"><a href="shop-single-v1.html" th:text="${chiTietSanPham.tenSanPham}"></a></h5>
+									<div class="elis_rty"><span class="ft-bold text-dark fs-sm" th:text="${chiTietSanPham.giaBan}"></span></div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+
+
+			</div>
+			<!-- Hiển thị phân trang -->
+			<!-- Hiển thị phân trang -->
+			<div th:if="${not items.empty}">
+				<ul th:if="${items.totalPages > 1 and cid == null}" class="pagination">
+					<li th:if="${items.totalPages > 1}" th:class="${items.number > 0 ? '' : 'disabled'}">
+						<a th:href="@{/product/list(page=0)}">First</a>
+					</li>
+					<li th:class="${items.first ? 'disabled' : ''}">
+						<a th:if="${items.number > 0}" th:href="@{/product/list(page=${items.number - 1})}">&laquo;</a>
+					</li>
+					<li th:each="pageNumber : ${#numbers.sequence(0, items.totalPages - 1)}" th:class="${pageNumber == items.number ? 'active' : ''}">
+						<a th:href="@{/product/list(page=${pageNumber})}" th:text="${pageNumber + 1}"></a>
+					</li>
+					<li th:class="${items.last ? 'disabled' : ''}">
+						<a th:if="${items.number < items.totalPages - 1}" th:href="@{/product/list(page=${items.number + 1})}">&raquo;</a>
+					</li>
+
+					<!-- Button đầu trang và cuối trang -->
+
+					<li th:if="${items.totalPages > 1}" th:class="${items.number < items.totalPages - 1 ? '' : 'disabled'}">
+						<a th:href="@{/product/list(page=${items.totalPages - 1})}">Last</a>
+					</li>
+				</ul>
+			</div>
+
+
+
+
+		</div>
+	</section>
+	<!-- ======================= All Product List ======================== -->
+
+	<!-- ======================= Customer Features ======================== -->
+
+	<!-- Product View Modal -->
+	<!-- End Modal -->
+
+	<!-- Log In Modal -->
+	<div class="modal fade" id="login" tabindex="-1" role="dialog" aria-labelledby="loginmodal" aria-hidden="true">
+		<div class="modal-dialog modal-xl login-pop-form" role="document">
+			<div class="modal-content" id="loginmodal">
+				<div class="modal-headers">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span class="ti-close"></span>
+					</button>
+				</div>
+
+				<div class="modal-body p-5">
+					<div class="text-center mb-4">
+						<h2 class="m-0 ft-regular">Login</h2>
+					</div>
+
+					<form>
+						<div class="form-group">
+							<label>User Name</label>
+							<input type="text" class="form-control" placeholder="Username*">
+						</div>
+
+						<div class="form-group">
+							<label>Password</label>
+							<input type="password" class="form-control" placeholder="Password*">
+						</div>
+
+						<div class="form-group">
+							<div class="d-flex align-items-center justify-content-between">
+								<div class="flex-1">
+									<input id="dd" class="checkbox-custom" name="dd" type="checkbox">
+									<label for="dd" class="checkbox-custom-label">Remember Me</label>
+								</div>
+								<div class="eltio_k2">
+									<a href="#">Lost Your Password?</a>
+								</div>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<button type="submit" class="btn btn-md full-width bg-dark text-light fs-md ft-medium">Login</button>
+						</div>
+
+						<div class="form-group text-center mb-0">
+							<p class="extra">Not a member?<a href="#et-register-wrap" class="text-dark"> Register</a></p>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- End Modal -->
+
+	<!-- Search -->
+	<div class="w3-ch-sideBar w3-bar-block w3-card-2 w3-animate-right" style="display:none;right:0;" id="Search">
+		<div class="rightMenu-scroll">
+			<div class="d-flex align-items-center justify-content-between slide-head py-3 px-3">
+				<h4 class="cart_heading fs-md ft-medium mb-0">Search Products</h4>
+				<button onclick="closeSearch()" class="close_slide"><i class="ti-close"></i></button>
+			</div>
+
+			<div class="cart_action px-3 py-4">
+				<form class="form m-0 p-0">
+					<div class="form-group">
+						<input type="text" class="form-control" placeholder="Product Keyword.." />
+					</div>
+
+					<div class="form-group">
+						<select class="custom-select">
+							<option value="1" selected="">Choose Category</option>
+							<option value="2">Men's Store</option>
+							<option value="3">Women's Store</option>
+							<option value="4">Kid's Fashion</option>
+							<option value="5">Inner Wear</option>
+						</select>
+					</div>
+
+					<div class="form-group mb-0">
+						<button type="button" class="btn d-block full-width btn-dark">Search Product</button>
+					</div>
+				</form>
+			</div>
+
+			<div class="d-flex align-items-center justify-content-center br-top br-bottom py-2 px-3">
+				<h4 class="cart_heading fs-md mb-0">Hot Categories</h4>
+			</div>
+
+			<div class="cart_action px-3 py-3">
+				<div class="row">
+					<div class="col-xl-4 col-lg-4 col-md-4 col-4 mb-3">
+						<div class="cats_side_wrap text-center">
+							<div class="sl_cat_01"><div class="d-inline-flex align-items-center justify-content-center p-3 circle mb-2 gray"><a href="javascript:void(0);" class="d-block"><img src="../../static/clients/assets/img/tshirt.png" class="img-fluid" width="40" alt="" /></a></div></div>
+							<div class="sl_cat_02"><h6 class="m-0 ft-medium fs-sm"><a href="javascript:void(0);">T-Shirts</a></h6></div>
+						</div>
+					</div>
+					<div class="col-xl-4 col-lg-4 col-md-4 col-4 mb-3">
+						<div class="cats_side_wrap text-center">
+							<div class="sl_cat_01"><div class="d-inline-flex align-items-center justify-content-center p-3 circle mb-2 gray"><a href="javascript:void(0);" class="d-block"><img src="../../static/clients/assets/img/pant.png" class="img-fluid" width="40" alt="" /></a></div></div>
+							<div class="sl_cat_02"><h6 class="m-0 ft-medium fs-sm"><a href="javascript:void(0);">Pants</a></h6></div>
+						</div>
+					</div>
+					<div class="col-xl-4 col-lg-4 col-md-4 col-4 mb-3">
+						<div class="cats_side_wrap text-center">
+							<div class="sl_cat_01"><div class="d-inline-flex align-items-center justify-content-center p-3 circle mb-2 gray"><a href="javascript:void(0);" class="d-block"><img src="../../static/clients/assets/img/fashion.png" class="img-fluid" width="40" alt="" /></a></div></div>
+							<div class="sl_cat_02"><h6 class="m-0 ft-medium fs-sm"><a href="javascript:void(0);">Women's</a></h6></div>
+						</div>
+					</div>
+					<div class="col-xl-4 col-lg-4 col-md-4 col-4 mb-3">
+						<div class="cats_side_wrap text-center">
+							<div class="sl_cat_01"><div class="d-inline-flex align-items-center justify-content-center p-3 circle mb-2 gray"><a href="javascript:void(0);" class="d-block"><img src="../../static/clients/assets/img/sneakers.png" class="img-fluid" width="40" alt="" /></a></div></div>
+							<div class="sl_cat_02"><h6 class="m-0 ft-medium fs-sm"><a href="javascript:void(0);">Shoes</a></h6></div>
+						</div>
+					</div>
+					<div class="col-xl-4 col-lg-4 col-md-4 col-4 mb-3">
+						<div class="cats_side_wrap text-center">
+							<div class="sl_cat_01"><div class="d-inline-flex align-items-center justify-content-center p-3 circle mb-2 gray"><a href="javascript:void(0);" class="d-block"><img src="../../static/clients/assets/img/television.png" class="img-fluid" width="40" alt="" /></a></div></div>
+							<div class="sl_cat_02"><h6 class="m-0 ft-medium fs-sm"><a href="javascript:void(0);">Television</a></h6></div>
+						</div>
+					</div>
+					<div class="col-xl-4 col-lg-4 col-md-4 col-4 mb-3">
+						<div class="cats_side_wrap text-center">
+							<div class="sl_cat_01"><div class="d-inline-flex align-items-center justify-content-center p-3 circle mb-2 gray"><a href="javascript:void(0);" class="d-block"><img src="../../static/clients/assets/img/accessories.png" class="img-fluid" width="40" alt="" /></a></div></div>
+							<div class="sl_cat_02"><h6 class="m-0 ft-medium fs-sm"><a href="javascript:void(0);">Accessories</a></h6></div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+
+	<!-- Wishlist -->
+	<div class="w3-ch-sideBar w3-bar-block w3-card-2 w3-animate-right" style="display:none;right:0;" id="Wishlist">
+		<div class="rightMenu-scroll">
+			<div class="d-flex align-items-center justify-content-between slide-head py-3 px-3">
+				<h4 class="cart_heading fs-md ft-medium mb-0">Saved Products</h4>
+				<button onclick="closeWishlist()" class="close_slide"><i class="ti-close"></i></button>
+			</div>
+			<div class="right-ch-sideBar">
+
+				<div class="cart_select_items py-2">
+					<!-- Single Item -->
+					<div class="d-flex align-items-center justify-content-between br-bottom px-3 py-3">
+						<div class="cart_single d-flex align-items-center">
+							<div class="cart_selected_single_thumb">
+								<a href="#"><img src="../../static/clients/assets/img/product/4.jpg" width="60" class="img-fluid" alt="" /></a>
+							</div>
+							<div class="cart_single_caption pl-2">
+								<h4 class="product_title fs-sm ft-medium mb-0 lh-1">Women Striped Shirt Dress</h4>
+								<p class="mb-2"><span class="text-dark ft-medium small">36</span>, <span class="text-dark small">Red</span></p>
+								<h4 class="fs-md ft-medium mb-0 lh-1">$129</h4>
+							</div>
+						</div>
+						<div class="fls_last"><button class="close_slide gray"><i class="ti-close"></i></button></div>
+					</div>
+
+					<!-- Single Item -->
+					<div class="d-flex align-items-center justify-content-between br-bottom px-3 py-3">
+						<div class="cart_single d-flex align-items-center">
+							<div class="cart_selected_single_thumb">
+								<a href="#"><img src="../../static/clients/assets/img/product/7.jpg" width="60" class="img-fluid" alt="" /></a>
+							</div>
+							<div class="cart_single_caption pl-2">
+								<h4 class="product_title fs-sm ft-medium mb-0 lh-1">Girls Floral Print Jumpsuit</h4>
+								<p class="mb-2"><span class="text-dark ft-medium small">36</span>, <span class="text-dark small">Red</span></p>
+								<h4 class="fs-md ft-medium mb-0 lh-1">$129</h4>
+							</div>
+						</div>
+						<div class="fls_last"><button class="close_slide gray"><i class="ti-close"></i></button></div>
+					</div>
+
+					<!-- Single Item -->
+					<div class="d-flex align-items-center justify-content-between px-3 py-3">
+						<div class="cart_single d-flex align-items-center">
+							<div class="cart_selected_single_thumb">
+								<a href="#"><img src="../../static/clients/assets/img/product/8.jpg" width="60" class="img-fluid" alt="" /></a>
+							</div>
+							<div class="cart_single_caption pl-2">
+								<h4 class="product_title fs-sm ft-medium mb-0 lh-1">Girls Solid A-Line Dress</h4>
+								<p class="mb-2"><span class="text-dark ft-medium small">30</span>, <span class="text-dark small">Blue</span></p>
+								<h4 class="fs-md ft-medium mb-0 lh-1">$100</h4>
+							</div>
+						</div>
+						<div class="fls_last"><button class="close_slide gray"><i class="ti-close"></i></button></div>
+					</div>
+
+				</div>
+
+				<div class="d-flex align-items-center justify-content-between br-top br-bottom px-3 py-3">
+					<h6 class="mb-0">Subtotal</h6>
+					<h3 class="mb-0 ft-medium">$417</h3>
+				</div>
+
+				<div class="cart_action px-3 py-3">
+					<div class="form-group">
+						<button type="button" class="btn d-block full-width btn-dark">Move To Cart</button>
+					</div>
+					<div class="form-group">
+						<button type="button" class="btn d-block full-width btn-dark-light">Edit or View</button>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+	<!-- Cart -->
+	<div class="w3-ch-sideBar w3-bar-block w3-card-2 w3-animate-right" style="display:none;right:0;" id="Cart">
+		<div class="rightMenu-scroll">
+			<div class="d-flex align-items-center justify-content-between slide-head py-3 px-3">
+				<h4 class="cart_heading fs-md ft-medium mb-0">Products List</h4>
+				<button onclick="closeCart()" class="close_slide"><i class="ti-close"></i></button>
+			</div>
+			<div class="right-ch-sideBar">
+
+				<div class="cart_select_items py-2">
+					<!-- Single Item -->
+					<div class="d-flex align-items-center justify-content-between br-bottom px-3 py-3">
+						<div class="cart_single d-flex align-items-center">
+							<div class="cart_selected_single_thumb">
+								<a href="#"><img src="../../static/clients/assets/img/product/4.jpg" width="60" class="img-fluid" alt="" /></a>
+							</div>
+							<div class="cart_single_caption pl-2">
+								<h4 class="product_title fs-sm ft-medium mb-0 lh-1">Women Striped Shirt Dress</h4>
+								<p class="mb-2"><span class="text-dark ft-medium small">36</span>, <span class="text-dark small">Red</span></p>
+								<h4 class="fs-md ft-medium mb-0 lh-1">$129</h4>
+							</div>
+						</div>
+						<div class="fls_last"><button class="close_slide gray"><i class="ti-close"></i></button></div>
+					</div>
+
+					<!-- Single Item -->
+					<div class="d-flex align-items-center justify-content-between br-bottom px-3 py-3">
+						<div class="cart_single d-flex align-items-center">
+							<div class="cart_selected_single_thumb">
+								<a href="#"><img src="../../static/clients/assets/img/product/7.jpg" width="60" class="img-fluid" alt="" /></a>
+							</div>
+							<div class="cart_single_caption pl-2">
+								<h4 class="product_title fs-sm ft-medium mb-0 lh-1">Girls Floral Print Jumpsuit</h4>
+								<p class="mb-2"><span class="text-dark ft-medium small">36</span>, <span class="text-dark small">Red</span></p>
+								<h4 class="fs-md ft-medium mb-0 lh-1">$129</h4>
+							</div>
+						</div>
+						<div class="fls_last"><button class="close_slide gray"><i class="ti-close"></i></button></div>
+					</div>
+
+					<!-- Single Item -->
+					<div class="d-flex align-items-center justify-content-between px-3 py-3">
+						<div class="cart_single d-flex align-items-center">
+							<div class="cart_selected_single_thumb">
+								<a href="#"><img src="../../static/clients/assets/img/product/8.jpg" width="60" class="img-fluid" alt="" /></a>
+							</div>
+							<div class="cart_single_caption pl-2">
+								<h4 class="product_title fs-sm ft-medium mb-0 lh-1">Girls Solid A-Line Dress</h4>
+								<p class="mb-2"><span class="text-dark ft-medium small">30</span>, <span class="text-dark small">Blue</span></p>
+								<h4 class="fs-md ft-medium mb-0 lh-1">$100</h4>
+							</div>
+						</div>
+						<div class="fls_last"><button class="close_slide gray"><i class="ti-close"></i></button></div>
+					</div>
+
+				</div>
+
+				<div class="d-flex align-items-center justify-content-between br-top br-bottom px-3 py-3">
+					<h6 class="mb-0">Subtotal</h6>
+					<h3 class="mb-0 ft-medium">$1023</h3>
+				</div>
+
+				<div class="cart_action px-3 py-3">
+					<div class="form-group">
+						<button type="button" class="btn d-block full-width btn-dark">Checkout Now</button>
+					</div>
+					<div class="form-group">
+						<button type="button" class="btn d-block full-width btn-dark-light">Edit or View</button>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+	<a id="back2Top" class="top-scroll" title="Back to top" href="#"><i class="ti-arrow-up"></i></a>
+
+
+
+<!-- ============================================================== -->
+<!-- End Wrapper -->
+<!-- ============================================================== -->
+
+<!-- ============================================================== -->
+<!-- All Jquery -->
+<!-- ============================================================== -->
+</main>
+</body>
+
+<!-- Mirrored from themezhub.net/kumo-demo-2/kumo/shop-style-2.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 07 Apr 2023 12:24:05 GMT -->
+</html>
