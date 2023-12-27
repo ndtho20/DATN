@@ -62,7 +62,7 @@
                 <a th:href="@{'/hinhanh/update/' + ${hinhAnh.idHinhAnh}}">
                     <button class="btn btn-primary">Detail</button>
                 </a>
-                <a th:href="@{'/PhongCach/delete?id=' + ${hinhAnh.idHinhAnh}}"
+                <a th:href="@{'/hinhanh/delete?id=' + ${hinhAnh.idHinhAnh}}"
                    th:onclick="'return confirmDelete(event, ' + ${hinhAnh.idHinhAnh} + ')'"
                    class="btn btn-danger">Delete</a>
                 <script>
@@ -90,59 +90,6 @@
         </tbody>
     </table>
 </div>
-
-<!-- Modal -->
-<!-- Thêm form thêm hình ảnh ở đây -->
-<!--<script th:inline="javascript">-->
-<!--    $(document).ready(function () {-->
-<!--        // Xử lý sự kiện khi biểu mẫu thêm mới hình ảnh được submit-->
-<!--        $('#addHinhAnhForm').submit(function (event) {-->
-<!--            event.preventDefault();-->
-
-<!--            var form = $(this);-->
-<!--            var formData = new FormData(form[0]);-->
-
-<!--            // Thực hiện AJAX để thêm mới hình ảnh-->
-<!--            $.ajax({-->
-<!--                type: 'POST',-->
-<!--                url: form.attr('action'),-->
-<!--                data: formData,-->
-<!--                processData: false,-->
-<!--                contentType: false,-->
-<!--                success: function (data) {-->
-<!--                    // Hiển thị thông báo (nếu cần)-->
-<!--                    alert(data.message);-->
-
-<!--                    // Cập nhật bảng-->
-<!--                    updateTable();-->
-<!--                },-->
-<!--                error: function (xhr, status, error) {-->
-<!--                    // Xử lý lỗi (nếu cần)-->
-<!--                    console.error(xhr.responseText);-->
-<!--                }-->
-<!--            });-->
-<!--        });-->
-
-<!--        // Hàm cập nhật bảng-->
-<!--        function updateTable() {-->
-<!--            $.get('/hinhanh/list', function (data) {-->
-<!--                // Xóa nội dung cũ của bảng-->
-<!--                $('#hinhAnhTable tbody').empty();-->
-
-<!--                // Thêm dữ liệu mới vào bảng-->
-<!--                $.each(data, function (index, hinhAnh) {-->
-<!--                    var row = $('<tr>');-->
-<!--                    row.append($('<td>').text(hinhAnh.idHinhAnh));-->
-<!--                    row.append($('<td>').text(hinhAnh.duongDan));-->
-<!--                    // Thêm các cột khác tương ứng với dữ liệu của hình ảnh-->
-
-<!--                    // Thêm dòng vào bảng-->
-<!--                    $('#hinhAnhTable tbody').append(row);-->
-<!--                });-->
-<!--            });-->
-<!--        }-->
-<!--    });-->
-<!--</script>-->
 
 <script th:inline="javascript">
     /* Kiểm tra nếu có successMessage thì hiển thị SweetAlert */
