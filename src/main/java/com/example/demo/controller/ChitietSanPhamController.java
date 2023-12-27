@@ -62,63 +62,56 @@ public class ChitietSanPhamController {
     }
 
     @PostMapping("/add")
+        public String addChiTietSanPham(@Validated @ModelAttribute("chiTietSanPham") ChiTietSanPham chiTietSanPham, BindingResult result, Model model, RedirectAttributes redirectAttributes,
+        @RequestParam("fileImages") MultipartFile[] fileImages) {
+            chiTietSanPham.setTrangThai(true);
+            if (result.hasErrors()) {
+                List<ChiTietSanPham> dsHinhAnh = chiTietSanPhamService.getAll();
+                model.addAttribute("listLoaiSanPham", loaiSanPhamService.getAll());
+                model.addAttribute("listChatLieu", chatLieuService.getAll());
+                model.addAttribute("listSize", sizeService.getAll());
+                model.addAttribute("listPhongCach", phongCachService.getAll());
+                model.addAttribute("listNSX", nsxService.getAll());
+                model.addAttribute("listMauSac", mauSacService.getAll());
 
-    public String addChiTietSanPham(@Validated @ModelAttribute("chiTietSanPham") ChiTietSanPham chiTietSanPham, BindingResult result, Model model, RedirectAttributes redirectAttributes) {
-        chiTietSanPham.setTrangThai(true);
-        if (result.hasErrors()) {
-            List<ChiTietSanPham> dsHinhAnh = chiTietSanPhamService.getAll();
-            model.addAttribute("listLoaiSanPham", loaiSanPhamService.getAll());
-            model.addAttribute("listChatLieu", chatLieuService.getAll());
-            model.addAttribute("listSize", sizeService.getAll());
-            model.addAttribute("listPhongCach", phongCachService.getAll());
-            model.addAttribute("listNSX", nsxService.getAll());
-            model.addAttribute("listMauSac", mauSacService.getAll());
 
+                model.addAttribute("dsChiTietSanPham", dsHinhAnh);
+                model.addAttribute("chiTietSanPham", chiTietSanPham);
+                redirectAttributes.addFlashAttribute("dsChiTietSanPham", dsHinhAnh); // Giữ lại giá trị đã submit
+                redirectAttributes.addFlashAttribute("errorMessage", "Vui lòng điền đúng thông tin!");
+                return "ChiTietSanPham/Index";
+            } else{
+                chiTietSanPhamService.addChiTietSanPham(chiTietSanPham);
+                if (fileImages.length == 0) {
+                    redirectAttributes.addFlashAttribute("message", "Vui lòng chọn ít nhất một file hình ảnh.");
+                    return "redirect:/chitietsanpham";
+                }
 
-            model.addAttribute("dsChiTietSanPham", dsHinhAnh);
-            model.addAttribute("chiTietSanPham", chiTietSanPham);
-            redirectAttributes.addFlashAttribute("dsChiTietSanPham", dsHinhAnh); // Giữ lại giá trị đã submit
-            redirectAttributes.addFlashAttribute("errorMessage", "Vui lòng điền đúng thông tin!");
-            return "ChiTietSanPham/Index";
-        } else{
-            chiTietSanPhamService.addChiTietSanPham(chiTietSanPham);
-            redirectAttributes.addFlashAttribute("successMessage", "Dữ liệu đã được thêm thành công!");
-            return "redirect:/chitietsanpham";
-        }
-    public String addChiTietSanPham(@ModelAttribute ChiTietSanPham chiTietSanPham, Model model,
-                                    @RequestParam("fileImages") MultipartFile[] fileImages,
-                                    RedirectAttributes ra) {
-        chiTietSanPham.setTrangThai(true);
-        chiTietSanPhamService.addChiTietSanPham(chiTietSanPham);
+                try {
+                    for (MultipartFile fileImage : fileImages) {
+                        // Lưu file vào thư mục tạm thời hoặc bất kỳ logic lưu trữ file nào bạn muốn
+                        String fileName = fileUploadUtil.saveFile(fileImage);
 
-        if (fileImages.length == 0) {
-            ra.addFlashAttribute("message", "Vui lòng chọn ít nhất một file hình ảnh.");
-            return "redirect:/chitietsanpham";
-        }
+                        // Tạo đối tượng HinhAnh và cập nhật thông tin
+                        HinhAnh hinhAnh = new HinhAnh();
+                        hinhAnh.setDuongDan(fileName);
 
-        try {
-            for (MultipartFile fileImage : fileImages) {
-                // Lưu file vào thư mục tạm thời hoặc bất kỳ logic lưu trữ file nào bạn muốn
-                String fileName = fileUploadUtil.saveFile(fileImage);
+                        // Sử dụng id đã lưu của ChiTietSanPham để thiết lập liên kết
+                        hinhAnh.setChiTietSanPham(chiTietSanPham);
 
-                // Tạo đối tượng HinhAnh và cập nhật thông tin
-                HinhAnh hinhAnh = new HinhAnh();
-                hinhAnh.setDuongDan(fileName);
+                        // Lưu đối tượng HinhAnh vào cơ sở dữ liệu
+                        hinhAnhService.addHinhAnh(hinhAnh);
+                    }
 
-                // Sử dụng id đã lưu của ChiTietSanPham để thiết lập liên kết
-                hinhAnh.setChiTietSanPham(chiTietSanPham);
-
-                // Lưu đối tượng HinhAnh vào cơ sở dữ liệu
-                hinhAnhService.addHinhAnh(hinhAnh);
+                    redirectAttributes.addFlashAttribute("message", "Thêm sản phẩm và hình ảnh thành công.");
+                } catch (IOException e) {
+                    redirectAttributes.addFlashAttribute("message", "Lỗi khi thêm hình ảnh: " + e.getMessage());
+                }
+                redirectAttributes.addFlashAttribute("successMessage", "Dữ liệu đã được thêm thành công!");
+                return "redirect:/chitietsanpham";
             }
 
-            ra.addFlashAttribute("message", "Thêm sản phẩm và hình ảnh thành công.");
-        } catch (IOException e) {
-            ra.addFlashAttribute("message", "Lỗi khi thêm hình ảnh: " + e.getMessage());
         }
-
-        return "redirect:/chitietsanpham";
-    }
 
     @GetMapping("/detail/{id}")
     public String editChiTietSanPhamForm(@PathVariable("id") Integer id, Model model) {

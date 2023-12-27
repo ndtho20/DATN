@@ -43,10 +43,6 @@ public class MauSacService {
     }
 
     public void deleteMauSac(int id) {
-        repository.deleteById(id);
-    }
-
-    public void deleteNSX(int id) {
         if(chiTietSanPhamRepository.countByMauSacId(id)==0){
             repository.deleteById(id);
         }else {
