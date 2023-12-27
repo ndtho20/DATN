@@ -29,6 +29,7 @@ public interface ChiTietSanPhamRepository extends JpaRepository<ChiTietSanPham, 
             @Param("idPhongCach") Integer idPhongCach, @Param("giaBan") BigInteger giaBan, @Param("idLoaiSanPham") Integer idLoaiSanPham,
             @Param("tenSanPham") String tenSanPham);
 
+
     @Query("SELECT c FROM ChiTietSanPham c WHERE c.size.ma = :size")
     List<ChiTietSanPham> findBySize(@Param("size") String size);
 
@@ -54,6 +55,22 @@ public interface ChiTietSanPhamRepository extends JpaRepository<ChiTietSanPham, 
             @Param("size") String size);
     @Query("SELECT COUNT(c) FROM ChiTietSanPham c WHERE c.loaiSanPham.idSanPham = :categoryId")
     int countByLoaiSanPham_IdSanPham(@Param("categoryId") String  categoryId);
+
+    @Query("SELECT COUNT(c.nsx) FROM ChiTietSanPham c WHERE c.nsx.idNSX = ?1")
+    int countByNhaSanXuatId(int nsxId);
+
+    @Query("SELECT COUNT(c.chatLieu) FROM ChiTietSanPham c WHERE c.chatLieu.idChatLieu = ?1")
+    int countByChatLieuId(int nsxId);
+
+    @Query("SELECT COUNT(c.size) FROM ChiTietSanPham c WHERE c.size.idSize = ?1")
+    int countBySizeId(int nsxId);
+
+    @Query("SELECT COUNT(c.phongCach) FROM ChiTietSanPham c WHERE c.phongCach.idPhongCach = ?1")
+    int countByPhongCachId(int nsxId);
+
+    @Query("SELECT COUNT(c.mauSac) FROM ChiTietSanPham c WHERE c.mauSac.idMauSac = ?1")
+    int countByMauSacId(int nsxId);
+
 
 }
 

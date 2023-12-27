@@ -3,6 +3,8 @@ package com.example.demo.service;
 
 import com.example.demo.entity.ChiTietSanPham;
 import com.example.demo.repository.ChiTietSanPhamRepository;
+import com.example.demo.repository.GioHangChiTietRepository;
+import com.example.demo.repository.HinhAnhRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -17,6 +19,10 @@ public class ChiTietSanPhamService {
 
     @Autowired
     private ChiTietSanPhamRepository chiTietSanPhamRepository;
+    @Autowired
+    private HinhAnhRepository hinhAnhRepository;
+    @Autowired
+    private GioHangChiTietRepository gioHangChiTietRepository;
 
     public Page<ChiTietSanPham> findAll(Pageable pageable) {
         return chiTietSanPhamRepository.findAll(pageable);
@@ -105,7 +111,13 @@ public class ChiTietSanPhamService {
         return chiTietSanPhamRepository.findByMauSacMaAndSizeMa( color, size);
     }
     public void deleteChiTietSanPham(Integer id) {
-        chiTietSanPhamRepository.deleteById(id);
+        if(gioHangChiTietRepository.countByChiTietSanPhamId(id)==0||hinhAnhRepository.coundChitiet(id)==0){
+            chiTietSanPhamRepository.deleteById(id);
+        }else {
+            ChiTietSanPham existingChiTietSanPham = chiTietSanPhamRepository.findById(id).orElse(null);
+            existingChiTietSanPham.setTrangThai(false);
+            chiTietSanPhamRepository.save(existingChiTietSanPham);
+        }
     }
     public int countProductsByCategory(String categoryId) {
         return chiTietSanPhamRepository.countByLoaiSanPham_IdSanPham(categoryId);

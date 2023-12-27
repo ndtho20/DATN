@@ -8,7 +8,10 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
+            <div th:replace="~{admin/index::index}"></div>
+<div class="content-body">
 <form  class="container col-6"  id="myForm" th:action="@{'/NSX/update/' + ${ms.idNSX}}" method="post">
+  
     <div hidden>
         <label th:text="ID" th:for="idNSX"></label>
         <input type="text" th:field="${ms.idNSX}" class="form-control" placeholder="Mã"/>
@@ -73,5 +76,7 @@
         return false; // Trả về false để ngăn chặn hành động submit mặc định của form
     }
 </script>
+
+</div>
 </body>
 </html>

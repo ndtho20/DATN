@@ -54,6 +54,7 @@ public class HinhAnhController {
 //        return "HinhAnh/Detail";
 //    }
 
+
     @PostMapping("/add")
     public String addHinhAnh(@Validated @ModelAttribute("pc") HinhAnh hinhAnh, BindingResult result, Model model, RedirectAttributes redirectAttributes,   @RequestParam("idchitietsanpham") Integer idChiTietSanPham) {
         hinhAnh.setTrangThai(true);
@@ -73,10 +74,22 @@ public class HinhAnhController {
             return "redirect:/hinhanh";
         }
         // Kiểm tra nếu file rỗng
+
+//    @PostMapping("/add")
+//    public String addHinhAnh(@RequestParam("fileImage") MultipartFile fileImage,
+//                             @RequestParam("idchitietsanpham") Integer idChiTietSanPham,
+//                             RedirectAttributes ra) {
+//
+//        // Kiểm tra nếu file rỗng
+
 //        if (fileImage.isEmpty()) {
 //            ra.addFlashAttribute("message", "Vui lòng chọn một file hình ảnh.");
 //            return "redirect:/hinhanh";
 //        }
+
+
+=======
+//
 
 //        try {
 //            // Lưu file vào thư mục tạm thời hoặc bất kỳ logic lưu trữ file nào bạn muốn
@@ -98,7 +111,11 @@ public class HinhAnhController {
 //        }
 //
 //        return "redirect:/hinhanh";
+
     }
+=======
+//    }
+
 
     // Xử lý cập nhật hình ảnh
     @PostMapping("/update/{id}")
