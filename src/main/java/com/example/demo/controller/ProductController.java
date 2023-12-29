@@ -28,6 +28,7 @@ public class ProductController {
     @Autowired
     private KhachHangRepository khachHangRepository;
 
+
     @GetMapping("home")
     public String trangchu(Model model) {
         List<ChiTietSanPham> list = chiTietSanPhamService.getAll();
