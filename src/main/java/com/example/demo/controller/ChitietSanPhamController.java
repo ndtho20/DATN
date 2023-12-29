@@ -62,6 +62,7 @@ public class ChitietSanPhamController {
     }
 
     @PostMapping("/add")
+<<<<<<< HEAD
     public String addChiTietSanPham(@Validated @ModelAttribute("chiTietSanPham") ChiTietSanPham chiTietSanPham, BindingResult result, Model model, RedirectAttributes redirectAttributes,
                                     @RequestParam("fileImages") MultipartFile[] fileImages) {
         chiTietSanPham.setTrangThai(true);
@@ -112,6 +113,58 @@ public class ChitietSanPhamController {
         }
 
     }
+=======
+        public String addChiTietSanPham(@Validated @ModelAttribute("chiTietSanPham") ChiTietSanPham chiTietSanPham, BindingResult result, Model model, RedirectAttributes redirectAttributes,
+        @RequestParam("fileImages") MultipartFile[] fileImages) {
+            chiTietSanPham.setTrangThai(true);
+            if (result.hasErrors()) {
+                List<ChiTietSanPham> dsHinhAnh = chiTietSanPhamService.getAll();
+                model.addAttribute("listLoaiSanPham", loaiSanPhamService.getAll());
+                model.addAttribute("listChatLieu", chatLieuService.getAll());
+                model.addAttribute("listSize", sizeService.getAll());
+                model.addAttribute("listPhongCach", phongCachService.getAll());
+                model.addAttribute("listNSX", nsxService.getAll());
+                model.addAttribute("listMauSac", mauSacService.getAll());
+
+
+                model.addAttribute("dsChiTietSanPham", dsHinhAnh);
+                model.addAttribute("chiTietSanPham", chiTietSanPham);
+                redirectAttributes.addFlashAttribute("dsChiTietSanPham", dsHinhAnh); // Giữ lại giá trị đã submit
+                redirectAttributes.addFlashAttribute("errorMessage", "Vui lòng điền đúng thông tin!");
+                return "ChiTietSanPham/Index";
+            } else{
+                chiTietSanPhamService.addChiTietSanPham(chiTietSanPham);
+                if (fileImages.length == 0) {
+                    redirectAttributes.addFlashAttribute("message", "Vui lòng chọn ít nhất một file hình ảnh.");
+                    return "redirect:/chitietsanpham";
+                }
+
+                try {
+                    for (MultipartFile fileImage : fileImages) {
+                        // Lưu file vào thư mục tạm thời hoặc bất kỳ logic lưu trữ file nào bạn muốn
+                        String fileName = fileUploadUtil.saveFile(fileImage);
+
+                        // Tạo đối tượng HinhAnh và cập nhật thông tin
+                        HinhAnh hinhAnh = new HinhAnh();
+                        hinhAnh.setDuongDan(fileName);
+
+                        // Sử dụng id đã lưu của ChiTietSanPham để thiết lập liên kết
+                        hinhAnh.setChiTietSanPham(chiTietSanPham);
+
+                        // Lưu đối tượng HinhAnh vào cơ sở dữ liệu
+                        hinhAnhService.addHinhAnh(hinhAnh);
+                    }
+
+                    redirectAttributes.addFlashAttribute("message", "Thêm sản phẩm và hình ảnh thành công.");
+                } catch (IOException e) {
+                    redirectAttributes.addFlashAttribute("message", "Lỗi khi thêm hình ảnh: " + e.getMessage());
+                }
+                redirectAttributes.addFlashAttribute("successMessage", "Dữ liệu đã được thêm thành công!");
+                return "redirect:/chitietsanpham";
+            }
+
+        }
+>>>>>>> 74f929091249846da6bc569af8ec5a38b9babd9f
 
     @GetMapping("/detail/{id}")
     public String editChiTietSanPhamForm(@PathVariable("id") Integer id, Model model) {

@@ -73,7 +73,11 @@ public class HinhAnhController {
             redirectAttributes.addFlashAttribute("successMessage", "Dữ liệu đã được thêm thành công!");
             return "redirect:/hinhanh";
         }
+<<<<<<< HEAD
     }
+=======
+}
+>>>>>>> 74f929091249846da6bc569af8ec5a38b9babd9f
 
 
     // Xử lý cập nhật hình ảnh
