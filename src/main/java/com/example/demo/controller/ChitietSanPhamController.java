@@ -62,8 +62,8 @@ public class ChitietSanPhamController {
     }
 
     @PostMapping("/add")
-
-    public String addChiTietSanPham(@Validated @ModelAttribute("chiTietSanPham") ChiTietSanPham chiTietSanPham, BindingResult result, Model model, RedirectAttributes redirectAttributes) {
+    public String addChiTietSanPham(@Validated @ModelAttribute("chiTietSanPham") ChiTietSanPham chiTietSanPham, BindingResult result, Model model, RedirectAttributes redirectAttributes,
+                                    @RequestParam("fileImages") MultipartFile[] fileImages) {
         chiTietSanPham.setTrangThai(true);
         if (result.hasErrors()) {
             List<ChiTietSanPham> dsHinhAnh = chiTietSanPhamService.getAll();
@@ -82,42 +82,35 @@ public class ChitietSanPhamController {
             return "ChiTietSanPham/Index";
         } else{
             chiTietSanPhamService.addChiTietSanPham(chiTietSanPham);
+            if (fileImages.length == 0) {
+                redirectAttributes.addFlashAttribute("message", "Vui lòng chọn ít nhất một file hình ảnh.");
+                return "redirect:/chitietsanpham";
+            }
+
+            try {
+                for (MultipartFile fileImage : fileImages) {
+                    // Lưu file vào thư mục tạm thời hoặc bất kỳ logic lưu trữ file nào bạn muốn
+                    String fileName = fileUploadUtil.saveFile(fileImage);
+
+                    // Tạo đối tượng HinhAnh và cập nhật thông tin
+                    HinhAnh hinhAnh = new HinhAnh();
+                    hinhAnh.setDuongDan(fileName);
+
+                    // Sử dụng id đã lưu của ChiTietSanPham để thiết lập liên kết
+                    hinhAnh.setChiTietSanPham(chiTietSanPham);
+
+                    // Lưu đối tượng HinhAnh vào cơ sở dữ liệu
+                    hinhAnhService.addHinhAnh(hinhAnh);
+                }
+
+                redirectAttributes.addFlashAttribute("message", "Thêm sản phẩm và hình ảnh thành công.");
+            } catch (IOException e) {
+                redirectAttributes.addFlashAttribute("message", "Lỗi khi thêm hình ảnh: " + e.getMessage());
+            }
             redirectAttributes.addFlashAttribute("successMessage", "Dữ liệu đã được thêm thành công!");
             return "redirect:/chitietsanpham";
         }
-    public String addChiTietSanPham(@ModelAttribute ChiTietSanPham chiTietSanPham, Model model,
-                                    @RequestParam("fileImages") MultipartFile[] fileImages,
-                                    RedirectAttributes ra) {
-        chiTietSanPham.setTrangThai(true);
-        chiTietSanPhamService.addChiTietSanPham(chiTietSanPham);
 
-        if (fileImages.length == 0) {
-            ra.addFlashAttribute("message", "Vui lòng chọn ít nhất một file hình ảnh.");
-            return "redirect:/chitietsanpham";
-        }
-
-        try {
-            for (MultipartFile fileImage : fileImages) {
-                // Lưu file vào thư mục tạm thời hoặc bất kỳ logic lưu trữ file nào bạn muốn
-                String fileName = fileUploadUtil.saveFile(fileImage);
-
-                // Tạo đối tượng HinhAnh và cập nhật thông tin
-                HinhAnh hinhAnh = new HinhAnh();
-                hinhAnh.setDuongDan(fileName);
-
-                // Sử dụng id đã lưu của ChiTietSanPham để thiết lập liên kết
-                hinhAnh.setChiTietSanPham(chiTietSanPham);
-
-                // Lưu đối tượng HinhAnh vào cơ sở dữ liệu
-                hinhAnhService.addHinhAnh(hinhAnh);
-            }
-
-            ra.addFlashAttribute("message", "Thêm sản phẩm và hình ảnh thành công.");
-        } catch (IOException e) {
-            ra.addFlashAttribute("message", "Lỗi khi thêm hình ảnh: " + e.getMessage());
-        }
-
-        return "redirect:/chitietsanpham";
     }
 
     @GetMapping("/detail/{id}")
@@ -154,7 +147,7 @@ public class ChitietSanPhamController {
 
             model.addAttribute("dsChiTietSanPham", dsHinhAnh);
             model.addAttribute("chiTietSanPham", chiTietSanPham);
-           return "ChiTietSanPham/Detail";
+            return "ChiTietSanPham/Detail";
         }else {
             chiTietSanPhamService.updateChiTietSanPham(id, chiTietSanPham);
             return "redirect:/chitietsanpham";
@@ -167,4 +160,3 @@ public class ChitietSanPhamController {
         return "redirect:/chitietsanpham";
     }
 }
-
