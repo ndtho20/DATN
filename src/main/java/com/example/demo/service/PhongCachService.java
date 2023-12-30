@@ -17,6 +17,7 @@ public class PhongCachService {
     private PhongCachRepository repository;
     @Autowired
     private ChiTietSanPhamRepository chiTietSanPhamRepository;
+
     public List<PhongCach> getAll() {
         return repository.findAll();
     }
@@ -43,13 +44,18 @@ public class PhongCachService {
     }
 
     public void deletePhongCach(int id) {
-        if(chiTietSanPhamRepository.countByPhongCachId(id)==0){
+        if (chiTietSanPhamRepository.countByPhongCachId(id) == 0) {
             repository.deleteById(id);
-        }else {
+        } else {
             Optional<PhongCach> existingNSX = repository.findById(id);
             PhongCach updatedNSX = existingNSX.get();
             updatedNSX.setTrangThai(false);
             repository.save(updatedNSX);
         }
     }
+
+    public List<PhongCach> findPhongCachByMa(String ma) {
+        return repository.findByMa(ma);
+    }
+
 }

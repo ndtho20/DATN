@@ -50,96 +50,141 @@
 
 <body>
 
-            <div th:replace="~{admin/index::index}"></div>
+<div th:replace="~{admin/index::index}"></div>
 <div class="content-body">
-<form action="/SanPham/add" th:object="${sanpham}" method="post">
-    <div class="form-floating mb-3">
-        <input type="text" class="form-control" th:field="*{ma}">
-        <label>Ma San Pham</label>
-        <i th:errors="*{ma}"></i><br>
+    <form action="/SanPham/add" th:object="${sanpham}" method="post">
+        <div class="form-floating mb-3">
+            <input type="text" class="form-control" th:field="*{ma}">
+            <label>Ma San Pham</label>
+            <i th:errors="*{ma}" style="color: red"></i><br>
 
-    </div>
-    <div class="form-floating mb-3">
-        <input type="text" class="form-control" th:field="*{ten}">
-        <label>Ten San Pham</label>
-        <i th:errors="*{ten}"></i><br>
+        </div>
+        <div class="form-floating mb-3">
+            <input type="text" class="form-control" th:field="*{ten}">
+            <label>Ten San Pham</label>
+            <i th:errors="*{ten}" style="color: red"></i><br>
 
-    </div>
-    <div class="form-floating mb-3">
-        <input type="date" class="form-control" th:field="*{ngayTao}">
-        <label>Ngay Tao</label>
-        <i th:errors="*{ngayTao}"></i><br>
-    </div>
-    <button type="submit" class="btn btn-rounded btn-info">
+        </div>
+        <div class="form-floating mb-3">
+            <input type="date" class="form-control" th:field="*{ngayTao}">
+            <label>Ngay Tao</label>
+            <i th:errors="*{ngayTao}" style="color: red"></i><br>
+        </div>
+        <button type="submit" class="btn btn-rounded btn-info">
             <span class="btn-icon-start text-info"><i
                     class="fa fa-plus color-info"></i>
                                     </span>Add
-    </button>
-</form>
+        </button>
+    </form>
 
-<h3 style="text-align: center; padding-bottom: 15px">Danh Sach San Pham</h3>
-
-<table class="table container col-8">
-    <thead>
-    <tr>
-        <th scope="col">ID SanPham</th>
-        <th scope="col">Ma</th>
-        <th scope="col">Ten</th>
-        <th scope="col">Ngay tao</th>
-        <th scope="col">Trang Thai</th>
-        <th scope="col">Action</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="pc : ${dsSanPham}">
-        <td th:text="${pc.idSanPham}"></td>
-        <td th:text="${pc.ma}"></td>
-        <td th:text="${pc.ten}"></td>
-        <td th:text="${#dates.format(pc.ngayTao, 'MM-dd-yyyy')}"></td>
-        <td th:text="${pc.trangThai == null ? '' : (pc.trangThai ? 'Dang Hoat Dong' : 'Ngung Hoat Dong')}"></td>
-        <td>
-            <div class="d-flex">
-                <a th:href="@{'/SanPham/detail/' + ${pc.idSanPham}}" class="btn btn-primary shadow btn-xs sharp me-1"><i
-                        class="fas fa-pencil-alt"></i></a>
-                <a th:href="@{'/SanPham/delete?id=' + ${pc.idSanPham}}"
-               th:onclick="'return confirmDelete(event, ' + ${pc.idSanPham} + ')'" class="btn btn-danger shadow btn-xs sharp"><i
-                        class="fa fa-trash"></i></a>
+    <div class="container">
+        <form method="post" th:action="@{/SanPham/search}">
+            <div class="row">
+                <div class="col-8">
+                    <input class="form-control" type="text" name="ma" placeholder="Nhập mã loại sản phẩm cần tìm">
+                </div>
+                <div class="col-4">
+                    <button type="submit" class="btn btn-success">Search</button>
+                </div>
             </div>
-            
-            <script>
-                const confirmDelete = (event, id) => {
-                    event.preventDefault();
-                    Swal.fire({
-                        title: 'Bạn có chắc muốn xóa không?',
-                        text: 'Thao tác này sẽ xóa dữ liệu vĩnh viễn!',
-                        icon: 'warning',
-                        showCancelButton: true,
-                        confirmButtonColor: '#d33',
-                        cancelButtonColor: '#3085d6',
-                        confirmButtonText: 'Xóa',
-                        cancelButtonText: 'Hủy'
-                    }).then(result => {
-                        if (result.isConfirmed) {
-                            window.location.href = `/SanPham/delete?id=${id}`;
-                            Swal.fire('Xóa thành công!', '', 'success');
-                        }
-                    });
-                };
-            </script>
-        </td>
-    </tr>
-    </tbody>
-</table>
-<script th:inline="javascript">
-    /* Kiểm tra nếu có successMessage thì hiển thị SweetAlert */
-    var successMessage = /*[[${successMessage}]]*/ null;
-    if (successMessage !== null) {
-        Swal.fire({
-            title: 'Save thành công!',
-            icon: 'success'
-        });
-    }
-</script>
+            <div style="clear: both; display: block; height: 10px"></div>
+        </form>
+    </div>
+
+    <br>
+    <br>
+
+    <h3 style="text-align: center; padding-bottom: 15px">Danh Sach San Pham</h3>
+
+    <table class="table container col-8">
+        <thead>
+        <tr>
+            <th scope="col">ID SanPham</th>
+            <th scope="col">Ma</th>
+            <th scope="col">Ten</th>
+            <th scope="col">Ngay tao</th>
+            <th scope="col">Trang Thai</th>
+            <th scope="col">Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="pc : ${dsSanPham}">
+            <td th:text="${pc.idSanPham}"></td>
+            <td th:text="${pc.ma}"></td>
+            <td th:text="${pc.ten}"></td>
+            <td th:text="${#dates.format(pc.ngayTao, 'MM-dd-yyyy')}"></td>
+            <td th:text="${pc.trangThai == null ? '' : (pc.trangThai ? 'Dang Hoat Dong' : 'Ngung Hoat Dong')}"></td>
+            <td>
+                <div class="d-flex">
+                    <a th:href="@{'/SanPham/detail/' + ${pc.idSanPham}}"
+                       class="btn btn-primary shadow btn-xs sharp me-1"><i
+                            class="fas fa-pencil-alt"></i></a>
+                    <a th:href="@{'/SanPham/delete?id=' + ${pc.idSanPham}}"
+                       th:onclick="'return confirmDelete(event, ' + ${pc.idSanPham} + ')'"
+                       class="btn btn-danger shadow btn-xs sharp"><i
+                            class="fa fa-trash"></i></a>
+                </div>
+
+                <script>
+                    const confirmDelete = (event, id) => {
+                        event.preventDefault();
+                        Swal.fire({
+                            title: 'Bạn có chắc muốn xóa không?',
+                            text: 'Thao tác này sẽ xóa dữ liệu vĩnh viễn!',
+                            icon: 'warning',
+                            showCancelButton: true,
+                            confirmButtonColor: '#d33',
+                            cancelButtonColor: '#3085d6',
+                            confirmButtonText: 'Xóa',
+                            cancelButtonText: 'Hủy'
+                        }).then(result => {
+                            if (result.isConfirmed) {
+                                window.location.href = `/SanPham/delete?id=${id}`;
+                                Swal.fire('Xóa thành công!', '', 'success');
+                            }
+                        });
+                    };
+                </script>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <div th:if="${#lists.size(dsSanPham) > 0}" class="page-item">
+        <nav aria-label="Page navigation">
+            <ul class="pagination justify-content-center">
+                <li th:if="${currentPage > 0}" class="page-item">
+                    <a class="page-link" th:href="@{/SanPham(page=0)}">Đầu</a>
+                </li>
+                <li th:if="${currentPage > 0}" class="page-item">
+                    <a class="page-link" th:href="@{/SanPham(page=${currentPage - 1})}"><<</a>
+                </li>
+                <li th:each="pageItem : ${#numbers.sequence(0, totalPages-1)}" class="page-item">
+                <span th:if="${currentPage == pageItem}" class="page-link" th:text="${pageItem + 1}"
+                      th:style="${currentPage == pageItem} ? 'color: red;' : 'color: green;'"></span>
+                    <a th:if="${currentPage != pageItem}" class="page-link" th:href="@{/SanPham(page=${pageItem})}"
+                       th:text="${pageItem + 1}"></a>
+                </li>
+                <li th:if="${currentPage < totalPages-1}" class="page-item">
+                    <a class="page-link" th:href="@{/SanPham(page=${currentPage + 1})}">>></a>
+                </li>
+                <li th:if="${currentPage < totalPages-1}" class="page-item">
+                    <a class="page-link" th:href="@{/SanPham(page=${totalPages - 1})}">Cuối</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+
+    <script th:inline="javascript">
+        /* Kiểm tra nếu có successMessage thì hiển thị SweetAlert */
+        var successMessage = /*[[${successMessage}]]*/ null;
+        if (successMessage !== null) {
+            Swal.fire({
+                title: 'Save thành công!',
+                icon: 'success'
+            });
+        }
+    </script>
 
 </div>
 

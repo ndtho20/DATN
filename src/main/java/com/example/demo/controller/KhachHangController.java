@@ -23,19 +23,36 @@ public class KhachHangController {
     private KhachHangService khachHangService;
 
     @GetMapping()
-    public String getAll(Model model) {
-        List<KhachHang> dsKhachHang = khachHangService.getAll();
-        model.addAttribute("dsKhachHang", dsKhachHang);
+    public String getAll(Model model, @RequestParam(defaultValue = "0") int page) {
+
+        int pageSize = 2;
+
+        List<KhachHang> list = khachHangService.getAll();
+        int totalPages = (int) Math.ceil((double) list.size() / pageSize);
+        List<KhachHang> currentPageKhachHang = list.subList(page * pageSize, Math.min((page + 1) * pageSize, list.size()));
+
+        model.addAttribute("dsKhachHang", currentPageKhachHang);
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalPages", totalPages);
         model.addAttribute("kh", new KhachHang());
         return "KhachHang/Index";
     }
 
     @PostMapping("/add")
-    public String addKhachHang(@Validated @ModelAttribute("kh") KhachHang khachHang, BindingResult result, Model model, RedirectAttributes redirectAttributes) {
+    public String addKhachHang(@Validated @ModelAttribute("kh") KhachHang khachHang, BindingResult result, Model model, RedirectAttributes redirectAttributes
+            , @RequestParam(defaultValue = "0") int page) {
         khachHang.setTrangThai(true);
         if (result.hasErrors()) {
-            List<KhachHang> dsKhachHang = khachHangService.getAll();
-            model.addAttribute("dsKhachHang", dsKhachHang);
+            int pageSize = 2;
+
+            List<KhachHang> list = khachHangService.getAll();
+            int totalPages = (int) Math.ceil((double) list.size() / pageSize);
+            List<KhachHang> currentPageKhachHang = list.subList(page * pageSize, Math.min((page + 1) * pageSize, list.size()));
+
+            model.addAttribute("dsKhachHang", currentPageKhachHang);
+            model.addAttribute("currentPage", page);
+            model.addAttribute("totalPages", totalPages);
+//            model.addAttribute("dsKhachHang", dsKhachHang);
             redirectAttributes.addFlashAttribute("errorMessage", "Vui lòng điền đúng thông tin!");
             model.addAttribute("kh", khachHang);
             return "KhachHang/Index";
@@ -88,7 +105,7 @@ public class KhachHangController {
                                  @RequestParam("ngaySinh") @DateTimeFormat(pattern = "yyyy-MM-dd") Date ngaySinh,
                                  @RequestParam("email") String email,
                                  @RequestParam("soDienThoai") String soDienThoai,
-                                 Model model,RedirectAttributes redirectAttributes) {
+                                 Model model, RedirectAttributes redirectAttributes) {
 
         KhachHang existingKhachHang = khachHangService.getById(id); // Lấy thông tin khách hàng từ cơ sở dữ liệu
 
@@ -115,7 +132,7 @@ public class KhachHangController {
                     model.addAttribute("error", "New password is invalid");
                     return "clients/profile-info";
                 }
-            }else {
+            } else {
 
                 existingKhachHang.setSoDienThoai(soDienThoai);
                 existingKhachHang.setEmail(email);
@@ -139,6 +156,39 @@ public class KhachHangController {
         // Viết logic kiểm tra tính hợp lệ của mật khẩu mới ở đây
         // Ví dụ: kiểm tra độ dài, yêu cầu chứa ký tự đặc biệt, chữ hoa, chữ thường, số, v.v.
         return password.length() >= 8 && password.matches(".*[A-Z].*") && password.matches(".*[0-9].*");
+    }
+
+    @PostMapping("search")
+    public String searchProductByCode(@RequestParam String ten, Model model, @RequestParam(defaultValue = "0") int page) {
+
+        System.out.println(ten);
+
+        if (ten == null || ten.isBlank()) {
+            int pageSize = 2;
+
+            List<KhachHang> list = khachHangService.getAll();
+            int totalPages = (int) Math.ceil((double) list.size() / pageSize);
+            List<KhachHang> currentPageKhachHang = list.subList(page * pageSize, Math.min((page + 1) * pageSize, list.size()));
+
+            model.addAttribute("dsKhachHang", currentPageKhachHang);
+            model.addAttribute("currentPage", page);
+            model.addAttribute("totalPages", totalPages);
+
+            model.addAttribute("kh", new KhachHang());
+        } else {
+            int pageSize = 2;
+            List<KhachHang> list = khachHangService.findKhachHangByTen(ten);
+            int totalPages = (int) Math.ceil((double) list.size() / pageSize);
+            List<KhachHang> currentPageKhachHang = list.subList(page * pageSize, Math.min((page + 1) * pageSize, list.size()));
+
+            model.addAttribute("dsKhachHang", currentPageKhachHang);
+            model.addAttribute("currentPage", page);
+            model.addAttribute("totalPages", totalPages);
+
+            model.addAttribute("kh", new KhachHang());
+        }
+        return "KhachHang/Index";
+
     }
 
 }

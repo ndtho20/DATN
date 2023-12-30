@@ -46,14 +46,19 @@ public class SizeService {
     }
 
     public void deleteSize(int id) {
-        if(chiTietSanPhamRepository.countBySizeId(id)==0){
+        if (chiTietSanPhamRepository.countBySizeId(id) == 0) {
             repository.deleteById(id);
-        }else {
+        } else {
             Optional<Size> existingNSX = repository.findById(id);
             Size updatedNSX = existingNSX.get();
             updatedNSX.setTrangThai(false);
             repository.save(updatedNSX);
         }
     }
+
+    public List<Size> findSizeByMa(String ma) {
+        return repository.findByMa(ma);
+    }
+
 
 }

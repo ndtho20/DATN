@@ -19,6 +19,7 @@ public class ChatLieuService {
 
     @Autowired
     private ChiTietSanPhamRepository chiTietSanPhamRepository;
+
     public List<ChatLieu> getAll() {
         return repository.findAll();
     }
@@ -45,13 +46,18 @@ public class ChatLieuService {
     }
 
     public void deleteChatLieu(int id) {
-        if(chiTietSanPhamRepository.countByChatLieuId(id)==0){
+        if (chiTietSanPhamRepository.countByChatLieuId(id) == 0) {
             repository.deleteById(id);
-        }else {
+        } else {
             Optional<ChatLieu> existingNSX = repository.findById(id);
             ChatLieu updatedNSX = existingNSX.get();
             updatedNSX.setTrangThai(false);
             repository.save(updatedNSX);
         }
     }
+
+    public List<ChatLieu> findChatLieuByMa(String ma) {
+        return repository.findByMa(ma);
+    }
+
 }

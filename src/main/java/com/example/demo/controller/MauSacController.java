@@ -21,22 +21,39 @@ public class MauSacController {
     private MauSacService service;
 
     @GetMapping()
-    public String getAll(Model model) {
-        List<MauSac> dsMauSac = service.getAll();
-        model.addAttribute("dsMauSac", dsMauSac);
+    public String getAll(Model model, @RequestParam(defaultValue = "0") int page) {
+
+        int pageSize = 2;
+
+        List<MauSac> list = service.getAll();
+        int totalPages = (int) Math.ceil((double) list.size() / pageSize);
+        List<MauSac> currentPageMauSac = list.subList(page * pageSize, Math.min((page + 1) * pageSize, list.size()));
+
+        model.addAttribute("dsMauSac", currentPageMauSac);
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalPages", totalPages);
+
         model.addAttribute("pc", new MauSac());
         return "MauSac/Index";
     }
 
     @PostMapping("/add")
-    public String addMauSac(@Validated @ModelAttribute("pc") MauSac MauSac, BindingResult result, Model model, RedirectAttributes redirectAttributes) {
+    public String addMauSac(@Validated @ModelAttribute("pc") MauSac MauSac, BindingResult result, Model model, RedirectAttributes redirectAttributes, @RequestParam(defaultValue = "0") int page) {
 
         MauSac.setTrangThai(true);
         if (result.hasErrors()) {
-            List<MauSac> dsMauSac = service.getAll();
-            model.addAttribute("dsMauSac", dsMauSac);
+            int pageSize = 2;
+
+            List<MauSac> list = service.getAll();
+            int totalPages = (int) Math.ceil((double) list.size() / pageSize);
+            List<MauSac> currentPageMauSac = list.subList(page * pageSize, Math.min((page + 1) * pageSize, list.size()));
+
+            model.addAttribute("dsMauSac", currentPageMauSac);
+            model.addAttribute("currentPage", page);
+            model.addAttribute("totalPages", totalPages);
             model.addAttribute("pc", MauSac);
-            redirectAttributes.addFlashAttribute("dsMauSac", dsMauSac); // Giữ lại giá trị đã submit
+
+//            redirectAttributes.addFlashAttribute("dsMauSac", list); // Giữ lại giá trị đã submit
             redirectAttributes.addFlashAttribute("errorMessage", "Vui lòng điền đúng thông tin!");
             return "MauSac/Index";
         } else {
@@ -74,5 +91,41 @@ public class MauSacController {
     public String deleteMauSac(@RequestParam("id") int id) {
         service.deleteMauSac(id);
         return "redirect:/MauSac";
+    }
+
+    public String searchProductByCode(@RequestParam String ma, Model model, @RequestParam(defaultValue = "0") int page) {
+
+        System.out.println(ma);
+
+        if (ma == null || ma.isBlank()) {
+            int pageSize = 2;
+
+            List<MauSac> list = service.getAll();
+            int totalPages = (int) Math.ceil((double) list.size() / pageSize);
+            List<MauSac> currentPageMauSac = list.subList(page * pageSize, Math.min((page + 1) * pageSize, list.size()));
+
+            model.addAttribute("dsMauSac", currentPageMauSac);
+            model.addAttribute("currentPage", page);
+            model.addAttribute("totalPages", totalPages);
+
+            model.addAttribute("pc", new MauSac());
+        } else {
+            int pageSize = 2;
+            List<MauSac> list = service.findMauSacByMa(ma);
+            int totalPages = (int) Math.ceil((double) list.size() / pageSize);
+            List<MauSac> currentPageMauSac = list.subList(page * pageSize, Math.min((page + 1) * pageSize, list.size()));
+
+            model.addAttribute("dsMauSac", currentPageMauSac);
+            model.addAttribute("currentPage", page);
+            model.addAttribute("totalPages", totalPages);
+
+            for (MauSac ms : currentPageMauSac) {
+                System.out.println(ms.toString());
+            }
+
+            model.addAttribute("pc", new MauSac());
+        }
+        return "MauSac/Index";
+
     }
 }

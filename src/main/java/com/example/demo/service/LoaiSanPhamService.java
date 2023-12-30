@@ -43,4 +43,9 @@ public class LoaiSanPhamService {
     public void deleteSanPham(int id) {
         loaiSanPhamRepository.deleteById(id);
     }
+
+    public List<LoaiSanPham> findLoaiSanPhamByMa(String ma) {
+        return loaiSanPhamRepository.findByMa(ma);
+    }
+
 }

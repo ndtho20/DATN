@@ -22,21 +22,37 @@ public class ChatLieuController {
     private ChatLieuService service;
 
     @GetMapping()
-    public String getAll(Model model) {
-        List<ChatLieu> dsChatLieu = service.getAll();
-        model.addAttribute("dsChatLieu", dsChatLieu);
+    public String getAll(Model model, @RequestParam(defaultValue = "0") int page) {
+        int pageSize = 2;
+
+        List<ChatLieu> list = service.getAll();
+        int totalPages = (int) Math.ceil((double) list.size() / pageSize);
+        List<ChatLieu> currentPageChatLieu = list.subList(page * pageSize, Math.min((page + 1) * pageSize, list.size()));
+
+        model.addAttribute("dsChatLieu", currentPageChatLieu);
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalPages", totalPages);
+
         model.addAttribute("pc", new ChatLieu());
         return "ChatLieu/Index";
     }
 
     @PostMapping("/add")
-    public String addChatLieu(@Validated @ModelAttribute("pc") ChatLieu chatLieu, BindingResult result, Model model, RedirectAttributes redirectAttributes) {
+    public String addChatLieu(@Validated @ModelAttribute("pc") ChatLieu chatLieu, BindingResult result, Model model, RedirectAttributes redirectAttributes
+            , @RequestParam(defaultValue = "0") int page) {
         chatLieu.setTrangThai(true);
         if (result.hasErrors()) {
-            List<ChatLieu> dsChatLieu = service.getAll();
-            model.addAttribute("dsChatLieu", dsChatLieu);
+            int pageSize = 2;
+
+            List<ChatLieu> list = service.getAll();
+            int totalPages = (int) Math.ceil((double) list.size() / pageSize);
+            List<ChatLieu> currentPageChatLieu = list.subList(page * pageSize, Math.min((page + 1) * pageSize, list.size()));
+
+            model.addAttribute("dsChatLieu", currentPageChatLieu);
+            model.addAttribute("currentPage", page);
+            model.addAttribute("totalPages", totalPages);
             model.addAttribute("pc", chatLieu);
-            redirectAttributes.addFlashAttribute("dsChatLieu", dsChatLieu); // Giữ lại giá trị đã submit
+//            redirectAttributes.addFlashAttribute("dsChatLieu", dsChatLieu); // Giữ lại giá trị đã submit
             redirectAttributes.addFlashAttribute("errorMessage", "Vui lòng điền đúng thông tin!");
             return "ChatLieu/Index";
         } else {
@@ -73,5 +89,38 @@ public class ChatLieuController {
     public String deleteChatLieu(@RequestParam("id") int id) {
         service.deleteChatLieu(id);
         return "redirect:/ChatLieu";
+    }
+
+    @PostMapping("search")
+    public String searchProductByCode(@RequestParam String ma, Model model, @RequestParam(defaultValue = "0") int page) {
+
+        System.out.println(ma);
+
+        if (ma == null || ma.isBlank()) {
+            int pageSize = 2;
+
+            List<ChatLieu> list = service.getAll();
+            int totalPages = (int) Math.ceil((double) list.size() / pageSize);
+            List<ChatLieu> currentPageChatLieu = list.subList(page * pageSize, Math.min((page + 1) * pageSize, list.size()));
+
+            model.addAttribute("dsChatLieu", currentPageChatLieu);
+            model.addAttribute("currentPage", page);
+            model.addAttribute("totalPages", totalPages);
+
+            model.addAttribute("pc", new ChatLieu());
+        } else {
+            int pageSize = 2;
+            List<ChatLieu> list = service.findChatLieuByMa(ma);
+            int totalPages = (int) Math.ceil((double) list.size() / pageSize);
+            List<ChatLieu> currentPageChatLieu = list.subList(page * pageSize, Math.min((page + 1) * pageSize, list.size()));
+
+            model.addAttribute("dsChatLieu", currentPageChatLieu);
+            model.addAttribute("currentPage", page);
+            model.addAttribute("totalPages", totalPages);
+
+            model.addAttribute("pc", new ChatLieu());
+        }
+        return "ChatLieu/Index";
+
     }
 }
