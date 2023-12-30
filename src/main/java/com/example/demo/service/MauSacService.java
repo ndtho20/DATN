@@ -17,6 +17,7 @@ public class MauSacService {
     private MauSacRepository repository;
     @Autowired
     private ChiTietSanPhamRepository chiTietSanPhamRepository;
+
     public List<MauSac> getAll() {
         return repository.findAll();
     }
@@ -43,13 +44,18 @@ public class MauSacService {
     }
 
     public void deleteMauSac(int id) {
-        if(chiTietSanPhamRepository.countByMauSacId(id)==0){
+        if (chiTietSanPhamRepository.countByMauSacId(id) == 0) {
             repository.deleteById(id);
-        }else {
+        } else {
             Optional<MauSac> existingNSX = repository.findById(id);
             MauSac updatedNSX = existingNSX.get();
             updatedNSX.setTrangThai(false);
             repository.save(updatedNSX);
         }
     }
+
+    public List<MauSac> findMauSacByMa(String ma) {
+        return repository.findByMa(ma);
+    }
+
 }

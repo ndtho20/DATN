@@ -69,4 +69,8 @@ public class KhachHangService {
 
         return khachHang;
     }
+
+    public List<KhachHang> findKhachHangByTen(String ten) {
+        return khachHangRepository.findByTen(ten);
+    }
 }

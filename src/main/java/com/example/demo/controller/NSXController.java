@@ -22,21 +22,38 @@ public class NSXController {
     private NSXService service;
 
     @GetMapping()
-    public String getAll(Model model) {
-        List<NSX> dsNSX = service.getAll();
-        model.addAttribute("dsNSX", dsNSX);
+    public String getAll(Model model, @RequestParam(defaultValue = "0") int page) {
+
+        int pageSize = 2;
+
+        List<NSX> list = service.getAll();
+        int totalPages = (int) Math.ceil((double) list.size() / pageSize);
+        List<NSX> currentPageNSX = list.subList(page * pageSize, Math.min((page + 1) * pageSize, list.size()));
+
+        model.addAttribute("dsNSX", currentPageNSX);
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalPages", totalPages);
+
         model.addAttribute("pc", new NSX());
         return "NSX/Index";
     }
 
     @PostMapping("/add")
-    public String addNSX(@Validated @ModelAttribute("pc") NSX NSX, BindingResult result, Model model, RedirectAttributes redirectAttributes) {
+    public String addNSX(@Validated @ModelAttribute("pc") NSX NSX, BindingResult result, Model model, RedirectAttributes redirectAttributes
+            , @RequestParam(defaultValue = "0") int page) {
         NSX.setTrangThai(true);
         if (result.hasErrors()) {
-            List<NSX> dsNSX = service.getAll();
-            model.addAttribute("dsNSX", dsNSX);
+            int pageSize = 2;
+
+            List<NSX> list = service.getAll();
+            int totalPages = (int) Math.ceil((double) list.size() / pageSize);
+            List<NSX> currentPageNSX = list.subList(page * pageSize, Math.min((page + 1) * pageSize, list.size()));
+
+            model.addAttribute("dsNSX", currentPageNSX);
+            model.addAttribute("currentPage", page);
+            model.addAttribute("totalPages", totalPages);
             model.addAttribute("pc", NSX);
-            redirectAttributes.addFlashAttribute("dsNSX", dsNSX); // Giữ lại giá trị đã submit
+//            redirectAttributes.addFlashAttribute("dsNSX", dsNSX); // Giữ lại giá trị đã submit
             redirectAttributes.addFlashAttribute("errorMessage", "Vui lòng điền đúng thông tin!");
             return "NSX/Index";
         } else {
@@ -77,5 +94,39 @@ public class NSXController {
         return "redirect:/NSX";
     }
 
+
+    @PostMapping("search")
+    public String searchProductByCode(@RequestParam String ma, Model model, @RequestParam(defaultValue = "0") int page) {
+
+        System.out.println(ma);
+
+        if (ma == null || ma.isBlank()) {
+            int pageSize = 2;
+
+            List<NSX> list = service.getAll();
+            int totalPages = (int) Math.ceil((double) list.size() / pageSize);
+            List<NSX> currentPageNSX = list.subList(page * pageSize, Math.min((page + 1) * pageSize, list.size()));
+
+            model.addAttribute("dsNSX", currentPageNSX);
+            model.addAttribute("currentPage", page);
+            model.addAttribute("totalPages", totalPages);
+
+            model.addAttribute("pc", new NSX());
+        } else {
+            int pageSize = 2;
+            List<NSX> list = service.findNSXByMa(ma);
+            int totalPages = (int) Math.ceil((double) list.size() / pageSize);
+            List<NSX> currentPageNSX = list.subList(page * pageSize, Math.min((page + 1) * pageSize, list.size()));
+
+            model.addAttribute("dsNSX", currentPageNSX);
+            model.addAttribute("currentPage", page);
+            model.addAttribute("totalPages", totalPages);
+
+
+            model.addAttribute("pc", new NSX());
+        }
+        return "NSX/Index";
+
+    }
 
 }

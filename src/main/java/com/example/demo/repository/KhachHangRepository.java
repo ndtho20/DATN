@@ -18,4 +18,7 @@ public interface KhachHangRepository extends JpaRepository<KhachHang, Integer> {
 
     @Query("SELECT k FROM KhachHang k WHERE k.soDienThoai IS NOT NULL")
     List<KhachHang> getKhachHang();
+
+    @Query("SELECT p FROM KhachHang p WHERE p.ten = ?1")
+    List<KhachHang> findByTen(String ten);
 }

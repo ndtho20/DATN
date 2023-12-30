@@ -21,9 +21,16 @@ public class SizeController {
     private SizeService service;
 
     @GetMapping()
-    public String getAll(Model model) {
-        List<Size> dsSize = service.getAll();
-        model.addAttribute("dsSize", dsSize);
+    public String getAll(Model model, @RequestParam(defaultValue = "0") int page) {
+        int pageSize = 2;
+
+        List<Size> list = service.getAll();
+        int totalPages = (int) Math.ceil((double) list.size() / pageSize);
+        List<Size> currentPageSize = list.subList(page * pageSize, Math.min((page + 1) * pageSize, list.size()));
+
+        model.addAttribute("dsSize", currentPageSize);
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalPages", totalPages);
 
         model.addAttribute("pc", new Size());
         return "Size/Index";
@@ -31,13 +38,21 @@ public class SizeController {
     }
 
     @PostMapping("/add")
-    public String addSize(@Validated @ModelAttribute("pc") Size size, BindingResult result, Model model, RedirectAttributes redirectAttributes) {
+    public String addSize(@Validated @ModelAttribute("pc") Size size, BindingResult result, Model model, RedirectAttributes redirectAttributes
+            , @RequestParam(defaultValue = "0") int page) {
         size.setTrangThai(true);
         if (result.hasErrors()) {
-            List<Size> dsSize = service.getAll();
-            model.addAttribute("dsSize", dsSize);
+            int pageSize = 2;
+
+            List<Size> list = service.getAll();
+            int totalPages = (int) Math.ceil((double) list.size() / pageSize);
+            List<Size> currentPageSize = list.subList(page * pageSize, Math.min((page + 1) * pageSize, list.size()));
+
+            model.addAttribute("dsSize", currentPageSize);
+            model.addAttribute("currentPage", page);
+            model.addAttribute("totalPages", totalPages);
             model.addAttribute("pc", size);
-            redirectAttributes.addFlashAttribute("dsSize", dsSize); // Giữ lại giá trị đã submit
+//            redirectAttributes.addFlashAttribute("dsSize", dsSize); // Giữ lại giá trị đã submit
             redirectAttributes.addFlashAttribute("errorMessage", "Vui lòng điền đúng thông tin!");
             return "Size/Index";
         } else {
@@ -75,5 +90,39 @@ public class SizeController {
     public String deleteSize(@RequestParam("id") int id) {
         service.deleteSize(id);
         return "redirect:/Size";
+    }
+
+    @PostMapping("search")
+    public String searchProductByCode(@RequestParam String ma, Model model, @RequestParam(defaultValue = "0") int page) {
+
+        System.out.println(ma);
+
+        if (ma == null || ma.isBlank()) {
+            int pageSize = 2;
+
+            List<Size> list = service.getAll();
+            int totalPages = (int) Math.ceil((double) list.size() / pageSize);
+            List<Size> currentPageSize = list.subList(page * pageSize, Math.min((page + 1) * pageSize, list.size()));
+
+            model.addAttribute("dsSize", currentPageSize);
+            model.addAttribute("currentPage", page);
+            model.addAttribute("totalPages", totalPages);
+
+            model.addAttribute("pc", new Size());
+        } else {
+            int pageSize = 2;
+            List<Size> list = service.findSizeByMa(ma);
+            int totalPages = (int) Math.ceil((double) list.size() / pageSize);
+            List<Size> currentPageSize = list.subList(page * pageSize, Math.min((page + 1) * pageSize, list.size()));
+
+            model.addAttribute("dsSize", currentPageSize);
+            model.addAttribute("currentPage", page);
+            model.addAttribute("totalPages", totalPages);
+
+
+            model.addAttribute("pc", new Size());
+        }
+        return "Size/Index";
+
     }
 }

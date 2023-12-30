@@ -49,139 +49,182 @@
 <body>
 <div th:replace="~{admin/index::index}"></div>
 <div class="content-body">
-<div th:if="${errorMessage}"  class="error-message">
-    <p class="error-text" th:text="${errorMessage}"></p>
-</div>
-<form action="/khachhang/add" th:object="${kh}" method="post">
-    <div class="form-floating mb-3">
-        <input type="text" class="form-control" th:field="*{ten}">
-        <label>Ho Ten Khach Hang</label>
-        <i th:errors="*{ten}"></i><br>
+    <div th:if="${errorMessage}" class="error-message">
+        <p class="error-text" th:text="${errorMessage}"></p>
     </div>
-    <div class="form-floating mb-3">
-        <input type="date" class="form-control" th:field="*{ngaySinh}">
-        <label>Ngay Sinh</label>
-        <i th:errors="*{ngaySinh}"></i><br>
+    <form action="/khachhang/add" th:object="${kh}" method="post">
+        <div class="form-floating mb-3">
+            <input type="text" class="form-control" th:field="*{ten}">
+            <label>Ho Ten Khach Hang</label>
+            <i th:errors="*{ten}"></i><br>
+        </div>
+        <div class="form-floating mb-3">
+            <input type="date" class="form-control" th:field="*{ngaySinh}">
+            <label>Ngay Sinh</label>
+            <i th:errors="*{ngaySinh}"></i><br>
 
-    </div>
-    <div class="form-check">
-        <input class="form-check-input" type="radio" name="gioiTinh" id="flexRadioDefault1" th:field="*{gioiTinh}"
-               th:value="Nu" >
-        <label class="form-check-label" for="flexRadioDefault1">
-            Nu
-        </label>
-    </div>
-    <div class="form-check">
-        <input class="form-check-input" type="radio" name="gioiTinh" th:field="${kh.gioiTinh}" th:value="Nam">
-        <label class="form-check-label">
-            Nam
-        </label>
-    </div>
-    <i th:errors="*{gioiTinh}"></i><br>
-    <div class="form-floating mb-3">
-        <input type="number" class="form-control" th:field="*{soDienThoai}">
-        <label>So Dien Thoai</label>
-        <i th:errors="*{soDienThoai}"></i><br>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="gioiTinh" id="flexRadioDefault1" th:field="*{gioiTinh}"
+                   th:value="Nu">
+            <label class="form-check-label" for="flexRadioDefault1">
+                Nu
+            </label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="gioiTinh" th:field="${kh.gioiTinh}" th:value="Nam">
+            <label class="form-check-label">
+                Nam
+            </label>
+        </div>
+        <i th:errors="*{gioiTinh}"></i><br>
+        <div class="form-floating mb-3">
+            <input type="number" class="form-control" th:field="*{soDienThoai}">
+            <label>So Dien Thoai</label>
+            <i th:errors="*{soDienThoai}"></i><br>
 
-    </div>
-    <div class="form-floating">
-        <input type="password" class="form-control" id="floatingPassword" th:field="*{matKhau}">
-        <label for="floatingPassword">Mat Khau</label>
-        <i th:errors="*{matKhau}"></i><br>
-    </div>
+        </div>
+        <div class="form-floating">
+            <input type="password" class="form-control" id="floatingPassword" th:field="*{matKhau}">
+            <label for="floatingPassword">Mat Khau</label>
+            <i th:errors="*{matKhau}"></i><br>
+        </div>
 
-    <div class="form-floating mb-3">
-        <textarea class="form-control" th:field="*{diaChi}" rows="4"></textarea>
-        <label>Dia Chi</label>
-        <i th:errors="*{diaChi}"></i><br>
-    </div>
-    <div class="form-floating mb-3">
-        <input type="email" class="form-control" th:field="*{email}">
-        <label>Email</label>
-        <i th:errors="*{email}"></i><br>
+        <div class="form-floating mb-3">
+            <textarea class="form-control" th:field="*{diaChi}" rows="4"></textarea>
+            <label>Dia Chi</label>
+            <i th:errors="*{diaChi}"></i><br>
+        </div>
+        <div class="form-floating mb-3">
+            <input type="email" class="form-control" th:field="*{email}">
+            <label>Email</label>
+            <i th:errors="*{email}"></i><br>
 
-    </div>
-    <div class="form-floating mb-3">
-        <input type="date" class="form-control" th:field="*{ngayTao}">
-        <label>Ngay Tao</label>
-        <i th:errors="*{ngayTao}"></i><br>
-    </div>
-    <button type="submit">Add</button>
-</form>
+        </div>
+        <div class="form-floating mb-3">
+            <input type="date" class="form-control" th:field="*{ngayTao}">
+            <label>Ngay Tao</label>
+            <i th:errors="*{ngayTao}"></i><br>
+        </div>
+        <button type="submit">Add</button>
+    </form>
 
-<!-- Table for displaying the list of Khach Hang -->
-<h3 style="text-align: center; padding-bottom: 15px">Danh Sach Khach Hang</h3>
-<table class="table container col-8">
-    <!-- Table header -->
-    <thead>
-    <tr>
-        <th scope="col">ID Khach Hang</th>
-        <th scope="col">Ho va Ten</th>
-        <th scope="col">Gioi Tinh</th>
-        <th scope="col">Ngay Sinh</th>
-        <th scope="col">Mat Khau</th>
-        <th scope="col">Dia Chi</th>
-        <th scope="col">So Dien Thoai</th>
-        <th scope="col">Email</th>
-        <th scope="col">Ngay tao</th>
-        <th scope="col">Trang Thai</th>
-        <th scope="col">Action</th>
-    </tr>
-    </thead>
-    <!-- Table body with Thymeleaf iteration -->
-    <tbody>
-    <tr th:each="kh : ${dsKhachHang}">
-        <td th:text="${kh.idKhachHang}"></td>
-        <td th:text="${kh.ten}"></td>
-        <td th:text="${kh.gioiTinh}"></td>
-        <td th:text="${#dates.format(kh.ngaySinh, 'MM-dd-yyyy')}"></td>
-        <td th:text="${kh.matKhau}"></td>
-        <td th:text="${kh.diaChi}"></td>
-        <td th:text="${kh.soDienThoai}"></td>
-        <td th:text="${kh.email}"></td>
-        <td th:text="${#dates.format(kh.ngayTao, 'MM-dd-yyyy')}"></td>
-        <td th:text="${kh.trangThai == null ? '' : (kh.trangThai ? 'Dang Hoat Dong' : 'Ngung Hoat Dong')}"></td>
-        <td>
-                          <div class="d-flex">
-                    <a th:href="@{'/khachhang/detail/' + ${kh.idKhachHang}}" class="btn btn-primary shadow btn-xs sharp me-1"><i class="fas fa-pencil-alt"></i></a>
-                    <a th:href="@{'/khachhang/delete?id=' + ${kh.idKhachHang}}"
-               th:onclick="'return confirmDelete(event, ' + ${kh.idKhachHang} + ')'" class="btn btn-danger shadow btn-xs sharp"><i class="fa fa-trash"></i></a>
+    <div class="container">
+        <form method="post" th:action="@{/khachhang/search}">
+            <div class="row">
+                <div class="col-8">
+                    <input class="form-control" type="text" name="ten" placeholder="Nhập tên khách hàng cần tìm">
                 </div>
-           
-            <script>
-                const confirmDelete = (event, id) => {
-                    event.preventDefault();
-                    Swal.fire({
-                        title: 'Bạn có chắc muốn xóa không?',
-                        text: 'Thao tác này sẽ xóa dữ liệu vĩnh viễn!',
-                        icon: 'warning',
-                        showCancelButton: true,
-                        confirmButtonColor: '#d33',
-                        cancelButtonColor: '#3085d6',
-                        confirmButtonText: 'Xóa',
-                        cancelButtonText: 'Hủy'
-                    }).then(result => {
-                        if (result.isConfirmed) {
-                            window.location.href = `/khachhang/delete?id=${id}`;
-                            Swal.fire('Xóa thành công!', '', 'success');
-                        }
-                    });
-                };
-            </script>
-        </td>
-    </tr>
-    </tbody>
-</table>
-<script th:inline="javascript">
-    /* Kiểm tra nếu có successMessage thì hiển thị SweetAlert */
-    var successMessage = /*[[${successMessage}]]*/ null;
-    if (successMessage !== null) {
-        Swal.fire({
-            title: 'Save thành công!',
-            icon: 'success'
-        });
-    }
-</script>
+                <div class="col-4">
+                    <button type="submit" class="btn btn-success">Search</button>
+                </div>
+            </div>
+            <div style="clear: both; display: block; height: 10px"></div>
+        </form>
+    </div>
+
+    <br>
+    <br>
+
+    <!-- Table for displaying the list of Khach Hang -->
+    <h3 style="text-align: center; padding-bottom: 15px">Danh Sach Khach Hang</h3>
+    <table class="table container col-8">
+        <!-- Table header -->
+        <thead>
+        <tr>
+            <th scope="col">ID Khach Hang</th>
+            <th scope="col">Ho va Ten</th>
+            <th scope="col">Gioi Tinh</th>
+            <th scope="col">Ngay Sinh</th>
+            <th scope="col">Mat Khau</th>
+            <th scope="col">Dia Chi</th>
+            <th scope="col">So Dien Thoai</th>
+            <th scope="col">Email</th>
+            <th scope="col">Ngay tao</th>
+            <th scope="col">Trang Thai</th>
+            <th scope="col">Action</th>
+        </tr>
+        </thead>
+        <!-- Table body with Thymeleaf iteration -->
+        <tbody>
+        <tr th:each="kh : ${dsKhachHang}">
+            <td th:text="${kh.idKhachHang}"></td>
+            <td th:text="${kh.ten}"></td>
+            <td th:text="${kh.gioiTinh}"></td>
+            <td th:text="${#dates.format(kh.ngaySinh, 'MM-dd-yyyy')}"></td>
+            <td th:text="${kh.matKhau}"></td>
+            <td th:text="${kh.diaChi}"></td>
+            <td th:text="${kh.soDienThoai}"></td>
+            <td th:text="${kh.email}"></td>
+            <td th:text="${#dates.format(kh.ngayTao, 'MM-dd-yyyy')}"></td>
+            <td th:text="${kh.trangThai == null ? '' : (kh.trangThai ? 'Dang Hoat Dong' : 'Ngung Hoat Dong')}"></td>
+            <td>
+                <div class="d-flex">
+                    <a th:href="@{'/khachhang/detail/' + ${kh.idKhachHang}}"
+                       class="btn btn-primary shadow btn-xs sharp me-1"><i class="fas fa-pencil-alt"></i></a>
+                    <a th:href="@{'/khachhang/delete?id=' + ${kh.idKhachHang}}"
+                       th:onclick="'return confirmDelete(event, ' + ${kh.idKhachHang} + ')'"
+                       class="btn btn-danger shadow btn-xs sharp"><i class="fa fa-trash"></i></a>
+                </div>
+
+                <script>
+                    const confirmDelete = (event, id) => {
+                        event.preventDefault();
+                        Swal.fire({
+                            title: 'Bạn có chắc muốn xóa không?',
+                            text: 'Thao tác này sẽ xóa dữ liệu vĩnh viễn!',
+                            icon: 'warning',
+                            showCancelButton: true,
+                            confirmButtonColor: '#d33',
+                            cancelButtonColor: '#3085d6',
+                            confirmButtonText: 'Xóa',
+                            cancelButtonText: 'Hủy'
+                        }).then(result => {
+                            if (result.isConfirmed) {
+                                window.location.href = `/khachhang/delete?id=${id}`;
+                                Swal.fire('Xóa thành công!', '', 'success');
+                            }
+                        });
+                    };
+                </script>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <div th:if="${#lists.size(dsKhachHang) > 0}" class="page-item">
+        <nav aria-label="Page navigation">
+            <ul class="pagination justify-content-center">
+                <li th:if="${currentPage > 0}" class="page-item">
+                    <a class="page-link" th:href="@{/khachhang(page=0)}">Đầu</a>
+                </li>
+                <li th:if="${currentPage > 0}" class="page-item">
+                    <a class="page-link" th:href="@{/khachhang(page=${currentPage - 1})}"><<</a>
+                </li>
+                <li th:each="pageItem : ${#numbers.sequence(0, totalPages-1)}" class="page-item">
+                <span th:if="${currentPage == pageItem}" class="page-link" th:text="${pageItem + 1}"
+                      th:style="${currentPage == pageItem} ? 'color: red;' : 'color: green;'"></span>
+                    <a th:if="${currentPage != pageItem}" class="page-link" th:href="@{/khachhang(page=${pageItem})}"
+                       th:text="${pageItem + 1}"></a>
+                </li>
+                <li th:if="${currentPage < totalPages-1}" class="page-item">
+                    <a class="page-link" th:href="@{/khachhang(page=${currentPage + 1})}">>></a>
+                </li>
+                <li th:if="${currentPage < totalPages-1}" class="page-item">
+                    <a class="page-link" th:href="@{/khachhang(page=${totalPages - 1})}">Cuối</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+    <script th:inline="javascript">
+        /* Kiểm tra nếu có successMessage thì hiển thị SweetAlert */
+        var successMessage = /*[[${successMessage}]]*/ null;
+        if (successMessage !== null) {
+            Swal.fire({
+                title: 'Save thành công!',
+                icon: 'success'
+            });
+        }
+    </script>
 </div>
 
 <!-- Bootstrap JS and Popper.js -->

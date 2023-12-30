@@ -52,4 +52,8 @@ public class NSXService {
             repository.save(updatedNSX);
         }
     }
+
+    public List<NSX> findNSXByMa(String ma) {
+        return repository.findByMa(ma);
+    }
 }
